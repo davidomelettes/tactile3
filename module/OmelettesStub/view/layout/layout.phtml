@@ -1,0 +1,25 @@
+<?php echo $this->doctype(); ?>
+
+<!-- Default layout -->
+<html lang="en">
+	<?php echo $this->partial('html-head'); ?>
+	<body>
+		<?php echo $this->partial('navigation-top'); ?>
+		
+		<div class="container">
+			<?php echo $this->partial('flash-messenger'); ?>
+			
+			<div class="paper">
+				<?php echo $this->content; ?>
+			</div>
+			
+		</div> <!-- /container -->
+		
+		<?php echo $this->partial('navigation-bottom'); ?>
+		
+		
+		<?php echo $this->partial('html-body-end'); ?>
+		
+		
+	</body>
+</html>

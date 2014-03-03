@@ -1,0 +1,9 @@
+<fieldset>
+	<?php foreach ($fieldset as $element): ?>
+	<?php echo $this->partial(
+			'partial/form/element-inline.phtml',
+			array(
+				'element'		=> $element,
+			)); ?>
+	<?php endforeach; ?>
+</fieldset>

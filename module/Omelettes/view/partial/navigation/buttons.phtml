@@ -1,0 +1,22 @@
+<?php if (count($this->container) > 0): ?>
+<?php $aclRole = $this->aclService()->getRole(); ?>
+<ul class="list-inline">
+	<?php foreach ($this->container as $page): ?>
+	<?php
+		$aclResource = $page->route;
+		$aclPrivilege = isset($page->routeOptions['action']) ? $page->routeOptions['action'] : 'index';
+		if (!$this->aclService()->getAcl()->isAllowed($aclRole, $aclResource, $aclPrivilege)) {
+			continue;
+		}
+	?>
+	<li>
+		<a class="btn btn-default" href="<?php echo $this->url($page->route, isset($page->routeOptions) ? $page->routeOptions : array()); ?>">
+			<?php if (isset($page->icon)): ?>
+			<span class="glyphicon glyphicon-<?php echo $page->icon; ?>"></span>
+			<?php endif; ?>
+			<?php echo $this->translate($page->label); ?>
+		</a>
+	</li>
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>

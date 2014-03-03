@@ -1,0 +1,7 @@
+<p class="form-control-static">
+	<?php if ($element->getEscapeHtml()): ?>
+	<?php echo $this->escapehtml($element->getValue()); ?>
+	<?php else: ?>
+	<?php echo $element->getValue(); ?>
+	<?php endif; ?>
+</p>

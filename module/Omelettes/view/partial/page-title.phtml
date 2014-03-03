@@ -1,0 +1,13 @@
+<div class="page-title">
+	<?php if ($this->paginator): ?>
+	<div class="pull-right">
+		<?php echo $this->partial('pagination', array('paginator' => $this->paginator)); ?>
+	</div>
+	<?php endif; ?>
+	<?php if ($this->crud): ?>
+	<div class="pull-right">
+		<?php echo $this->navigation($this->crud)->menu()->setPartial('nav/buttons'); ?>
+	</div>
+	<?php endif; ?>
+	<h2><?php echo $this->escapehtml($this->title); ?></h2>
+</div>

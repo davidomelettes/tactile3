@@ -1,0 +1,21 @@
+<?php
+	$fm = $this->flashMessenger()->getPluginFlashMessenger();
+	$fm->setNamespace('success');
+	$successMessages = array_merge($fm->getMessages(), $fm->getCurrentMessages());
+	$fm->clearCurrentMessages();
+	$fm->setNamespace('error');
+	$errorMessages = array_merge($fm->getMessages(), $fm->getCurrentMessages());
+	$fm->clearCurrentMessages();
+?>
+<?php foreach ($successMessages as $message): ?>
+	<div class="alert alert-success">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<?php echo $this->escapeHtml($message); ?>
+	</div>
+<?php endforeach; ?>
+<?php foreach ($errorMessages as $message): ?>
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<?php echo $this->escapeHtml($message); ?>
+	</div>
+<?php endforeach; ?>

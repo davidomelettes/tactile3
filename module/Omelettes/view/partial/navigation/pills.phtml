@@ -1,0 +1,35 @@
+<?php if (count($this->container) > 0): ?>
+<ul class="nav nav-pills">
+	<?php foreach ($this->container->getPages() as $page): ?>
+	<?php
+		$liClasses = array();
+		if ($page->isActive()) {
+			$liClasses[] = 'active';
+		}
+		if ($page->hasPages()) {
+			$liClasses[] = 'dropdown';
+		}
+	?>
+	<li class="<?php echo implode(' ', $liClasses); ?>">
+		<a href="<?php echo $page->hasPages() ? '#' : $this->url($page->route); ?>"<?php echo $page->hasPages() ? ' data-toggle="dropdown"' : ''; ?>>
+			<?php if ($page->icon): ?>
+			<span class="glyphicon glyphicon-<?php echo $page->icon; ?>"></span>
+			<?php endif; ?>
+			<?php echo $this->translate($page->label); ?>
+			<?php if ($page->hasPages()): ?>
+			<span class="caret"></span>
+			<?php endif; ?>
+		</a>
+		<?php if ($page->hasPages()): ?>
+		<ul class="dropdown-menu" role="menu">
+			<?php foreach ($page->getPages() as $subPage): ?>
+			<li>
+				<a href="<?php echo $this->url($subPage->route); ?>"><?php echo $this->translate($subPage->label); ?></a>
+			</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php endif; ?>
+	</li>
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>

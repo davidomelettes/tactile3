@@ -1,0 +1,69 @@
+<?php
+
+use Omelettes\Model\Tabulatable;
+use Zend\Paginator\Paginator;
+
+$colspan = count($this->mock->getTableHeadings());
+
+?>
+
+<?php if ($this->options['formulate']): ?>
+<form class="form-inline" action="<?php echo $this->url(null, array('action' => 'process')); ?>" method="post">
+<?php endif; ?>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<?php if ($this->options['formulate']): ?>
+			<th class="cb">
+				<input type="checkbox">
+			</th>
+			<?php endif; ?>
+			<?php foreach ($this->mock->getTableHeadings() as $property => $label): ?>
+			<th>
+				<?php echo $this->translate($label); ?>
+			</th>
+			<?php endforeach; ?>
+		</tr>
+	</thead>
+	<?php if ($this->options['formulate']): ?>
+	<tfoot>
+		<tr>
+			<td colspan="<?php echo $colspan+1; ?>">
+				<label><?php echo $this->translate('With selected:'); ?>
+					<select class="form-control" name="action">
+						<option value="delete">Delete</option>
+					</select>
+				</label>
+				<button class="btn btn-default" type="submit"><?php echo $this->translate('Go'); ?></button>
+			</td>
+		</tr>
+	</tfoot>
+	<?php endif; ?>
+	<tbody>
+		<?php if (count($this->data) < 1): ?>
+		<tr>
+			<?php
+				if ($this->options['formulate']) {
+					$colspan++;
+				}
+			?>
+			<td colspan="<?php echo $colspan; ?>">
+				<em><?php echo $this->translate('No results'); ?></em>
+			</td>
+		</tr>
+		<?php endif; ?>
+		<?php foreach ($this->data as $datum): ?>
+		<tr>
+			<?php if ($this->options['formulate']): ?>
+			<td class="cb">
+				<input type="checkbox" name="keys[]" value="<?php echo $datum->key; ?>">
+			</td>
+			<?php endif; ?>
+			<?php echo $this->partial($this->mock->getTableRowPartial(), array('data' => $datum, 'options' => $this->options)); ?>
+		</tr>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+<?php if ($this->options['formulate']): ?>
+</form>
+<?php endif; ?>

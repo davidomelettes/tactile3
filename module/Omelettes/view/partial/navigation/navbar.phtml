@@ -1,0 +1,49 @@
+<?php if (count($this->container) > 0): ?>
+<?php $aclRole = $this->aclService()->getRole(); ?>
+<ul class="nav navbar-nav">
+	<?php foreach ($this->container->getPages() as $page): ?>
+	<?php
+		$aclResource = $page->route;
+		$aclPrivilege = isset($page->routeOptions['action']) ? $page->routeOptions['action'] : 'index';
+		if (!$this->aclService()->getAcl()->isAllowed($aclRole, $aclResource, $aclPrivilege)) {
+			continue;
+		}
+		$liClasses = array();
+		if ($page->isActive()) {
+			$liClasses[] = 'active';
+		} elseif ($page->hasPages()) {
+			foreach ($page->getPages() as $subPage) {
+				if ($subPage->isActive()) {
+					$liClasses[] = 'active';
+				}
+			}
+		}
+		if ($page->hasPages()) {
+			$liClasses[] = 'dropdown';
+		}
+	?>
+	<li class="<?php echo implode(' ', $liClasses); ?>">
+		<?php $routeOptions = $page->routeOptions ? $page->routeOptions : array(); ?>
+		<a href="<?php echo $page->hasPages() ? '#' : $this->url($page->route, $routeOptions); ?>"<?php echo $page->hasPages() ? ' data-toggle="dropdown"' : ''; ?>>
+			<?php if ($page->icon): ?>
+			<span class="glyphicon glyphicon-<?php echo $page->icon; ?>"></span>
+			<?php endif; ?>
+			<?php echo $this->translate($page->label); ?>
+			<?php if ($page->hasPages()): ?>
+			<span class="caret"></span>
+			<?php endif; ?>
+		</a>
+		<?php if ($page->hasPages()): ?>
+		<ul class="dropdown-menu" role="menu">
+			<?php foreach ($page->getPages() as $subPage): ?>
+			<?php $routeOptions = $subPage->routeOptions ? $subPage->routeOptions : array(); ?>
+			<li>
+				<a href="<?php echo $this->url($subPage->route, $routeOptions); ?>"><?php echo $this->translate($subPage->label); ?></a>
+			</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php endif; ?>
+	</li>
+	<?php endforeach; ?>
+</ul>
+<?php endif; ?>

@@ -1,0 +1,7 @@
+<td>
+	<?php if ($this->options['primary_action']): ?>
+	<a class="" href="<?php echo $this->url(null, array('action' => $this->options['primary_action'], 'key' => $this->data->key)); ?>"><?php echo $this->escapehtml($this->data->name); ?></a>
+	<?php else: ?>
+	<?php echo $this->prettyText($this->data->name); ?>
+	<?php endif; ?>
+</td>

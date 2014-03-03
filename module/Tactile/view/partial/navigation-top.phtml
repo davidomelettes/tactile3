@@ -1,0 +1,42 @@
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
+				<span class="glyphicon glyphicon-align-justify"></span>
+			</button>
+			<?php if ($this->authService()->hasIdentity()): ?>
+			<a class="navbar-brand" href="<?php echo $this->url('home'); ?>"><?php echo $this->translate('Omelett.es Application'); ?></a>
+			<?php else: ?>
+			<a class="navbar-brand" href="<?php echo $this->url('front'); ?>"><?php echo $this->translate('Omelett.es Application'); ?></a>
+			<?php endif; ?>
+		</div>
+		
+		<div class="collapse navbar-collapse navbar-top-collapse">
+			<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
+			<?php if ($this->authService()->hasIdentity()): ?>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<?php if ($this->authService()->getIdentity()->isPasswordAuthenticated()): ?>
+					<a href="#" title="<?php echo $this->translate('This session has been recently password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-success"></span></a>
+					<?php else: ?>
+					<a href="#" title="<?php echo $this->translate('This session has not been recently password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-warning"></span></a>
+					<?php endif; ?>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li>
+							<a href="<?php echo $this->url('logout'); ?>"><?php echo $this->translate('Sign out'); ?></a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<?php else: ?>
+			<div class="navbar-right">
+				<a class="btn btn-warning navbar-btn" href="<?php echo $this->url('signup'); ?>"><?php echo $this->translate('Create an account'); ?></a>
+				<a class="btn btn-primary navbar-btn" href="<?php echo $this->url('login'); ?>"><?php echo $this->translate('Sign in'); ?></a>
+			</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</nav>

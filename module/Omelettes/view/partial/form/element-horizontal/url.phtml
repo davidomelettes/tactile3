@@ -1,0 +1,7 @@
+<?php if (!$unwrap): ?>
+<div class="col-lg-offset-<?php echo $leftColWidth; ?> col-lg-<?php echo $rightColWidth; ?>">
+<?php endif; ?>
+	<a class="<?php echo $element->getAnchorClass(); ?>" href="<?php echo $this->url($element->getRoute(), $element->getRouteOptions()); ?>"><?php echo $this->escapehtml($element->getValue()); ?></a>
+<?php if (!$unwrap): ?>
+</div>
+<?php endif; ?>

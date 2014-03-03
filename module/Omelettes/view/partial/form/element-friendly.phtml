@@ -1,0 +1,18 @@
+<?php
+
+$elementType = $element->getAttribute('type');
+if (!in_array($elementType, array('submit'))) {
+	$element->setAttribute('class', 'form-control');
+}
+if (!$elementType) {
+	throw new \Exception('Missing element type for: ' . get_class($element));
+}
+
+?>
+<div class="form-group<?php if ($this->formElementErrors($element)) echo " has-error"; ?>">
+	<?php echo $this->partial(
+			'partial/form/element-friendly/' . $elementType . '.phtml',
+			array(
+				'element'		=> $element,
+			)); ?>
+</div>

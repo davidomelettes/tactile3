@@ -1,0 +1,39 @@
+<?php
+
+use Zend\Paginator\Paginator;
+
+$paginator = $this->paginator;
+if (!$paginator instanceof Paginator) {
+	throw new \Exception('Expected a Paginator');
+}
+
+$totalItemCount = $paginator->getTotalItemCount();
+if ($totalItemCount < 1) {
+	$currentItemStart = 0;
+	$currentItemEnd = 0;
+} else {
+	$currentItemStart = (($paginator->getCurrentPageNumber() - 1) * $paginator->getItemCountPerPage()) + 1;
+	$currentItemEnd = $currentItemStart + $paginator->getCurrentItemCount() - 1;
+}
+$pages = $paginator->getPages();
+
+?>
+<ul class="pagination">
+	<?php if (isset($pages->previous)): ?>
+	<li><a href="<?php echo $this->url(null, array(), array('query' => array('page' => $pages->previous)), true); ?>"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+	<?php else: ?>
+	<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+	<?php endif; ?>
+	
+	<?php if ($totalItemCount): ?>
+	<li><a href=""><?php echo $currentItemStart?> - <?php echo $currentItemEnd; ?> of <?php echo $totalItemCount; ?></a></li>
+	<?php else: ?>
+	<li class="disabled"><a href="#"><?php echo $this->translate('No Results'); ?></a></li>
+	<?php endif; ?>
+	
+	<?php if (isset($pages->next)): ?>
+	<li><a href="<?php echo $this->url(null, array(), array('query' => array('page' => $paginator->getPages()->next)), true); ?>"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+	<?php else: ?>
+	<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+	<?php endif; ?>
+</ul>

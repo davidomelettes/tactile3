@@ -1,0 +1,12 @@
+<fieldset>
+	<?php foreach ($fieldset as $element): ?>
+	<?php echo $this->partial(
+			'partial/form/element-horizontal.phtml',
+			array(
+				'element'		=> $element,
+				'leftColWidth'	=> 2,
+				'rightColWidth'	=> 4,
+				'model'			=> $this->model,
+			)); ?>
+	<?php endforeach; ?>
+</fieldset>

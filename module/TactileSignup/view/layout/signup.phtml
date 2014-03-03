@@ -1,0 +1,45 @@
+<?php echo $this->doctype(); ?>
+
+<!-- Default layout -->
+<html lang="en">
+	<?php echo $this->partial('html-head'); ?>
+	<body>
+		<nav class="navbar navbar-fixed-top navbar-signup" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/"><?php echo $this->translate('Tactile CRM'); ?></a>
+				</div>
+				<div class="collapse navbar-collapse" id="tcrm-signup-navbar">
+					<p class="navbar-text"><?php echo $this->translate('Questions? Call us on +44 (0) 207 183 6677 (M-F 9am-5pm)'); ?></p>
+					<div class="navbar-right">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href=""><?php echo $this->translate('Tour'); ?></a>
+							</li>
+							<li>
+								<a href=""><?php echo $this->translate('Pricing'); ?></a>
+							</li>
+						</ul>
+						
+						<a href="<?php echo $this->url('signup'); ?>" class="btn btn-success navbar-btn"><?php echo $this->translate('Sign Up'); ?></a>
+						<a href="<?php echo $this->url('login'); ?>" class="btn btn-default navbar-btn"><?php echo $this->translate('Login'); ?></a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="container">
+			<?php echo $this->partial('flash-messenger'); ?>
+			
+			<?php echo $this->content; ?>
+			
+		</div> <!-- /container -->
+		
+		<?php echo $this->partial('navigation-bottom'); ?>
+		
+		
+		<?php echo $this->partial('html-body-end'); ?>
+		
+		
+	</body>
+</html>

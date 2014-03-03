@@ -1,0 +1,32 @@
+<?php
+
+use Zend\Form\Fieldset;
+
+$form = $this->form;
+$form->setAttributes(array(
+	'action'	=> $this->url(null, array(), array(), true),
+	'class'		=> $form->getAttribute('name') . ' form-friendly',
+));
+$form->prepare();
+echo $this->form()->openTag($form);
+
+?>
+<?php foreach ($form as $element): ?>
+<?php if ($element instanceof Fieldset): ?>
+<?php echo $this->partial(
+		'partial/form/fieldset-friendly.phtml',
+		array(
+			'fieldset' => $element,
+			'leftColWidth'	=> 2,
+			'rightColWidth'	=> 4,
+			'unwrap' => true,
+		)); ?>
+<?php else: ?>
+<?php echo $this->partial(
+		'partial/form/element-friendly.phtml',
+		array(
+			'element'		=> $element,
+		)); ?>
+<?php endif; ?>
+<?php endforeach; ?>
+<?php echo $this->form()->closeTag($form); ?>
