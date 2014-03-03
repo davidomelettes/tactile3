@@ -86,7 +86,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 						"sha256(?||salt) AND acl_role != 'system'"
 					);
 				
-					$authService = new Authentication\AuthenticationService();
+					$authService = new AuthenticationService();
 					$authService->setAdapter($authAdatper);
 					$authService->setStorage($sm->get('Omelettes\Storage\Session'));
 				
