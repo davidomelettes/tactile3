@@ -4,7 +4,7 @@ namespace OmelettesMigration;
 
 use Omelettes\Migration\AbstractMigration;
 
-class Migration003Quanta extends AbstractMigration
+class Migration002Quanta extends AbstractMigration
 {
 	public function migrate()
 	{
@@ -13,9 +13,9 @@ class Migration003Quanta extends AbstractMigration
 			'label_plural'		=> 'VARCHAR NOT NULL',
 		)));
 		
-		$this->tableCreate('quanta', array_merge($this->getQuantumTableColumns()), array(
+		$this->tableCreate('quanta', array_merge($this->getQuantumTableColumns(), array(
 			'resource_key'		=> 'UUID NOT NULL REFERENCES resources(key)',
-		));
+		)));
 		
 		$this->tableCreate('resource_fields', array_merge($this->getQuantumTableColumns(), array(
 			'type'				=> 'VARCHAR NOT NULL',

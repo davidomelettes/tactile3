@@ -78,7 +78,7 @@ class AuthController extends AbstractController
 	{
 		if ($this->getAuthService()->hasIdentity()) {
 			// Already logged in
-			$this->flashMessenger()->addSuccessMessage('You are already logged in');
+			$this->flashMessenger()->addSuccessMessage('Welcome back!');
 			return $this->redirect()->toRoute('home');
 		}
 		$form = $this->getLoginForm();
@@ -106,7 +106,7 @@ class AuthController extends AbstractController
 					if ($request->getPost('remember_me')) {
 						$this->rememberMe();
 					}
-					$this->flashMessenger()->addSuccessMessage('Login successful');
+					$this->flashMessenger()->addSuccessMessage('Welcome back!');
 					return $this->redirect()->toRoute('home');
 				} else {
 					$this->flashMessenger()->addErrorMessage('No user was found matching that email address and/or password');

@@ -124,6 +124,20 @@ abstract class AbstractMigration
 		return $this;
 	}
 	
+	protected function createAccountBoundQuantaTableWithView($tableName, array $columns = array(), array $viewExtraFields = array())
+	{
+		$columns = array_merge($this->getAccountBoundQuantumTableColumns(), $columns);
+		$this->tableCreate($tableName, $columns);
+	
+		$viewName = $tableName . '_view';
+		$selectFields = array_merge(array("$tableName.*"), array_keys($viewExtraFields));
+		$viewDefinition = "SELECT " . implode(', ', $selectFields) .
+			" FROM $tableName " . implode(' ', array_values($viewExtraFields));
+		$this->viewCreate($viewName, $viewDefinition);
+	
+		return $this;
+	}
+	
 	protected function tableAddColumns($tableName, $columns)
 	{
 		if (!$this->tableExists($tableName)) {
@@ -223,6 +237,13 @@ abstract class AbstractMigration
 			'updated_by'	=> 'UUID NOT NULL REFERENCES users(key)',
 			'deleted'		=> 'TIMESTAMP WITH TIME ZONE',
 		);
+	}
+	
+	protected function getAccountBoundQuantumTableColumns()
+	{
+		return array_merge($this->getQuantumTableColumns(), array(
+			'account_key'	=> 'UUID NOT NULL REFERENCES accounts(key)',
+		));
 	}
 	
 }

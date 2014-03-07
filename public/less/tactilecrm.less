@@ -7,3 +7,37 @@ body {
 	background: #e7e7e7 url('../img/bg.jpg') no-repeat;
 	padding-top: 70px;
 }
+
+.navbar-logo {
+	.navbar-header {
+		a { padding-left: 100px; }
+	}
+	.brand-logo {
+		z-index: @zindex-navbar-fixed + 1;
+		position: absolute;
+		top: 0;
+		left: 30px;
+		height: 60px;
+		width: 60px;
+		background: #fff;
+		.box-shadow(1px 1px 3px rgba(0,0,0,.175));
+		border-bottom-left-radius: 30px;
+		border-bottom-right-radius: 30px;
+		img {
+			position: absolute;
+			top: 5px;
+			left: 10px;
+		}
+	}
+}
+.navbar-inverse {
+	.navbar-brand { color: #fff; }
+}
+
+.paper {
+	padding: 1em;
+	padding: @line-height-computed;
+	border-radius: @border-radius-base;
+	.box-shadow(1px 1px 3px rgba(0,0,0,.175));
+	background-color: #fff;
+}

@@ -9,7 +9,7 @@ if (!$elementType) {
 }
 
 ?>
-<div class="form-group<?php if ($this->formElementErrors($element)) echo " has-error"; ?>">
+<div class="form-group<?php if ($this->formElementErrors($element)) echo " has-error"; ?><?php if ($element->getOption('group_class')) echo ' ' . $element->getOption('group_class'); ?>">
 	<?php echo $this->partial(
 			'partial/form/element-friendly/' . $elementType . '.phtml',
 			array(

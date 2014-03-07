@@ -18,7 +18,8 @@ return array(
 		),
 	),
 	'layout' => array(
-		'front' => 'layout/signup',
+		'front' => 'layout/front',
+		'plans' => 'layout/front',
 		'signup' => 'layout/signup',
 	),
 	'navigation' => array(

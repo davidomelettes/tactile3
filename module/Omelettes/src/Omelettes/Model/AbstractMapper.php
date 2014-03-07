@@ -167,7 +167,7 @@ abstract class AbstractMapper implements ServiceLocatorAwareInterface
 	 */
 	protected function fetchAllWhere(Predicate\PredicateInterface $where)
 	{
-		return $this->select($this->generateSqlSelect($where));
+		return $this->select($this->generateSqlSelect($where, $this->getOrder()));
 	}
 	
 	/**

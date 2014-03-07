@@ -4,7 +4,7 @@ namespace Omelettes\Model;
 
 use Zend\Db\Sql\Predicate;
 
-class AccountBoundQuantumMapper extends QuantumMapper
+class AccountBoundQuantaMapper extends QuantaMapper
 {
 	protected function getDefaultWhere()
 	{
@@ -12,7 +12,10 @@ class AccountBoundQuantumMapper extends QuantumMapper
 		if (!$auth->hasIdentity()) {
 			throw new \Exception('Tried to load account-bound objects without an identity');
 		}
-		$accountKey = $auth->getIdentity()->account;
+		$accountKey = $auth->getIdentity()->accountKey;
+		if (empty($accountKey)) {
+			throw new \Exception('Identity has no account key');
+		}
 		
 		$where = new Predicate\PredicateSet();
 		$where->addPredicate(new Predicate\IsNull('deleted'));

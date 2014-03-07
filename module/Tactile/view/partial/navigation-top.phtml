@@ -1,17 +1,20 @@
-<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+<nav class="navbar navbar-fixed-top navbar-inverse navbar-logo" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
-				<span class="glyphicon glyphicon-align-justify"></span>
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#tcrm-top-navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
 			</button>
-			<?php if ($this->authService()->hasIdentity()): ?>
-			<a class="navbar-brand" href="<?php echo $this->url('home'); ?>"><?php echo $this->translate('Omelett.es Application'); ?></a>
-			<?php else: ?>
-			<a class="navbar-brand" href="<?php echo $this->url('front'); ?>"><?php echo $this->translate('Omelett.es Application'); ?></a>
-			<?php endif; ?>
+			<a class="navbar-brand" href="<?php echo $this->url('front'); ?>">
+				<div class="brand-logo">
+					<img width="40" height="40" class="img-responsive" src="/img/tactilecrm.svg" alt="Tactile CRM logo">
+				</div>
+				<?php echo $this->translate('Tactile CRM'); ?>
+			</a>
 		</div>
-		
-		<div class="collapse navbar-collapse navbar-top-collapse">
+		<div class="collapse navbar-collapse" id="tcrm-top-navbar">
 			<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
 			<?php if ($this->authService()->hasIdentity()): ?>
 			<ul class="nav navbar-nav navbar-right">

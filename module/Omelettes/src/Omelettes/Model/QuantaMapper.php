@@ -13,7 +13,7 @@ use Zend\Db\ResultSet\ResultSet,
 	Zend\Db\Sql\Select,
 	Zend\Validator\StringLength;
 
-abstract class QuantumMapper extends AbstractMapper
+abstract class QuantaMapper extends AbstractMapper
 {
 	/**
 	 * @var Paginator
@@ -83,13 +83,18 @@ abstract class QuantumMapper extends AbstractMapper
 	
 	/**
 	 * @param boolean $paginated
-	 * @return ResultSet
+	 * @return ResultSet|Paginator
 	 */
 	public function fetchAll($paginated = false)
 	{
 		return $this->fetchAllWhere($this->getWhere(), $paginated);
 	}
 	
+	/**
+	 * @param Predicate\PredicateSet $where
+	 * @param boolean $paginated
+	 * @return ResultSet|Paginator
+	 */
 	public function fetchAllWhere(Predicate\PredicateSet $where, $paginated = false)
 	{
 		if ($paginated) {
@@ -99,6 +104,11 @@ abstract class QuantumMapper extends AbstractMapper
 		return $this->select($this->generateSqlSelect($where, $this->getOrder()));
 	}
 	
+	/**
+	 * @param string $term
+	 * @param boolean $paginated
+	 * @return ResultSet|Paginator
+	 */
 	public function fetchAllWhereNameLike($term, $paginated = false)
 	{
 		$where = $this->getWhere();

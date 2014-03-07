@@ -4,18 +4,40 @@
 return array(
 	'acl' => array(
 		'resources' => array(
-			'guest'		=> array(
+			'user' => array(
 				'home' => array(),
+				'contacts' => array(),
+				'opportunities' => array(),
+				'activities' => array(),
 			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
 			'Tactile\Controller\Home' => 'Tactile\Controller\HomeController',
+			'Tactile\Controller\Contacts' => 'Tactile\Controller\ContactsController',
+			'Tactile\Controller\Opportunities' => 'Tactile\Controller\OpportunitiesController',
+			'Tactile\Controller\Activities' => 'Tactile\Controller\ActivitiesController',
 		),
 	),
 	'navigation' => array(
 		'default' => array(
+			array(
+				'label' => 'Dashboard',
+				'route' => 'home',
+			),
+			array(
+				'label' => 'Contacts',
+				'route' => 'contacts',
+			),
+			array(
+				'label' => 'Opportunities',
+				'route' => 'opportunities',
+			),
+			array(
+				'label' => 'Activities',
+				'route' => 'activities',
+			),
 		),
 	),
 	'router' => array(
@@ -24,12 +46,39 @@ return array(
 				'type' => 'Segment',
 				'options' => array(
 					'route'			=> '/dash',
-					'constraints'	=> array(
-						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
-					),
 					'defaults'		=> array(
 						'controller'	=> 'Tactile\Controller\Home',
 						'action'		=> 'home',
+					),
+				),
+			),
+			'contacts' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/contacts',
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\Contacts',
+						'action'		=> 'index',
+					),
+				),
+			),
+			'opportunities' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/opportunities',
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\Opportunities',
+						'action'		=> 'index',
+					),
+				),
+			),
+			'activities' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/activities',
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\Activities',
+						'action'		=> 'index',
 					),
 				),
 			),

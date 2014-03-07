@@ -4,6 +4,8 @@ namespace Omelettes\Model;
 
 class AccountBoundQuantumModel extends QuantumModel
 {
+	protected $accountKey;
+	
 	protected $quantumPropertyMap = array(
 		'key'				=> 'key',
 		'name'				=> 'name',
@@ -11,10 +13,7 @@ class AccountBoundQuantumModel extends QuantumModel
 		'updated'			=> 'updated',
 		'createdBy'			=> 'created_by',
 		'updatedBy'			=> 'updated_by',
-		'account'			=> 'account_key',
+		'accountKey'		=> 'account_key',
 	);
-	
-	protected $account;
-	
 	
 }

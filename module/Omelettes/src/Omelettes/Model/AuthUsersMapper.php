@@ -5,7 +5,7 @@ namespace Omelettes\Model;
 use Omelettes\Uuid\V4 as Uuid;
 use Zend\Db\Sql\Predicate;
 
-class AuthUsersMapper extends QuantumMapper
+class AuthUsersMapper extends QuantaMapper
 {
 	protected function getDefaultWhere()
 	{
@@ -28,7 +28,7 @@ class AuthUsersMapper extends QuantumMapper
 			'full_name'			=> $user->fullName,
 			'salt'				=> $salt,
 			'password_hash'		=> $this->generatePasswordHash($plaintextPassword, $salt),
-			'acl_role'			=> 'user',
+			'acl_role'			=> 'admin',
 		);
 	
 		$this->writeTableGateway->insert($data);
@@ -81,6 +81,16 @@ class AuthUsersMapper extends QuantumMapper
 		$predicateSet->addPredicate(new Predicate\Operator('key', '=', $systemIdentityKey));
 		
 		return $this->findOneWhere($predicateSet);
+	}
+	
+	public function tieUserToAccount(AuthUser $user, Account $account)
+	{
+		$data = array(
+			'account_key' => $account->key,
+		);
+		
+		$this->writeTableGateway->update($data, array('key' => $user->key));
+		$user->accountKey = $account->key;
 	}
 	
 }

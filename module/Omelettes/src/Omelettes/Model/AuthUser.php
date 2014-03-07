@@ -4,17 +4,15 @@ namespace Omelettes\Model;
 
 use Zend\Permissions\Acl\Acl;
 
-class AuthUser extends QuantumModel
+class AuthUser extends AccountBoundQuantumModel
 {
 	protected $propertyMap = array(
 		'fullName'	=> 'full_name',
 		'aclRole'	=> 'acl_role',
-		'locale'	=> 'locale',
 	);
 	
 	protected $fullName;
 	protected $aclRole;
-	protected $locale;
 	
 	protected $passwordAuthenticated = false;
 	

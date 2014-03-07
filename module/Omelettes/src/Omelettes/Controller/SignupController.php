@@ -8,18 +8,20 @@ use Zend\Form\FormInterface;
 
 class SignupController extends AbstractController
 {
+	use AccountsTrait;
 	use AuthUsersTrait;
 	use SignupFormsTrait;
 	
 	public function signupAction()
 	{
 		if ($this->getAuthService()->hasIdentity()) {
-			$this->flashMessenger()->addErrorMessage('You are already logged in');
-			return $this->redirect('front');
+			$this->flashMessenger()->addErrorMessage('You are already logged in. Please sign out if you wish to create another account.');
+			return $this->redirect()->toRoute('home');
 		}
 		
 		$form = $this->getSignupForm();
 		$request = $this->getRequest();
+		$account = new Model\Account();
 		$user = new Model\AuthUser();
 		$form->bind($user);
 		
@@ -31,8 +33,16 @@ class SignupController extends AbstractController
 				$formData = $form->getData(FormInterface::VALUES_AS_ARRAY);
 				$this->getUsersMapper()->beginTransaction();
 				try {
-					// Create account
+					// Create user
 					$this->getUsersMapper()->signupUser($user, $formData['password']);
+					
+					// Create account
+					$account->name = $user->fullName;
+					$account->planKey = $this->getAccountPlansMapper()->getFreeAccountPlan()->key;
+					$this->getAccountsMapper()->createAccount($account, $user);
+					
+					// Tie user to account
+					$this->getUsersMapper()->tieUserToAccount($user, $account);
 					
 					// Log in
 					$user->setPasswordAuthenticated();

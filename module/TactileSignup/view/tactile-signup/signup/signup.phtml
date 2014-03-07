@@ -1,7 +1,11 @@
-<?php echo $this->partial('page-title', array(
-	'title'		=> 'Create an account',
-)); ?>
+<div class="row">
+	<div class="col-lg-6 col-lg-offset-3">
+		<?php echo $this->partial('page-title', array(
+			'title'		=> 'Create an account',
+		)); ?>
+	</div>
+</div>
 
 <?php echo $this->partial('form/friendly', array('form' => $this->form)); ?>
 
-<p class="text-center"><?php echo $this->translate("Already have an account?");?> <a class="btn btn-primary" href="<?php echo $this->url('login'); ?>"><?php echo $this->translate('Sign in'); ?></a></p>
+<p class="text-center"><?php echo $this->translate("Already have an account?");?> <a class="" href="<?php echo $this->url('login'); ?>"><?php echo $this->translate('Sign in'); ?></a></p>

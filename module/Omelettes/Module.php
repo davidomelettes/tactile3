@@ -188,7 +188,43 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 					return $sessionManager;
 				},
 				
-				// Users, Logins and Passwords
+				// Accounts, Users, Logins and Passwords
+				'AccountPlansTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\AccountPlan());
+					return new TableGateway('account_plans', $dbAdapter, null, $resultSetPrototype);
+				},
+				'AccountPlansViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\AccountPlan());
+					return new TableGateway('account_plans_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Omelettes\Model\AccountPlansMapper' => function($sm) {
+					$readGateway = $sm->get('AccountPlansViewGateway');
+					$writeGateway = $sm->get('AccountPlansTableGateway');
+					$mapper = new Model\AccountPlansMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
+				'AccountsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Account());
+					return new TableGateway('accounts', $dbAdapter, null, $resultSetPrototype);
+				},
+				'AccountsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\Account());
+					return new TableGateway('accounts_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Omelettes\Model\AccountsMapper' => function($sm) {
+					$readGateway = $sm->get('AccountsViewGateway');
+					$writeGateway = $sm->get('AccountsTableGateway');
+					$mapper = new Model\AccountsMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
 				'UserLoginsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();

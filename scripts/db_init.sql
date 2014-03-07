@@ -75,6 +75,30 @@ INSERT INTO users (key, name, created_by, updated_by, full_name, password_hash, 
 	'SYSTEM_SIGNUP',
 	'system'
 );
+
+-- Create accounts tables
+CREATE TABLE account_plans (
+	key UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+	name VARCHAR NOT NULL UNIQUE
+);
+CREATE VIEW account_plans_view AS SELECT * FROM account_plans;
+INSERT INTO account_plans (key, name) VALUES (
+	'faceb0d54b6c4f91b60070193e133353',
+	'Free'
+);
+CREATE TABLE accounts (
+	key UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+	name VARCHAR NOT NULL UNIQUE,
+	created_by UUID NOT NULL REFERENCES users(key),
+	updated_by UUID NOT NULL REFERENCES users(key),
+	created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+	updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+	deleted TIMESTAMP WITH TIME ZONE,
+	suspended TIMESTAMP WITH TIME ZONE,
+	plan_key UUID NOT NULL default 'faceb0d54b6c4f91b60070193e133353'
+);
+ALTER TABLE users ADD COLUMN account_key UUID REFERENCES accounts(key);
+CREATE VIEW accounts_view AS SELECT * FROM accounts;
 CREATE VIEW users_view AS SELECT * FROM users;
 
 -- Create tables for session and login management

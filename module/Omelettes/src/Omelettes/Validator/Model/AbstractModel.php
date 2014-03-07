@@ -9,7 +9,7 @@ use Zend\Validator\AbstractValidator,
 abstract class AbstractModel extends AbstractValidator
 {
 	/**
-	 * @var QuantumMapper
+	 * @var QuantaMapper
 	 */
 	protected $mapper;
 	

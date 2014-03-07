@@ -7,6 +7,12 @@
 		<nav class="navbar navbar-fixed-top navbar-signup navbar-logo" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#tcrm-signup-navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
 					<a class="navbar-brand" href="<?php echo $this->url('front'); ?>">
 						<div class="brand-logo">
 							<img width="40" height="40" class="img-responsive" src="/img/tactilecrm.svg" alt="Tactile CRM logo">
@@ -16,6 +22,19 @@
 				</div>
 				<div class="collapse navbar-collapse" id="tcrm-signup-navbar">
 					<p class="navbar-text"><?php echo $this->translate('Questions? Call us on +44 (0) 207 183 6677 (M-F 9am-5pm)'); ?></p>
+					<div class="navbar-right">
+						<ul class="nav navbar-nav">
+							<li>
+								<a href=""><?php echo $this->translate('Tour'); ?></a>
+							</li>
+							<li>
+								<a href=""><?php echo $this->translate('Pricing'); ?></a>
+							</li>
+						</ul>
+						
+						<a href="<?php echo $this->url('signup'); ?>" class="btn btn-success navbar-btn"><?php echo $this->translate('Sign Up'); ?></a>
+						<a href="<?php echo $this->url('login'); ?>" class="btn btn-default navbar-btn"><?php echo $this->translate('Login'); ?></a>
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -26,6 +45,8 @@
 			<?php echo $this->content; ?>
 			
 		</div> <!-- /container -->
+		
+		<?php echo $this->partial('navigation-bottom'); ?>
 		
 		
 		<?php echo $this->partial('html-body-end'); ?>

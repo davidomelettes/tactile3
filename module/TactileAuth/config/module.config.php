@@ -19,7 +19,10 @@ return array(
 		),
 	),
 	'layout' => array(
-		'login' => 'layout/signup',
+		'login' => 'layout/front',
+		'forgot-password' => 'layout/front',
+		'reset-password' => 'layout/front',
+		'login-theft-warning' => 'layout/front',
 	),
 	'navigation' => array(
 		'default' => array(

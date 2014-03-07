@@ -34,6 +34,7 @@ class LoginForm extends QuantumForm
 			'options'	=> array(
 				'label'			=> 'Password',
 				'escape_html'	=> false,
+				'group_class'	=> 'pull-right',
 			),
 			'attributes'=> array(
 				'id'			=> $this->getName() . 'Forgot',
