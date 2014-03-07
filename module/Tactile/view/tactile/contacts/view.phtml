@@ -1,0 +1,12 @@
+<?php echo $this->partial('page-title', array(
+	'title' => $this->model->name,
+	'model' => $this->model,
+	'crud'	=> $this->crud,
+)); ?>
+
+<div class="paper">
+	<dl class="dl-horizontal">
+		<dt><?php echo $this->translate('Created'); ?></dt>
+		<dd><?php echo $this->prettyTime($this->model->created); ?></dd>
+	</dl>
+</div>

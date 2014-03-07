@@ -21,7 +21,7 @@ class PrettyTime extends AbstractPrettifier
 					return sprintf('%d minute%s ago', $minutes, $minutes === 1 ? '' : 's');
 				case $diff < 86400:
 					$hours = ceil($diff / 3600);
-					return sprintf('%d hours%s ago', $hours, $hours === 1 ? '' : 's');
+					return sprintf('%d hour%s ago', $hours, $hours === 1 ? '' : 's');
 				case $diff < 172800:
 					return sprintf('Yesterday at %s', date('H:i', $then));
 				default:

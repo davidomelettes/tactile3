@@ -16,30 +16,23 @@
 		</div>
 		<div class="collapse navbar-collapse" id="tcrm-top-navbar">
 			<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
-			<?php if ($this->authService()->hasIdentity()): ?>
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<?php if ($this->authService()->getIdentity()->isPasswordAuthenticated()): ?>
-					<a href="#" title="<?php echo $this->translate('This session has been recently password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-success"></span></a>
-					<?php else: ?>
-					<a href="#" title="<?php echo $this->translate('This session has not been recently password-authenticated'); ?>"><span class="glyphicon glyphicon-lock text-warning"></span></a>
-					<?php endif; ?>
-				</li>
 				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user <?php echo $this->authService()->getIdentity()->isPasswordAuthenticated()? 'text-success' : 'text-warning' ?>"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li>
-							<a href="<?php echo $this->url('logout'); ?>"><?php echo $this->translate('Sign out'); ?></a>
+							<a href="<?php echo $this->url('logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $this->translate('Sign out'); ?></a>
 						</li>
 					</ul>
 				</li>
 			</ul>
-			<?php else: ?>
-			<div class="navbar-right">
-				<a class="btn btn-warning navbar-btn" href="<?php echo $this->url('signup'); ?>"><?php echo $this->translate('Create an account'); ?></a>
-				<a class="btn btn-primary navbar-btn" href="<?php echo $this->url('login'); ?>"><?php echo $this->translate('Sign in'); ?></a>
-			</div>
-			<?php endif; ?>
+			<form class="navbar-form navbar-right" role="search" action="<?php echo $this->url('search'); ?>">
+				<div class="form-group">
+					<label for="navbar-search" class="sr-only">Search</label>
+					<input id="navbar-search" type="text" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default">Go</button>
+			</form>
 		</div>
 	</div>
 </nav>

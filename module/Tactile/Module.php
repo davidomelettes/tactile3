@@ -40,11 +40,15 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Contact());
 					return new TableGateway('contacts_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Tactile\Model\ContactsMapper' => function($sm) {
+				'Tactile\Model\ContactsMapper' => function ($sm) {
 					$readGateway = $sm->get('ContactsViewGateway');
 					$writeGateway = $sm->get('ContactsTableGateway');
 					$mapper = new Model\ContactsMapper($readGateway, $writeGateway);
 					return $mapper;
+				},
+				'Tactile\Form\ContactFilter' => function ($sm) {
+					$filter = new Form\ContactFilter();
+					return $filter;
 				},
 			),
 		);

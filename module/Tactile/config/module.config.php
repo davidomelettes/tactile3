@@ -9,6 +9,8 @@ return array(
 				'contacts' => array(),
 				'opportunities' => array(),
 				'activities' => array(),
+				'comms' => array(),
+				'search' => array(),
 			),
 		),
 	),
@@ -18,6 +20,8 @@ return array(
 			'Tactile\Controller\Contacts' => 'Tactile\Controller\ContactsController',
 			'Tactile\Controller\Opportunities' => 'Tactile\Controller\OpportunitiesController',
 			'Tactile\Controller\Activities' => 'Tactile\Controller\ActivitiesController',
+			'Tactile\Controller\Communication' => 'Tactile\Controller\CommunicationController',
+			'Tactile\Controller\Search' => 'Tactile\Controller\SearchController',
 		),
 	),
 	'navigation' => array(
@@ -38,6 +42,10 @@ return array(
 				'label' => 'Activities',
 				'route' => 'activities',
 			),
+			array(
+				'label' => 'Communication',
+				'route' => 'comms',
+			),
 		),
 	),
 	'router' => array(
@@ -55,7 +63,10 @@ return array(
 			'contacts' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route'			=> '/contacts',
+					'route'			=> '/contacts[/:action][/:key]',
+					'constraints'	=> array(
+						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+					),
 					'defaults'		=> array(
 						'controller'	=> 'Tactile\Controller\Contacts',
 						'action'		=> 'index',
@@ -81,6 +92,26 @@ return array(
 						'action'		=> 'index',
 					),
 				),
+			),
+			'comms' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/comms',
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\Communication',
+						'action'		=> 'index',
+					),
+				),
+			),
+			'search' => array(
+			'type' => 'Segment',
+			'options' => array(
+				'route'			=> '/search',
+				'defaults'		=> array(
+					'controller'	=> 'Tactile\Controller\Search',
+					'action'		=> 'index',
+				),
+			),
 			),
 		),
 	),
