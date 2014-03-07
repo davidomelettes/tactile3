@@ -4,9 +4,18 @@
 	'crud'	=> $this->crud,
 )); ?>
 
-<div class="paper">
-	<dl class="dl-horizontal">
-		<dt><?php echo $this->translate('Created'); ?></dt>
-		<dd><?php echo $this->prettyTime($this->model->created); ?></dd>
-	</dl>
+<div class="row">
+	<div class="col-lg-6">
+		<div class="paper">
+			<dl class="dl-horizontal">
+				<dt><?php echo $this->translate('Created'); ?></dt>
+				<dd><?php echo $this->prettyTime($this->model->created); ?></dd>
+			</dl>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="paper">
+			<h3><?php echo $this->translate('Contact History'); ?></h3>
+		</div>
+	</div>
 </div>

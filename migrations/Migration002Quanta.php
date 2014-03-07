@@ -58,6 +58,12 @@ class Migration002Quanta extends AbstractMigration
 			'value'				=> 'TIMESTAMP',
 		));
 		
+		$this->tableCreate('quantum_values_user', array(
+			'quantum_key'		=> 'UUID NOT NULL REFERENCES quanta(key)',
+			'field_key'			=> 'UUID NOT NULL REFERENCES resource_fields(key)',
+			'value'				=> 'UUID NOT NULL REFERENCES users(key)',
+		));
+		
 		return true;
 	}
 	
