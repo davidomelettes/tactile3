@@ -51,4 +51,7 @@ return array(
 	'view_manager' => array(
 		'base_path'			=> 'http://localhost:8888',
 	),
+	'paths' => array(
+		'resource-fixture' => __DIR__ . '/../../fixtures/resources.xml',
+	),
 );

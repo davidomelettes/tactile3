@@ -26,4 +26,9 @@ class AuthUser extends AccountBoundQuantumModel
 		return $this->passwordAuthenticated;
 	}
 	
+	public function getTableRowPartial()
+	{
+		return 'tabulate/user';
+	}
+	
 }

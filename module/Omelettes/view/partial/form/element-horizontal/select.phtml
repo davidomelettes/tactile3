@@ -4,4 +4,7 @@
 	<?php if ($this->formElementErrors($element)): ?>
 	<span class="help-block"><?php echo $this->formElementErrors($element); ?></span>
 	<?php endif; ?>
+	<?php if ($element->getOption('help_text')): ?>
+	<span class="help-block"><?php echo $this->translate($element->getOption('help_text')); ?></span>
+	<?php endif; ?>
 </div>

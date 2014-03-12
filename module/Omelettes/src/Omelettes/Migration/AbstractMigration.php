@@ -89,7 +89,7 @@ abstract class AbstractMigration
 		return (count($results) > 0);
 	}
 	
-	protected function tableCreate($tableName, $columns, array $primaryKeyColumns = array())
+	protected function tableCreate($tableName, $columns, array $primaryKeyColumns = array(), $extraDef = '')
 	{
 		if ($this->tableExists($tableName)) {
 			throw new \Exception("Table $tableName already exists");
@@ -102,6 +102,9 @@ abstract class AbstractMigration
 		}
 		if (!empty($primaryKeyColumns)) {
 			$tableDef[] = 'PRIMARY KEY (' . implode(', ', $primaryKeyColumns) . ')';
+		}
+		if (!empty($extraDef)) {
+			$tableDef[] = $extraDef;
 		}
 		$sql = sprintf('CREATE TABLE %s (%s)', $tableName, implode(', ', $tableDef));
 		$statement = $this->getAdapter()->query($sql);

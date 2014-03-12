@@ -6,6 +6,7 @@ return array(
     	'Tactile',
     	'TactileAuth',
     	'TactileSignup',
+    	'TactileAdmin',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

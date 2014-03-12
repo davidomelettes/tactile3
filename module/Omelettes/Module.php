@@ -189,12 +189,6 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				},
 				
 				// Accounts, Users, Logins and Passwords
-				'AccountPlansTableGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\AccountPlan());
-					return new TableGateway('account_plans', $dbAdapter, null, $resultSetPrototype);
-				},
 				'AccountPlansViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
@@ -203,8 +197,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				},
 				'Omelettes\Model\AccountPlansMapper' => function($sm) {
 					$readGateway = $sm->get('AccountPlansViewGateway');
-					$writeGateway = $sm->get('AccountPlansTableGateway');
-					$mapper = new Model\AccountPlansMapper($readGateway, $writeGateway);
+					$mapper = new Model\AccountPlansMapper($readGateway);
 					return $mapper;
 				},
 				'AccountsTableGateway' => function ($sm) {
@@ -280,7 +273,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 		
 		$app = $ev->getParam('application');
 		$eventManager = $app->getEventManager();
-		$eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setLayout'));
+		$eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'setLayout'));
 		$eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAuth'));
 		$eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAcl'));
 	}

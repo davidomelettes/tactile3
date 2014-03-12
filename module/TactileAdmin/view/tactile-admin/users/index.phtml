@@ -1,0 +1,9 @@
+<?php echo $this->partial('page-title', array(
+	'title'		=> 'Users',
+	'paginator' => $this->paginator,
+	'crud'		=> $this->crud,
+)); ?>
+
+<div class="paper">
+	<?php echo $this->tabulate($this->paginator); ?>
+</div>

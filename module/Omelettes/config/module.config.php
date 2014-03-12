@@ -113,6 +113,7 @@ return array(
 			'pretty/user'			=> __DIR__ . '/../view/partial/pretty/user.phtml',
 			'tabulate/tabulate'		=> __DIR__ . '/../view/partial/tabulate.phtml',
 			'tabulate/quantum'		=> __DIR__ . '/../view/partial/tabulate/quantum.phtml',
+			'tabulate/user'			=> __DIR__ . '/../view/partial/tabulate/user.phtml',
 			'info/authorship'		=> __DIR__ . '/../view/partial/info/authorship.phtml',
 		),
 		'template_path_stack' => array(

@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<?php echo $this->url('front'); ?>">
+			<a class="navbar-brand" href="<?php echo $this->url('home'); ?>">
 				<div class="brand-logo">
 					<img width="40" height="40" class="img-responsive" src="/img/tactilecrm.svg" alt="Tactile CRM logo">
 				</div>
@@ -18,8 +18,28 @@
 			<?php echo $this->navigation('navigation')->menu()->setUlClass('nav navbar-nav')->setPartial('nav/navbar'); ?>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user <?php echo $this->authService()->getIdentity()->isPasswordAuthenticated()? 'text-success' : 'text-warning' ?>"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user <?php echo $this->authService()->getIdentity()->isPasswordAuthenticated() ? 'text-success' : 'text-warning' ?>"></span> <?php echo $this->escapehtml($this->authService()->getIdentity()->fullName); ?> <span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
+						<?php if ($this->aclService()->getAcl()->isAllowed($this->aclService()->getRole(), 'admin')): ?>
+						<li role="presentation" class="dropdown-header"><?php echo $this->translate('Admin'); ?></li>
+						<li>
+							<a href="<?php echo $this->url('admin/account'); ?>"><span class="glyphicon glyphicon-cog"></span> <?php echo $this->translate('Account Settings'); ?></a>
+						</li>
+						<li>
+							<a href="<?php echo $this->url('admin/users'); ?>"><span class="glyphicon glyphicon-user"></span> <?php echo $this->translate('Users & Billing'); ?></a>
+						</li>
+						<li>
+							<a href="<?php echo $this->url('admin/resources'); ?>"><span class="glyphicon glyphicon-edit"></span> <?php echo $this->translate('Resource Configuration'); ?></a>
+						</li>
+						<li role="presentation" class="divider"></li>
+						<?php endif; ?>
+						<li>
+							<a href=""><span class="glyphicon glyphicon-question-sign"></span> <?php echo $this->translate('Help & Support'); ?></a>
+						</li>
+						<li>
+							<a href=""><span class="glyphicon glyphicon-user"></span> <?php echo $this->translate('My Preferences'); ?></a>
+						</li>
+						<li role="presentation" class="divider"></li>
 						<li>
 							<a href="<?php echo $this->url('logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $this->translate('Sign out'); ?></a>
 						</li>

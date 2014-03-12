@@ -10,7 +10,7 @@ use Zend\Validator\Exception,
  * 
  * @author dave
  */
-class ModelDoesNotExist extends AbstractModel
+class DoesNotExist extends AbstractModel
 {
 	/**
 	 * Error constants

@@ -12,6 +12,11 @@ class SignupController extends AbstractController
 	use AuthUsersTrait;
 	use SignupFormsTrait;
 	
+	protected function postSignupSetup()
+	{
+		return true;
+	}
+	
 	public function signupAction()
 	{
 		if ($this->getAuthService()->hasIdentity()) {
@@ -34,6 +39,7 @@ class SignupController extends AbstractController
 				$this->getUsersMapper()->beginTransaction();
 				try {
 					// Create user
+					$user->aclRole = 'admin';
 					$this->getUsersMapper()->signupUser($user, $formData['password']);
 					
 					// Create account
@@ -48,11 +54,14 @@ class SignupController extends AbstractController
 					$user->setPasswordAuthenticated();
 					$this->getAuthService()->getStorage()->write($user);
 					
+					// Post-signup setup
+					$this->postSignupSetup();
+					
 				} catch (Exception $e) {
 					$this->getAuthService()->clearIdentity();
 					$this->getUsersMapper()->rollbackTransaction();
 					$this->flashMessenger('A problem occurred during the sign up process, please try again');
-					return $this->redirect('signup');
+					return $this->redirect()->toRoute('signup');
 				}
 				$this->getUsersMapper()->commitTransaction();
 				

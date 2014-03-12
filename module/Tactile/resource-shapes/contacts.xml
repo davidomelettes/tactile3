@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<contacts label_singular="Contact" label_plural="Contacts">
-	<field name="description" label="Description" type="text" required="false" />
-	<field name="assigned_to" label="Assigned To" type="user" required="false" />
-</contacts>

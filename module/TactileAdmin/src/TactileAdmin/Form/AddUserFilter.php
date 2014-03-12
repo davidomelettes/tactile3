@@ -1,12 +1,13 @@
 <?php
 
-namespace Omelettes\Form;
+namespace TactileAdmin\Form;
 
-use Omelettes\Model,
+use Omelettes\Form\QuantumFilter,
+	Omelettes\Model,
 	Omelettes\Validator;
 use Zend\Validator as ZendValidator;
 
-class SignupFilter extends QuantumFilter
+class AddUserFilter extends QuantumFilter
 {
 	/**
 	 * @var Model\AuthUsersMapper
@@ -23,7 +24,7 @@ class SignupFilter extends QuantumFilter
 		if (!$this->inputFilter) {
 			$inputFilter = parent::getInputFilter();
 			$factory = $inputFilter->getFactory();
-			
+				
 			$inputFilter->add($factory->createInput(array(
 				'name'			=> 'full_name',
 				'required'		=> 'true',
@@ -41,7 +42,7 @@ class SignupFilter extends QuantumFilter
 					),
 				),
 			)));
-			
+	
 			$inputFilter->add($factory->createInput(array(
 				'name'			=> 'name',
 				'required'		=> 'true',
@@ -69,10 +70,10 @@ class SignupFilter extends QuantumFilter
 					),
 				),
 			)));
-			
+	
 			$inputFilter->add($factory->createInput(array(
 				'name'			=> 'password',
-				'required'		=> 'true',
+				'required'		=> false,
 				'filters'		=> array(
 					array('name' => 'StringTrim'),
 				),
@@ -87,11 +88,11 @@ class SignupFilter extends QuantumFilter
 					),
 				),
 			)));
-			
+				
 			$this->inputFilter = $inputFilter;
 		}
-		
-		return $this->inputFilter;
+	
+		return $inputFilter;
 	}
 	
 }

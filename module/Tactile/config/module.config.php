@@ -18,21 +18,22 @@ return array(
 		'invokables' => array(
 			'Tactile\Controller\Home' => 'Tactile\Controller\HomeController',
 			'Tactile\Controller\Contacts' => 'Tactile\Controller\ContactsController',
+			'Tactile\Controller\Communication' => 'Tactile\Controller\CommunicationController',
+			
 			'Tactile\Controller\Opportunities' => 'Tactile\Controller\OpportunitiesController',
 			'Tactile\Controller\Activities' => 'Tactile\Controller\ActivitiesController',
-			'Tactile\Controller\Communication' => 'Tactile\Controller\CommunicationController',
 			'Tactile\Controller\Search' => 'Tactile\Controller\SearchController',
 		),
 	),
 	'navigation' => array(
 		'default' => array(
 			array(
-				'label' => 'Dashboard',
-				'route' => 'home',
-			),
-			array(
 				'label' => 'Contacts',
 				'route' => 'contacts',
+			),
+			array(
+				'label' => 'Communication',
+				'route' => 'comms',
 			),
 			array(
 				'label' => 'Opportunities',
@@ -42,10 +43,7 @@ return array(
 				'label' => 'Activities',
 				'route' => 'activities',
 			),
-			array(
-				'label' => 'Communication',
-				'route' => 'comms',
-			),
+			
 		),
 	),
 	'router' => array(

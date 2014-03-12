@@ -1,0 +1,8 @@
+Hi <?php echo $this->escapehtml($this->fullName); ?>,
+
+<?php echo $this->escapehtml($this->senderName); ?> has created a Tactile CRM account for you.
+
+You can log in at <?php echo $this->basePath(); ?><?php echo $this->url('login'); ?> using the following information:
+
+Username: <?php echo $this->escapehtml($this->username); ?>
+Password: <?php echo $this->escapehtml($this->password); ?>

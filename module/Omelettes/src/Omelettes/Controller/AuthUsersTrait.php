@@ -3,6 +3,7 @@
 namespace Omelettes\Controller;
 
 use Omelettes\Model;
+use Omelettes\Paginator\Paginator;
 
 trait AuthUsersTrait
 {
@@ -15,6 +16,11 @@ trait AuthUsersTrait
 	 * @var Model\AuthUserLoginsMapper
 	 */
 	protected $userLoginsMapper;
+	
+	/**
+	 *  @var Paginator
+	 */
+	protected $usersPaginator;
 	
 	public function getUsersMapper()
 	{
@@ -34,6 +40,20 @@ trait AuthUsersTrait
 		}
 	
 		return $this->userLoginsMapper;
+	}
+	
+	/**
+	 * @return Paginator
+	 */
+	public function getUsersPaginator($page = 1)
+	{
+		if (!$this->usersPaginator) {
+			$usersPaginator = $this->getUsersMapper()->fetchAll(true);
+			$usersPaginator->setCurrentPageNumber($page);
+			$this->usersPaginator = $usersPaginator;
+		}
+	
+		return $this->usersPaginator;
 	}
 	
 }
