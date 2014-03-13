@@ -46,6 +46,10 @@ class Module
 					$mapper = new Model\ResourcesMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
+				'TactileAdmin\Form\ResourceFilter' => function($sm) {
+					$filter = new Form\ResourceFilter($sm->get('TactileAdmin\Model\ResourcesMapper'));
+					return $filter;
+				},
 				
 				// Users
 				'TactileAdmin\Form\AddUserFilter' => function ($sm) {

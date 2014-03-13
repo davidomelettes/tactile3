@@ -34,4 +34,9 @@ class ResourcesMapper extends AccountBoundQuantaMapper
 		
 	}
 	
+	public function createResource()
+	{
+		
+	}
+	
 }

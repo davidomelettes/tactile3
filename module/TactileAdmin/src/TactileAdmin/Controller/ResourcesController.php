@@ -52,5 +52,28 @@ class ResourcesController extends Controller\AbstractController
 		));
 	}
 	
+	public function addAction()
+	{
+		$model = $this->getResource();
+		$form = $this->getResourceForm();
+		$form->bind($model);
+		
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$form->setInputFilter($this->getResourceFilter()->getInputFilter());
+			$form->setData($request->getPost());
+		
+			if ($form->isValid()) {
+				$this->getResourcesMapper()->createResource($model);
+				$this->flashMessenger()->addSuccessMessage('Resource created');
+				return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'resource_name' => $model->name));
+			}
+		}
+		
+		return $this->returnViewModel(array(
+			'form' => $form,
+		));
+	}
+	
 }
 

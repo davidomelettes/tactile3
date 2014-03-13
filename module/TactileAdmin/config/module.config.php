@@ -75,6 +75,11 @@ return array(
 	),
 	'service_manager' => array(
 	),
+	'validators' => array(
+		'invokables' => array(
+			'NotRoute' => 'TactileAdmin\Validator\NotRoute',
+		),
+	),
 	'view_helpers'	=> array(
 		'invokables'	=> array(
 		),

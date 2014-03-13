@@ -1,6 +1,18 @@
 <label class="col-lg-<?php echo $this->leftColWidth; ?> control-label" for="<?php echo $element->getAttribute('id'); ?>"><?php echo $element->getLabel(); ?></label>
 <div class="col-lg-<?php echo $this->rightColWidth; ?>">
-	<?php echo $this->formElement($element); ?>
+	<?php if ($element->getOption('prefix') || $element->getOption('suffix')): ?>
+	<div class="input-group">
+	<?php endif; ?>
+		<?php if ($element->getOption('prefix')): ?>
+		<span class="input-group-addon"><?php echo $this->translate($element->getOption('prefix')); ?></span>
+		<?php endif; ?>
+		<?php echo $this->formElement($element); ?>
+		<?php if ($element->getOption('suffix')): ?>
+		<span class="input-group-addon"><?php echo $this->translate($element->getOption('suffix')); ?></span>
+		<?php endif; ?>
+	<?php if ($element->getOption('prefix') || $element->getOption('suffix')): ?>
+	</div>
+	<?php endif; ?>
 	<?php if ($this->formElementErrors($element)): ?>
 	<span class="help-block"><?php echo $this->formElementErrors($element); ?></span>
 	<?php endif; ?>
