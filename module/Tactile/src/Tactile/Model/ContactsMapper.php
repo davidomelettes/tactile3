@@ -2,9 +2,7 @@
 
 namespace Tactile\Model;
 
-use Omelettes\Model\AccountBoundQuantaMapper;
-
-class ContactsMapper extends AccountBoundQuantaMapper
+class ContactsMapper extends QuantaMapper
 {
 	public function createContact(Contact $contact)
 	{

@@ -8,12 +8,10 @@ use Omelettes\Db\Sql\Predicate as OmelettesPredicate,
 	Omelettes\Uuid\V4 as Uuid,
 	Omelettes\Validator\Uuid\V4 as UuidValidator;
 use Zend\Db\ResultSet\ResultSet,
-	Zend\Db\Sql\Expression,
-	Zend\Db\Sql\Predicate,
-	Zend\Db\Sql\Select,
+	Zend\Db\Sql,
 	Zend\Validator\StringLength;
 
-abstract class QuantaMapper extends AbstractMapper
+abstract class NamedItemsMapper extends AbstractMapper
 {
 	/**
 	 * @var Paginator
@@ -21,12 +19,12 @@ abstract class QuantaMapper extends AbstractMapper
 	protected $paginator;
 	
 	/**
-	 * @return Predicate\PredicateSet
+	 * @return Sql\Predicate\PredicateSet
 	 */
 	protected function getDefaultWhere()
 	{
-		$where = new Predicate\PredicateSet();
-		$where->addPredicate(new Predicate\IsNull('deleted'));
+		$where = new Sql\Predicate\PredicateSet();
+		$where->addPredicate(new Sql\Predicate\IsNull('deleted'));
 		
 		return $where;
 	}
@@ -43,7 +41,7 @@ abstract class QuantaMapper extends AbstractMapper
 	 * Returns a single result row object, or false if none found
 	 *
 	 * @param string $id
-	 * @return QuantumModel|boolean
+	 * @return NamedItemModel|boolean
 	 */
 	public function find($key)
 	{
@@ -53,20 +51,20 @@ abstract class QuantaMapper extends AbstractMapper
 		}
 		
 		$where = $this->getWhere();
-		$where->andPredicate(new Predicate\Operator('key', '=', $key));
+		$where->andPredicate(new Sql\Predicate\Operator('key', '=', $key));
 		
 		return $this->findOneWhere($where);
 	}
 	
 	/**
-	 * @param PredicateSet $where
+	 * @param Sql\Predicate\PredicateSet $where
 	 * @param string $order
 	 * @return Paginator
 	 */
 	protected function getPaginator($where, $order = null)
 	{
 		if (!$this->paginator) {
-			if ($where instanceof Predicate\PredicateSet && count($where) < 1) {
+			if ($where instanceof Sql\Predicate\PredicateSet && count($where) < 1) {
 				$where = null;
 			}
 			$paginationAdapter = new DbTableGatewayAdapter(
@@ -91,11 +89,11 @@ abstract class QuantaMapper extends AbstractMapper
 	}
 	
 	/**
-	 * @param Predicate\PredicateSet $where
+	 * @param Sql\Predicate\PredicateSet $where
 	 * @param boolean $paginated
 	 * @return ResultSet|Paginator
 	 */
-	public function fetchAllWhere(Predicate\PredicateSet $where, $paginated = false)
+	public function fetchAllWhere(Sql\Predicate\PredicateSet $where, $paginated = false)
 	{
 		if ($paginated) {
 			return $this->getPaginator($where, $this->getOrder());
@@ -127,7 +125,7 @@ abstract class QuantaMapper extends AbstractMapper
 		}
 		
 		$where = $this->getWhere();
-		$where->addPredicate(new Predicate\Operator('name', '=', $name));
+		$where->addPredicate(new Sql\Predicate\Operator('name', '=', $name));
 		
 		return $this->findOneWhere($where);
 	}
@@ -135,19 +133,19 @@ abstract class QuantaMapper extends AbstractMapper
 	public function findBySlug($slug)
 	{
 		$where = $this->getWhere();
-		$where->addPredicate(new Predicate\Operator('slug', '=', $slug));
+		$where->addPredicate(new Sql\Predicate\Operator('slug', '=', $slug));
 	
 		return $this->findOneWhere($where);
 	}
 	
-	protected function prepareSaveData(QuantumModel $model)
+	protected function prepareSaveData(NamedItemModel $model)
 	{
 		$key = $model->key;
 		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		$data = array(
 			'name'				=> $model->name,
 			'updated_by'		=> $identity->key,
-			'updated'			=> new Expression('now()'),
+			'updated'			=> new Sql\Expression('now()'),
 		);
 		if (!$key) {
 			// Creating
@@ -161,7 +159,7 @@ abstract class QuantaMapper extends AbstractMapper
 		return $data;
 	}
 	
-	public function saveQuantum(QuantumModel $model)
+	public function saveNamedItem(NamedItemModel $model)
 	{
 		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
@@ -182,24 +180,24 @@ abstract class QuantaMapper extends AbstractMapper
 		$model->exchangeArray($data);
 	}
 	
-	public function createQuantum(QuantumModel $model)
+	public function createNamedItem(NamedItemModel $model)
 	{
-		return $this->saveQuantum($model);
+		return $this->saveNamedItem($model);
 	}
 	
-	public function updateQuantum(QuantumModel $model)
+	public function updateNamedItem(NamedItemModel $model)
 	{
-		return $this->saveQuantum($model);
+		return $this->saveNamedItem($model);
 	}
 	
-	public function deleteQuantum(QuantumModel $model)
+	public function deleteNamedItem(NamedItemModel $model)
 	{
 		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
 		}
 		
 		$data = array(
-			'deleted' => new Expression('now()'),
+			'deleted' => new Sql\Expression('now()'),
 		);
 		$this->writeTableGateway->update($data, array('key'=> $model->key));
 	}
@@ -219,7 +217,7 @@ abstract class QuantaMapper extends AbstractMapper
 			case 'delete':
 				foreach ($keys as $key) {
 					if (FALSE !== ($model = $this->find($key))) {
-						$this->deleteQuantum($model);
+						$this->deleteNamedItem($model);
 						$successCount++;
 					}
 				}

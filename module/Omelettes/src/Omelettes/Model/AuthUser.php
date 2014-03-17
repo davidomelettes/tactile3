@@ -4,7 +4,7 @@ namespace Omelettes\Model;
 
 use Zend\Permissions\Acl\Acl;
 
-class AuthUser extends AccountBoundQuantumModel
+class AuthUser extends AccountBoundNamedItemModel
 {
 	protected $propertyMap = array(
 		'fullName'	=> 'full_name',

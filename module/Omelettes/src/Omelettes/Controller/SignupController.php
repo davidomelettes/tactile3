@@ -36,6 +36,7 @@ class SignupController extends AbstractController
 		
 			if ($form->isValid()) {
 				$formData = $form->getData(FormInterface::VALUES_AS_ARRAY);
+				
 				$this->getUsersMapper()->beginTransaction();
 				try {
 					// Create user
@@ -57,15 +58,15 @@ class SignupController extends AbstractController
 					// Post-signup setup
 					$this->postSignupSetup();
 					
+					$this->getUsersMapper()->commitTransaction();
+					
+					return $this->redirect()->toRoute('home');
+					
 				} catch (Exception $e) {
 					$this->getAuthService()->clearIdentity();
 					$this->getUsersMapper()->rollbackTransaction();
 					$this->flashMessenger('A problem occurred during the sign up process, please try again');
-					return $this->redirect()->toRoute('signup');
 				}
-				$this->getUsersMapper()->commitTransaction();
-				
-				return $this->redirect()->toRoute('home');
 			}
 		}
 		

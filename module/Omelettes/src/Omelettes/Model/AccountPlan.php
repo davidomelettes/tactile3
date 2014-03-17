@@ -2,7 +2,7 @@
 
 namespace Omelettes\Model;
 
-class AccountPlan extends QuantumModel
+class AccountPlan extends NamedItemModel
 {
 	protected $propertyMap = array(
 	);

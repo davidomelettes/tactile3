@@ -5,7 +5,7 @@ namespace Omelettes\Model;
 use Omelettes\Model\AbstractModel;
 use OmelettesAuth\Model\User;
 
-class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializable
+class NamedItemModel extends AbstractModel implements Tabulatable, \JsonSerializable
 {
 	/**
 	 * Array of model properties => database columns
@@ -15,11 +15,11 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	protected $propertyMap = array();
 
 	/**
-	 * Property map for base quantum properties
+	 * Property map for base named item properties
 	 *
 	 * @var array
 	 */
-	protected $quantumPropertyMap = array(
+	protected $namedItemPropertyMap = array(
 		'key'				=> 'key',
 		'name'				=> 'name',
 		'created'			=> 'created',
@@ -85,7 +85,7 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 	
 	protected function getPropertyMap()
 	{
-		return array_merge($this->quantumPropertyMap, $this->propertyMap);
+		return array_merge($this->namedItemPropertyMap, $this->propertyMap);
 	}
 	
 
@@ -213,7 +213,7 @@ class QuantumModel extends AbstractModel implements Tabulatable, \JsonSerializab
 
 	public function getTableRowPartial()
 	{
-		return 'tabulate/quantum';
+		return 'tabulate/named-item';
 	}
 
 }

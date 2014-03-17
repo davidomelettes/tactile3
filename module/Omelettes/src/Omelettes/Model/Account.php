@@ -2,7 +2,7 @@
 
 namespace Omelettes\Model;
 
-class Account extends QuantumModel
+class Account extends NamedItemModel
 {
 	protected $planKey;
 	

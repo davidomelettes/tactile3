@@ -2,11 +2,11 @@
 
 namespace Omelettes\Model;
 
-class AccountBoundQuantumModel extends QuantumModel
+class AccountBoundNamedItemModel extends NamedItemModel
 {
 	protected $accountKey;
 	
-	protected $quantumPropertyMap = array(
+	protected $namedItemPropertyMap = array(
 		'key'				=> 'key',
 		'name'				=> 'name',
 		'created'			=> 'created',

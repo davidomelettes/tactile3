@@ -2,20 +2,10 @@
 
 namespace TactileAdmin\Model;
 
-use Omelettes\Model\AccountBoundQuantumModel;
+use Tactile\Model\Resource as TactileResource;
 
-class Resource extends AccountBoundQuantumModel
+class Resource extends TactileResource
 {
-	protected $labelSingular;
-	protected $labelPlural;
-	protected $nameLabel;
-	
-	protected $propertyMap = array(
-		'labelSingular'				=> 'label_singular',
-		'labelPlural'				=> 'label_plural',
-		'nameLabel'					=> 'name_label',
-	);
-	
 	public function getTableHeadings()
 	{
 		return array(

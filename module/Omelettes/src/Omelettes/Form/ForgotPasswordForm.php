@@ -2,7 +2,7 @@
 
 namespace Omelettes\Form;
 
-class ForgotPasswordForm extends QuantumForm
+class ForgotPasswordForm extends NamedItemForm
 {
 	public function __construct($name = 'form-forgot-password')
 	{

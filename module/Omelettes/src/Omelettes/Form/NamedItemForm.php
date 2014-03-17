@@ -6,7 +6,7 @@ use Zend\Form\Form,
 	Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorInterface;
 
-class QuantumForm extends Form implements ServiceLocatorAwareInterface
+class NamedItemForm extends Form implements ServiceLocatorAwareInterface
 {
 	/**
 	 * @var ServiceLocatorInterface

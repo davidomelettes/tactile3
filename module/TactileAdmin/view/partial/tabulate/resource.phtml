@@ -2,5 +2,5 @@
 	<a class="" href="<?php echo $this->url(null, array('action' => 'view', 'resource_name' => $this->data->name)); ?>"><?php echo $this->escapehtml($this->data->labelPlural); ?></a>
 </td>
 <td>
-	<a href="<?php echo $this->url(null); ?>">/<?php echo $this->escapehtml($this->data->name); ?></a>
+	<a href="<?php echo $this->url('resource', array('resource_name' => $this->data->name)); ?>">/<?php echo $this->escapehtml($this->data->name); ?></a>
 </td>

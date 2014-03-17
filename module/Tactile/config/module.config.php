@@ -11,6 +11,7 @@ return array(
 				'activities' => array(),
 				'comms' => array(),
 				'search' => array(),
+				'resource' => array(),
 			),
 		),
 	),
@@ -23,6 +24,8 @@ return array(
 			'Tactile\Controller\Opportunities' => 'Tactile\Controller\OpportunitiesController',
 			'Tactile\Controller\Activities' => 'Tactile\Controller\ActivitiesController',
 			'Tactile\Controller\Search' => 'Tactile\Controller\SearchController',
+			
+			'Tactile\Controller\Resource' => 'Tactile\Controller\ResourceController',
 		),
 	),
 	'navigation' => array(
@@ -102,14 +105,29 @@ return array(
 				),
 			),
 			'search' => array(
-			'type' => 'Segment',
-			'options' => array(
-				'route'			=> '/search',
-				'defaults'		=> array(
-					'controller'	=> 'Tactile\Controller\Search',
-					'action'		=> 'index',
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/search',
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\Search',
+						'action'		=> 'index',
+					),
 				),
 			),
+			'resource' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/:resource_name[/:action][/:key]',
+					'constraints'	=> array(
+						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
+					),
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\Resource',
+						'action'		=> 'index',
+					),
+				),
+				// Set a low priority for this greedy route
+				'priority' => -1,
 			),
 		),
 	),

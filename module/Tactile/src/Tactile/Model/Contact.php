@@ -2,13 +2,7 @@
 
 namespace Tactile\Model;
 
-use Omelettes\Model\AccountBoundQuantumModel;
-
-class Contact extends AccountBoundQuantumModel
+class Contact extends QuantumModel
 {
-	protected $planKey;
-	
-	protected $propertyMap = array(
-	);
 	
 }

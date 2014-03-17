@@ -30,7 +30,7 @@ class AccountPlansMapper extends AbstractMapper
 	 * Returns a single result row object, or false if none found
 	 *
 	 * @param string $id
-	 * @return QuantumModel|boolean
+	 * @return NamedItemModel|boolean
 	 */
 	public function find($key)
 	{

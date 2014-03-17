@@ -6,7 +6,7 @@ use Omelettes\Model,
 	Omelettes\Validator;
 use Zend\Validator as ZendValidator;
 
-class SignupFilter extends QuantumFilter
+class SignupFilter extends NamedItemFilter
 {
 	/**
 	 * @var Model\AuthUsersMapper

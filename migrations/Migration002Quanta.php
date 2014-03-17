@@ -67,7 +67,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->viewCreate('resource_field_options_view', 'SELECT * FROM resource_field_options');
 		
 		$this->tableCreate('quanta',
-			array_merge($this->getAccountBoundQuantumTableColumns(),
+			array_merge($this->getAccountBoundNamedItemsTableColumns(),
 				array(
 					'resource_name'			=> 'VARCHAR(256) NOT NULL',
 					'xml_specification'		=> 'TEXT',
@@ -77,6 +77,7 @@ class Migration002Quanta extends AbstractMigration
 			// Reference involves multiple columns
 			'FOREIGN KEY (account_key, resource_name) REFERENCES resources (account_key, name)'
 		);
+		$this->viewCreate('quanta_view', 'SELECT * FROM quanta');
 		
 		// Search tables
 		$this->tableCreate('quantum_search_varchar',

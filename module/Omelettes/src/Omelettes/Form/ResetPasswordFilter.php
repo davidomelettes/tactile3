@@ -4,7 +4,7 @@ namespace Omelettes\Form;
 
 use Zend\InputFilter\InputFilter;
 
-class ResetPasswordFilter extends QuantumFilter
+class ResetPasswordFilter extends NamedItemFilter
 {
 	public function getInputFilter()
 	{

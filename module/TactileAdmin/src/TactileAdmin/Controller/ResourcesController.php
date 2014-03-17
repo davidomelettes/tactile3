@@ -64,15 +64,27 @@ class ResourcesController extends Controller\AbstractController
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {
-				$this->getResourcesMapper()->createResource($model);
-				$this->flashMessenger()->addSuccessMessage('Resource created');
-				return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'resource_name' => $model->name));
+				//try {
+					$this->getResourcesMapper()->createUnprotectedResource($model);
+					$this->flashMessenger()->addSuccessMessage('Resource created');
+					return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'resource_name' => $model->name));
+				/*
+				} catch (\Exception $e) {
+					$this->flashMessenger()->addErrorMessage($e->getMessage());
+					throw $e
+				}
+				*/
 			}
 		}
 		
 		return $this->returnViewModel(array(
 			'form' => $form,
 		));
+	}
+	
+	public function formEditAction()
+	{
+		
 	}
 	
 }

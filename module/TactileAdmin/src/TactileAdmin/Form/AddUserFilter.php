@@ -2,12 +2,12 @@
 
 namespace TactileAdmin\Form;
 
-use Omelettes\Form\QuantumFilter,
+use Omelettes\Form\NamedItemFilter,
 	Omelettes\Model,
 	Omelettes\Validator;
 use Zend\Validator as ZendValidator;
 
-class AddUserFilter extends QuantumFilter
+class AddUserFilter extends NamedItemFilter
 {
 	/**
 	 * @var Model\AuthUsersMapper

@@ -2,7 +2,7 @@
 
 namespace Omelettes\Form;
 
-class ResetPasswordForm extends QuantumForm
+class ResetPasswordForm extends NamedItemForm
 {
 	public function __construct($name = 'form-reset-password')
 	{

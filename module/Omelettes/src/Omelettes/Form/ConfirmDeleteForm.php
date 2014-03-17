@@ -2,7 +2,7 @@
 
 namespace Omelettes\Form;
 
-class ConfirmDeleteForm extends QuantumForm
+class ConfirmDeleteForm extends NamedItemForm
 {
 	public function __construct($name = 'confirm-delete')
 	{

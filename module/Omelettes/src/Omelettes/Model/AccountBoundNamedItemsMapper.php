@@ -4,7 +4,7 @@ namespace Omelettes\Model;
 
 use Zend\Db\Sql\Predicate;
 
-class AccountBoundQuantaMapper extends QuantaMapper
+class AccountBoundNamedItemsMapper extends NamedItemsMapper
 {
 	protected $accountKey;
 	
@@ -34,7 +34,7 @@ class AccountBoundQuantaMapper extends QuantaMapper
 		return $where;
 	}
 	
-	public function saveQuantum(AccountBoundQuantumModel $model)
+	public function saveNamedItem(AccountBoundNamedItemModel $model)
 	{
 		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');

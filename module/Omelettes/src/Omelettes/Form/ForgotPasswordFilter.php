@@ -7,7 +7,7 @@ use Omelettes\Model;
 use Zend\InputFilter\InputFilter,
 	Zend\Validator\EmailAddress;
 
-class ForgotPasswordFilter extends QuantumFilter
+class ForgotPasswordFilter extends NamedItemFilter
 {
 	/**
 	 * @var Model\AuthUsersMapper

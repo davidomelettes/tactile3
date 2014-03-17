@@ -1,6 +1,6 @@
 <?php
 
-// Tactile
+// TactileAdmin
 return array(
 	'acl' => array(
 		'resources' => array(

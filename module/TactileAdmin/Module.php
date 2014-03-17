@@ -28,21 +28,21 @@ class Module
 		return array(
 			'factories' => array(
 				// Resources
-				'ResourcesViewGateway' => function ($sm) {
+				'AdminResourcesViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Resource());
 					return new TableGateway('resources_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'ResourcesTableGateway' => function ($sm) {
+				'AdminResourcesTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Resource());
 					return new TableGateway('resources', $dbAdapter, null, $resultSetPrototype);
 				},
 				'TactileAdmin\Model\ResourcesMapper' => function($sm) {
-					$readGateway = $sm->get('ResourcesViewGateway');
-					$writeGateway = $sm->get('ResourcesTableGateway');
+					$readGateway = $sm->get('AdminResourcesViewGateway');
+					$writeGateway = $sm->get('AdminResourcesTableGateway');
 					$mapper = new Model\ResourcesMapper($readGateway, $writeGateway);
 					return $mapper;
 				},

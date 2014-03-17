@@ -2,7 +2,7 @@
 
 namespace Omelettes\Form;
 
-class LoginForm extends QuantumForm
+class LoginForm extends NamedItemForm
 {
 	public function __construct($name = 'form-login')
 	{

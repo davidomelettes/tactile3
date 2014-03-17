@@ -6,7 +6,7 @@ use Zend\Form\Fieldset,
 	Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorInterface;
 
-abstract class AbstractQuantumFieldset extends Fieldset implements ServiceLocatorAwareInterface
+abstract class AbstractNamedItemModelFieldset extends Fieldset implements ServiceLocatorAwareInterface
 {
 	/**
 	 * @var ServiceLocatorInterface

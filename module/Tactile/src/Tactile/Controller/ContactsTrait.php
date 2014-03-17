@@ -8,6 +8,8 @@ use Omelettes\Paginator\Paginator;
 
 trait ContactsTrait
 {
+	use ResourceTrait;
+	
 	/**
 	 * @var Model\ContactsMapper
 	 */

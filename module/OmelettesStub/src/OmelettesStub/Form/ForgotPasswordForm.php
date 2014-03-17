@@ -2,9 +2,9 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Form\QuantumForm;
+use Omelettes\Form\NamedItemForm;
 
-class ForgotPasswordForm extends QuantumForm
+class ForgotPasswordForm extends NamedItemForm
 {
 	public function __construct($name = 'form-forgot-password')
 	{

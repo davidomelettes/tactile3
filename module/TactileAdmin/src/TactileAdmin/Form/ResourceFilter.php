@@ -3,11 +3,11 @@
 namespace TactileAdmin\Form;
 
 use TactileAdmin\Model;
-use Omelettes\Form\QuantumFilter,
+use Omelettes\Form\NamedItemFilter,
 	Omelettes\Validator;
 use Zend\Validator as ZendValidator;
 
-class ResourceFilter extends QuantumFilter
+class ResourceFilter extends NamedItemFilter
 {
 	/**
 	 * @var Model\ResourcesMapper
@@ -82,9 +82,9 @@ class ResourceFilter extends QuantumFilter
 					array(
 						'name'		=> 'Regex',
 						'options'	=> array(
-							'pattern'	=> '/^[a-z][a-z0-9]*$/',
+							'pattern'	=> '/^[a-z][a-z0-9-]*$/',
 							'messages'	=> array(
-								ZendValidator\Regex::NOT_MATCH => 'Must start with a letter, and only contain letters and numbers',
+								ZendValidator\Regex::NOT_MATCH => 'Must start with a letter, and only contain letters, numbers, and hyphens',
 							),
 						),
 					),

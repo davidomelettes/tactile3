@@ -2,13 +2,13 @@
 
 namespace OmelettesAuth\Form;
 
-use Omelettes\Form\QuantumFilter,
+use Omelettes\Form\NamedItemFilter,
 	Omelettes\Validator\Model\ModelExists;
 use OmelettesAuth\Model\UsersMapper;
 use Zend\InputFilter\InputFilter,
 	Zend\Validator\EmailAddress;
 
-class ForgotPasswordFilter extends QuantumFilter
+class ForgotPasswordFilter extends NamedItemFilter
 {
 	/**
 	 * @var UsersMapper

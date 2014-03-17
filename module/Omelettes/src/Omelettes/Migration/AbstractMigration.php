@@ -113,7 +113,7 @@ abstract class AbstractMigration
 		return $this;
 	}
 	
-	protected function quantumTableCreateWithView($tableName, array $columns = array(), array $viewExtraFields = array())
+	protected function namedTableCreateWithView($tableName, array $columns = array(), array $viewExtraFields = array())
 	{
 		$columns = array_merge($this->getQuantumTableColumns(), $columns);
 		$this->tableCreate($tableName, $columns);
@@ -229,7 +229,7 @@ abstract class AbstractMigration
 		return $this;
 	}
 	
-	protected function getQuantumTableColumns()
+	protected function getNamedItemsTableColumns()
 	{
 		return array(
 			'key'			=> 'UUID PRIMARY KEY',
@@ -242,9 +242,9 @@ abstract class AbstractMigration
 		);
 	}
 	
-	protected function getAccountBoundQuantumTableColumns()
+	protected function getAccountBoundNamedItemsTableColumns()
 	{
-		return array_merge($this->getQuantumTableColumns(), array(
+		return array_merge($this->getNamedItemsTableColumns(), array(
 			'account_key'	=> 'UUID NOT NULL REFERENCES accounts(key)',
 		));
 	}

@@ -10,6 +10,9 @@
 		<?php if ($element->getOption('suffix')): ?>
 		<span class="input-group-addon"><?php echo $this->translate($element->getOption('suffix')); ?></span>
 		<?php endif; ?>
+		<?php if ($element->getOption('feedback')): ?>
+		<span class="<?php echo $element->getOption('feedback'); ?> form-control-feedback"></span>
+		<?php endif; ?>
 	<?php if ($element->getOption('prefix') || $element->getOption('suffix')): ?>
 	</div>
 	<?php endif; ?>

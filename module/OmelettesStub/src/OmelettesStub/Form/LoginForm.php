@@ -2,9 +2,9 @@
 
 namespace OmelettesStub\Form;
 
-use Omelettes\Form\QuantumForm;
+use Omelettes\Form\NamedItemForm;
 
-class LoginForm extends QuantumForm
+class LoginForm extends NamedItemForm
 {
 	public function __construct($name = 'form-login')
 	{

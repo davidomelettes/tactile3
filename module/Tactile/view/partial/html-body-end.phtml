@@ -1,2 +1,5 @@
 <!-- Body end scripts -->
-<?php echo $this->inlineScript()->appendFile($this->basePath() . '/js/bootstrap.min.js'); ?>
+<?php
+	echo $this->inlineScript()->appendFile($this->basePath() . '/js/bootstrap.min.js')
+		->appendFile($this->basePath() . '/js/tactilecrm.js');
+?>

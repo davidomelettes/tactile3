@@ -5,7 +5,7 @@ namespace Omelettes\Model;
 use Omelettes\Uuid\V4 as Uuid;
 use Zend\Db\Sql\Predicate;
 
-class AuthUsersMapper extends QuantaMapper
+class AuthUsersMapper extends NamedItemsMapper
 {
 	protected function getDefaultWhere()
 	{

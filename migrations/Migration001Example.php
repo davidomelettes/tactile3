@@ -27,7 +27,7 @@ class Migration001Example extends AbstractMigration
 			'data'		=> 'TEXT',
 		), array('id', 'name'));
 		
-		$this->tableCreate('invitation_codes', array_merge($this->getQuantumTableColumns(), array(
+		$this->tableCreate('invitation_codes', array_merge($this->getNamedItemsTableColumns(), array(
 			'full_name'	=> 'VARCHAR',
 		)));
 		*/

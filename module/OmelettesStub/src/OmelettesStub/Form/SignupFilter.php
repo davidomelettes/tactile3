@@ -2,7 +2,7 @@
 
 namespace OmelettesSignup\Form;
 
-use Omelettes\Form\QuantumFilter,
+use Omelettes\Form\NamedItemFilter,
 	Omelettes\Validator\Model\ModelDoesNotExist,
 	Omelettes\Validator\Model\ModelExists,
 	Omelettes\Validator\Uuid\V4 as UuidValidator;
@@ -10,7 +10,7 @@ use OmelettesSignup\Model\InvitationCodesMapper,
 	OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
 use Zend\Validator\EmailAddress;
 
-class SignupFilter extends QuantumFilter
+class SignupFilter extends NamedItemFilter
 {
 	/**
 	 * @var SignupUsersMapper

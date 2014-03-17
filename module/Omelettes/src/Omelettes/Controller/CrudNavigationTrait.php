@@ -17,6 +17,6 @@ trait CrudNavigationTrait
 	
 	abstract public function getIndexNavigationConfig();
 	
-	abstract public function getViewNavigationConfig(Model\QuantumModel $model);
+	abstract public function getViewNavigationConfig(Model\NamedItemModel $model);
 	
 }

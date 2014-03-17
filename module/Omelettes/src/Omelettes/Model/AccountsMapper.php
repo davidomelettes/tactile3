@@ -6,7 +6,7 @@ use Omelettes\Uuid\V4 as Uuid;
 use Zend\Db\Sql\Predicate,
 	Zend\Validator\StringLength;
 
-class AccountsMapper extends QuantaMapper
+class AccountsMapper extends NamedItemsMapper
 {
 	protected function getDefaultWhere()
 	{

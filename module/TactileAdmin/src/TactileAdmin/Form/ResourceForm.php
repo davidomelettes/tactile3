@@ -2,9 +2,9 @@
 
 namespace TactileAdmin\Form;
 
-use Omelettes\Form\QuantumForm;
+use Omelettes\Form\NamedItemForm;
 
-class ResourceForm extends QuantumForm
+class ResourceForm extends NamedItemForm
 {
 	public function __construct($name = 'form-resource')
 	{
@@ -18,6 +18,7 @@ class ResourceForm extends QuantumForm
 			'type'		=> 'Text',
 			'options'	=> array(
 				'label'		=> 'Singular Name',
+				'feedback'	=> 'glyphicon glyphicon-arrow-down',
 			),
 			'attributes'=> array(
 				'id'			=> $this->getName() . 'SingularName',
@@ -37,12 +38,14 @@ class ResourceForm extends QuantumForm
 			),
 		));
 		
+		$config = $this->getApplicationServiceLocator()->get('config');
+		$basePath = preg_replace('/^https?:\/\//', '', $config['view_manager']['base_path']);
 		$this->add(array(
 			'name'		=> 'name',
 			'type'		=> 'Text',
 			'options'	=> array(
 				'label'		=> 'URL Slug',
-				'prefix'	=> '/',
+				'prefix'	=> $basePath.'/',
 			),
 			'attributes'=> array(
 				'id'		=> $this->getName() . 'Name',

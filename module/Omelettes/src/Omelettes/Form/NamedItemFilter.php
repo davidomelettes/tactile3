@@ -9,7 +9,7 @@ use Zend\InputFilter\InputFilter,
 	Zend\ServiceManager\ServiceLocatorAwareTrait,
 	Zend\Validator\ValidatorChain;
 
-class QuantumFilter implements InputFilterAwareInterface, ServiceLocatorAwareInterface
+class NamedItemFilter implements InputFilterAwareInterface, ServiceLocatorAwareInterface
 {
 	use ServiceLocatorAwareTrait;
 	
