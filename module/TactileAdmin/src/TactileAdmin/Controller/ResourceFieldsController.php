@@ -5,7 +5,7 @@ namespace TactileAdmin\Controller;
 use Omelettes\Controller;
 use TactileAdmin\Model;
 
-class ResourcesController extends Controller\AbstractController
+class ResourceFieldsController extends Controller\AbstractController
 {
 	use ResourcesTrait;
 	use Controller\CrudNavigationTrait;
@@ -13,12 +13,6 @@ class ResourcesController extends Controller\AbstractController
 	public function getIndexNavigationConfig()
 	{
 		return array(
-			array(
-				'label'			=> 'Add',
-				'route'			=> $this->getRouteName(),
-				'routeOptions'	=> array('action' => 'add'),
-				'icon'			=> 'plus',
-			),
 		);
 	}
 	
@@ -30,12 +24,6 @@ class ResourcesController extends Controller\AbstractController
 				'route'			=> $this->getRouteName(),
 				'routeOptions'	=> array('action' => 'edit', 'resource_name' => $model->name),
 				'icon'			=> 'pencil',
-			),
-			array(
-				'label'			=> 'Form Editor',
-				'route'			=> $this->getRouteName(),
-				'routeOptions'	=> array('action' => 'form-editor', 'resource_name' => $model->name),
-				'icon'			=> 'list-alt',
 			),
 			array(
 				'label'			=> 'Delete',

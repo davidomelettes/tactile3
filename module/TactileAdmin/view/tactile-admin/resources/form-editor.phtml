@@ -1,0 +1,122 @@
+<?php echo $this->partial('page-title', array(
+	'title'		=> $this->model->labelSingular . ' Form Editor',
+)); ?>
+
+<div class="row">
+	<div class="col-md-7">
+		<div class="paper">
+			<script type="text/javascript" src="<?php echo $this->basePath('/js/tactilecrm/form-editor.js'); ?>"></script>
+			<form class="form-horizontal form-editor-form">
+				<ul class="list-unstyled">
+					<li>
+						<div class="form-group">
+							<label class="control-label col-md-3">Field Name</label>
+							<div class="col-md-5">
+								<input type="text" class="form-control">
+							</div>
+							<div class="col-md-4 text-right">
+								<div class="btn-group">
+									<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></button>
+									<button class="btn btn-default"><span class="glyphicon glyphicon-chevron-down"></span></button>
+									<button class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button>
+									<button class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="form-group">
+					<div class="col-md-offset-3 col-md-9">
+						<button type="submit" class="btn btn-success">Save Form</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="paper">
+			<h4><?php echo $this->translate('Add a Field'); ?></h4>
+			<form class="form-horizontal form-editor-add">
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Short Text'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<input class="form-control" type="text" placeholder="<?php echo $this->translate("Limited to 256 characters"); ?>">
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Long Text'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<textarea class="form-control" placeholder="<?php echo $this->translate("Can contain more than one line of text, up to any length"); ?>"></textarea>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Date'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<input class="form-control" type="date">
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Date & Time'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<input class="form-control" type="date">
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Whole Number'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<input class="form-control" type="text" placeholder="<?php echo $this->translate("1234567890"); ?>">
+						
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Decimal'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<input class="form-control" type="text" placeholder="<?php echo $this->translate("9876543.21"); ?>">
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Checkbox'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<div class="checkbox">
+							<label><input type="checkbox"> Yes or no</label>
+						</div>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('User Select'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<select class="form-control" >
+							<option>-- <?php echo $this->translate('Select User'); ?> --</option>
+						</select>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-md-4">
+						<button class="btn btn-primary"><?php echo $this->translate('Option Select'); ?></button>
+					</div>
+					<div class="col-md-8">
+						<select class="form-control" >
+							<option>-- <?php echo $this->translate('Select Option'); ?> --</option>
+						</select>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

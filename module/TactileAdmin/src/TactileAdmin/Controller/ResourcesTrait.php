@@ -29,6 +29,11 @@ trait ResourcesTrait
 	protected $resourceForm;
 	
 	/**
+	 * @var Form\ResourceMetaForm
+	 */
+	protected $resourceMetaForm;
+	
+	/**
 	 * @var Form\ResourceFilter
 	 */
 	protected $resourceFilter;
@@ -97,6 +102,32 @@ trait ResourcesTrait
 		}
 	
 		return $this->resourceFilter;
+	}
+	
+	/**
+	 * @return Form\ResourceMetaForm
+	 */
+	public function getResourceMetaForm()
+	{
+		if (!$this->resourceMetaForm) {
+			$form = $this->getServiceLocator()->get('FormElementManager')->get('TactileAdmin\Form\ResourceMetaForm');
+			$this->resourceMetaForm = $form;
+		}
+	
+		return $this->resourceMetaForm;
+	}
+	
+	/**
+	 * @return Form\ResourceMetaFilter
+	 */
+	public function getResourceMetaFilter()
+	{
+		if (!$this->resourceMetaFilter) {
+			$filter = $this->getServiceLocator()->get('TactileAdmin\Form\ResourceMetaFilter');
+			$this->resourceMetaFilter = $filter;
+		}
+	
+		return $this->resourceMetaFilter;
 	}
 	
 }

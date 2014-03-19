@@ -66,6 +66,14 @@ abstract class AbstractMigration
 		return $this->sql;
 	}
 	
+	protected function executeQueryString($sql)
+	{
+		$statement = $this->getAdapter()->query($sql);
+		$statement->execute();
+		
+		return $this;
+	}
+	
 	protected function tableExists($tableName)
 	{
 		$this->logger->debug("Checking for $tableName table");
@@ -106,16 +114,14 @@ abstract class AbstractMigration
 		if (!empty($extraDef)) {
 			$tableDef[] = $extraDef;
 		}
-		$sql = sprintf('CREATE TABLE %s (%s)', $tableName, implode(', ', $tableDef));
-		$statement = $this->getAdapter()->query($sql);
-		$statement->execute();
+		$this->executeQueryString(sprintf('CREATE TABLE %s (%s)', $tableName, implode(', ', $tableDef)));
 		
 		return $this;
 	}
 	
-	protected function namedTableCreateWithView($tableName, array $columns = array(), array $viewExtraFields = array())
+	protected function createNamedTableWithView($tableName, array $columns = array(), array $viewExtraFields = array())
 	{
-		$columns = array_merge($this->getQuantumTableColumns(), $columns);
+		$columns = array_merge($this->getNamedItemsTableColumns(), $columns);
 		$this->tableCreate($tableName, $columns);
 		
 		$viewName = $tableName . '_view';
@@ -129,7 +135,7 @@ abstract class AbstractMigration
 	
 	protected function createAccountBoundQuantaTableWithView($tableName, array $columns = array(), array $viewExtraFields = array())
 	{
-		$columns = array_merge($this->getAccountBoundQuantumTableColumns(), $columns);
+		$columns = array_merge($this->getAccountBoundNamedItemsTableColumns(), $columns);
 		$this->tableCreate($tableName, $columns);
 	
 		$viewName = $tableName . '_view';
@@ -153,9 +159,7 @@ abstract class AbstractMigration
 			}
 			$this->logger->info("Adding $columnName column to $tableName table");
 			
-			$sql = sprintf('ALTER TABLE %s ADD COLUMN %s %s', $tableName, $columnName, $columnDef);
-			$statement = $this->getAdapter()->query($sql);
-			$statement->execute();
+			$this->executeQueryString(sprintf('ALTER TABLE %s ADD COLUMN %s %s', $tableName, $columnName, $columnDef));
 		}
 		
 		return $this;
@@ -189,9 +193,7 @@ abstract class AbstractMigration
 		}
 		$this->logger->info("Creating $viewName view");
 			
-		$sql = sprintf('CREATE OR REPLACE VIEW %s AS %s', $viewName, $as);
-		$statement = $this->getAdapter()->query($sql);
-		$statement->execute();
+		$this->executeQueryString(sprintf('CREATE OR REPLACE VIEW %s AS %s', $viewName, $as));
 		
 		return $this;
 	}
@@ -222,9 +224,7 @@ abstract class AbstractMigration
 		if (!in_array($on, $validOns)) {
 			throw new \Exception('Invalid ON condition: ' . $on);
 		}
-		$sql = sprintf("CREATE OR REPLACE RULE %s AS ON %s TO %s DO INSTEAD %s", $ruleName, strtoupper($on), $to, $doInstead);
-		$statement = $this->getAdapter()->query($sql);
-		$statement->execute();
+		$this->executeQueryString(sprintf("CREATE OR REPLACE RULE %s AS ON %s TO %s DO INSTEAD %s", $ruleName, strtoupper($on), $to, $doInstead));
 		
 		return $this;
 	}
@@ -232,7 +232,7 @@ abstract class AbstractMigration
 	protected function getNamedItemsTableColumns()
 	{
 		return array(
-			'key'			=> 'UUID PRIMARY KEY',
+			'key'			=> 'UUID PRIMARY KEY DEFAULT uuid_generate_v4()',
 			'name'			=> 'VARCHAR NOT NULL',
 			'created'		=> 'TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()',
 			'updated'		=> 'TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()',

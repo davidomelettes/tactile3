@@ -99,4 +99,31 @@ class ContactsController extends Controller\AbstractController
 		));
 	}
 	
+	public function editAction()
+	{
+		$model = $this->findRequestedContact();
+		if (!$model) {
+			return $this->redirect()->toRoute($this->getRouteName());
+		}
+		$form = $this->getContactForm();
+		$form->bind($model);
+	
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$form->setInputFilter($this->getContactFilter()->getInputFilter());
+			$form->setData($request->getPost());
+			if ($form->isValid()) {
+				$this->getContactsMapper()->saveContact($model);
+				$this->flashMessenger()->addSuccessMessage('Contact created');
+				return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'key' => $model->key));
+			}
+		}
+	
+		return $this->returnViewModel(array(
+			'model'	=> $model,
+			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
+			'form' => $form,
+		));
+	}
+	
 }

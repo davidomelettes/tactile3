@@ -50,6 +50,10 @@ class Module
 					$filter = new Form\ResourceFilter($sm->get('TactileAdmin\Model\ResourcesMapper'));
 					return $filter;
 				},
+				'TactileAdmin\Form\ResourceMetaFilter' => function($sm) {
+					$filter = new Form\ResourceMetaFilter();
+					return $filter;
+				},
 				
 				// Users
 				'TactileAdmin\Form\AddUserFilter' => function ($sm) {

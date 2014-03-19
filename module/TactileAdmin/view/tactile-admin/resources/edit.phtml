@@ -1,0 +1,7 @@
+<?php echo $this->partial('page-title', array(
+	'title'		=> 'Edit ' . $this->model->labelPlural . ' Resource',
+)); ?>
+
+<div class="paper">
+	<?php echo $this->partial('form/horizontal', array('form' => $this->form)); ?>
+</div>

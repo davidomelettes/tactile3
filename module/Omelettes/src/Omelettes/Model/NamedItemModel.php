@@ -96,6 +96,12 @@ class NamedItemModel extends AbstractModel implements Tabulatable, \JsonSerializ
 
 	public function exchangeArray($data)
 	{
+		$key = $this->key;
+		if ($key) {
+			// Don't allow hydration to change/lose the key
+			$data['key'] = $key;
+		}
+		
 		$map = $this->getPropertyMap();
 		foreach ($map as $property => $column) {
 			$setterMethodName = 'set'.ucfirst($property);

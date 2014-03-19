@@ -143,6 +143,8 @@ return array(
 			'html-body-end'				=> __DIR__ . '/../view/partial/html-body-end.phtml',
 			'navigation-top'			=> __DIR__ . '/../view/partial/navigation-top.phtml',
 			'navigation-bottom'			=> __DIR__ . '/../view/partial/navigation-bottom.phtml',
+			'tabulate/quantum'			=> __DIR__ . '/../view/partial/tabulate/quantum.phtml',
+			'tabulate/contact'			=> __DIR__ . '/../view/partial/tabulate/contact.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',

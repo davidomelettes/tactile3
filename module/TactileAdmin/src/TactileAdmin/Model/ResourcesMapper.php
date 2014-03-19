@@ -48,6 +48,7 @@ class ResourcesMapper extends TactileResourcesMapper
 			'label_singular'	=> $model->labelSingular,
 			'label_plural'		=> $model->labelPlural,
 			'name_label'		=> 'Name',
+			'protected'			=> $model->protected,
 		);
 		
 		// Does this Resource already exist?
@@ -77,6 +78,16 @@ class ResourcesMapper extends TactileResourcesMapper
 			$data['protected'] = 'false';
 			$this->writeTableGateway->insert($data);
 		}
+		
+		// Rehydrate
+		$model->exchangeArray($data);
+	}
+	
+	public function updateResource(Resource $model)
+	{
+		$name = $model->name;
+		$data = $this->prepareSaveData($model);
+		$this->writeTableGateway->update($data, array('name' => $name, 'account_key' => $this->getAccountKey()));
 		
 		// Rehydrate
 		$model->exchangeArray($data);

@@ -5,7 +5,7 @@ namespace Tactile\Model;
 use Omelettes\Model\AccountBoundNamedItemsMapper;
 use Zend\Db\Sql\Predicate;
 
-class QuantaMapper extends AccountBoundNamedItemsMapper
+abstract class QuantaMapper extends AccountBoundNamedItemsMapper
 {
 	/**
 	 * @var Resource
@@ -29,9 +29,18 @@ class QuantaMapper extends AccountBoundNamedItemsMapper
 		}
 		
 		$where = parent::getDefaultWhere();
+		$where->addPredicate(new Predicate\IsNull('current_version_key'));
 		$where->addPredicate(new Predicate\Operator('resource_name', '=', $this->resource->name));
 		
 		return $where;
+	}
+	
+	protected function prepareSaveData(QuantumModel $model)
+	{
+		$data = parent::prepareSaveData($model);
+		$data['resource_name'] = $this->resource->name;
+	
+		return $data;
 	}
 	
 }

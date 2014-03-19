@@ -3,14 +3,36 @@
 namespace TactileAdmin\Form;
 
 use TactileAdmin\Model;
-use Omelettes\Form\NamedItemForm;
-use Zend\Form\FormInterface;
+use Zend\Form\Form,
+	Zend\Form\FormInterface,
+	Zend\ServiceManager\ServiceLocatorAwareInterface,
+	Zend\ServiceManager\ServiceLocatorInterface;
 
-class ResourceForm extends NamedItemForm
+class ResourceMetaForm extends Form implements ServiceLocatorAwareInterface
 {
-	public function __construct($name = 'form-resource')
+	/**
+	 * @var ServiceLocatorInterface
+	 */
+	protected $serviceLocator;
+	
+	public function __construct($name = 'form-resource-meta')
 	{
 		parent::__construct($name);
+	}
+	
+	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+	{
+		$this->serviceLocator = $serviceLocator;
+	}
+	
+	public function getServiceLocator()
+	{
+		return $this->serviceLocator;
+	}
+	
+	public function getApplicationServiceLocator()
+	{
+		return $this->getServiceLocator()->getServiceLocator();
 	}
 	
 	public function init()
@@ -53,31 +75,6 @@ class ResourceForm extends NamedItemForm
 				'id'		=> $this->getName() . 'Name',
 			),
 		));
-		
-		$this->addSubmitFieldset();
-	}
-	
-	public function bind($resource, $flags = FormInterface::VALUES_NORMALIZED)
-	{
-		parent::bind($resource, $flags);
-		
-		if ($resource->protected) {
-			/*
-			$this->remove('name');
-			$this->add(array(
-				'name'		=> 'name',
-				'type'		=> 'StaticValue',
-				'options'	=> array(
-					'label'		=> 'URL Slug',
-				),
-				'attributes'=> array(
-					'id'		=> $this->getName() . 'Name',
-				),
-			));
-			*/
-		}
-		
-		return $this;
 	}
 	
 }
