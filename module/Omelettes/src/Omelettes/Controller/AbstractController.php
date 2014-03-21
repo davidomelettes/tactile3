@@ -14,6 +14,8 @@ use Zend\Permissions\Acl,
 
 abstract class AbstractController extends AbstractActionController
 {
+	use FormsTrait;
+	
 	protected $acceptCriteria = array(
 		'Zend\View\Model\ViewModel' => array(
 			'text/html',

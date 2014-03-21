@@ -7,7 +7,7 @@ use Omelettes\Logger;
 use Zend\Console\Request as ConsoleRequest,
 	Zend\Db\Adapter\Adapter as DbAdapter;
 
-class MigrationController extends AbstractController
+class ConsoleMigrationController extends AbstractController
 {
 	protected $migrationPath = 'migrations/';
 	protected $migrationFilePattern = '/^(Migration(\d{3}).+)\.php$/';

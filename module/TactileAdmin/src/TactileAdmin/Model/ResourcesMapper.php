@@ -34,34 +34,17 @@ class ResourcesMapper extends TactileResourcesMapper
 		
 	}
 	
-	/**
-	 * Resources have no keys, so we need to fully override the 
-	 * @see \Omelettes\Model\NamedItemsMapper::prepareSaveData()
-	 */
 	protected function prepareSaveData(Resource $model)
 	{
-		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
-		$data = array(
-			'name'				=> $model->name,
-			'updated_by'		=> $identity->key,
-			'updated'			=> new Sql\Expression('now()'),
-			'label_singular'	=> $model->labelSingular,
-			'label_plural'		=> $model->labelPlural,
-			'name_label'		=> 'Name',
-			'protected'			=> $model->protected,
-		);
+		$data = parent::prepareSaveData($model);
 		
-		// Does this Resource already exist?
-		if ($this->findByName($data['name'])) {
-			// Updating
-			
-		} else {
-			// Creating
-			$data = array_merge($data, array(
-				'created_by'	=> $identity->key,
-			));
-		}
-	
+		$data = array_merge($data, array(
+			'label_plural'		=> $model->labelPlural,
+			'label_singular'	=> $model->labelPlural,
+			'name_label'		=> 'Name',
+			'protected'			=> $model->protected ? 'true' : 'false',
+		));
+		
 		return $data;
 	}
 	

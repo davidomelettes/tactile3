@@ -1,12 +1,10 @@
 <?php
 
-namespace TactileAdmin\Form;
+namespace TactileAdmin\Form\Resource;
 
-use TactileAdmin\Model;
 use Omelettes\Form\NamedItemForm;
-use Zend\Form\FormInterface;
 
-class ResourceForm extends NamedItemForm
+abstract class AbstractResourceForm extends NamedItemForm
 {
 	public function __construct($name = 'form-resource')
 	{
@@ -27,7 +25,7 @@ class ResourceForm extends NamedItemForm
 				'autocomplete'	=> 'off',
 			),
 		));
-		
+	
 		$this->add(array(
 			'name'		=> 'label_plural',
 			'type'		=> 'Text',
@@ -39,29 +37,8 @@ class ResourceForm extends NamedItemForm
 				'autocomplete'	=> 'off',
 			),
 		));
-		
-		$this->addSubmitFieldset();
-	}
 	
-	public function bind($resource, $flags = FormInterface::VALUES_NORMALIZED)
-	{
-		if ($resource->key) {
-			$this->remove('name');
-			$this->add(array(
-				'name'		=> 'name',
-				'type'		=> 'StaticValue',
-				'options'	=> array(
-					'label'		=> 'URL Slug',
-				),
-				'attributes'=> array(
-					'id'		=> $this->getName() . 'Name',
-				),
-			));
-		}
-		
-		parent::bind($resource, $flags);
-		
-		return $this;
+		$this->addSubmitFieldset();
 	}
 	
 }

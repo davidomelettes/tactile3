@@ -10,4 +10,7 @@
 		(<a href="<?php echo $element->getChangeUrl(); ?>"><?php echo $this->translate('Change'); ?></a>)
 		<?php endif; ?>
 	</p>
+	<?php if ($this->formElementErrors($element)): ?>
+	<span class="help-block"><?php echo $this->formElementErrors($element); ?></span>
+	<?php endif; ?>
 </div>

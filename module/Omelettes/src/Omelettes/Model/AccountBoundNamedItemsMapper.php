@@ -34,7 +34,15 @@ class AccountBoundNamedItemsMapper extends NamedItemsMapper
 		return $where;
 	}
 	
-	public function saveNamedItem(AccountBoundNamedItemModel $model)
+	protected function prepareSaveData(AccountBoundNamedItemModel $model)
+	{
+		$data = parent::prepareSaveData($model);
+		$data['account_key'] = $this->getAccountKey();
+		
+		return $data;
+	}
+	
+	public function saveModel(AccountBoundNamedItemModel $model)
 	{
 		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
@@ -48,7 +56,6 @@ class AccountBoundNamedItemsMapper extends NamedItemsMapper
 			$data['key'] = $key;
 		} else {
 			// Creating
-			$data['account_key'] = $this->getAccountKey();
 			$this->writeTableGateway->insert($data);
 		}
 		

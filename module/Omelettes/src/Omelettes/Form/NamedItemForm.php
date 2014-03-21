@@ -64,7 +64,10 @@ class NamedItemForm extends Form implements ServiceLocatorAwareInterface
 	{
 		$fieldset = new Fieldset\SubmitFieldset();
 		$fieldset->addSubmitElement($buttonText, $buttonClass);
-		$this->add($fieldset);
+		
+		// Negative priority should ensure the submit fieldset is always last
+		// (unless something else specifies an even lower priority)
+		$this->add($fieldset, array('priority' => -1));
 	
 		return $this;
 	}

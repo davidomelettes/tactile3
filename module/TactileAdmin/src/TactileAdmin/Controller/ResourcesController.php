@@ -72,7 +72,7 @@ class ResourcesController extends Controller\AbstractController
 	public function addAction()
 	{
 		$model = $this->getResource();
-		$form = $this->getResourceForm();
+		$form = $this->getAddResourceForm();
 		$form->bind($model);
 		
 		$request = $this->getRequest();
@@ -81,16 +81,9 @@ class ResourcesController extends Controller\AbstractController
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {
-				//try {
-					$this->getResourcesMapper()->createUnprotectedResource($model);
-					$this->flashMessenger()->addSuccessMessage('Resource created');
-					return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'resource_name' => $model->name));
-				/*
-				} catch (\Exception $e) {
-					$this->flashMessenger()->addErrorMessage($e->getMessage());
-					throw $e
-				}
-				*/
+				$this->getResourcesMapper()->createUnprotectedResource($model);
+				$this->flashMessenger()->addSuccessMessage('Resource created');
+				return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'resource_name' => $model->name));
 			}
 		}
 		
@@ -123,8 +116,9 @@ class ResourcesController extends Controller\AbstractController
 		if (!$model) {
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
+		$key = $model->key;
 		
-		$form = $this->getResourceForm();
+		$form = $model->protected ? $this->getEditProtectedResourceForm() : $this->getEditUnprotectedResourceForm();
 		$form->bind($model);
 		
 		$request = $this->getRequest();
@@ -133,7 +127,9 @@ class ResourcesController extends Controller\AbstractController
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {
-				$this->getResourcesMapper()->createUnprotectedResource($model);
+				$model->key = $key;
+				$model->name = $this->params('resource_name');
+				$this->getResourcesMapper()->updateResource($model);
 				$this->flashMessenger()->addSuccessMessage('Resource edited');
 				return $this->redirect()->toRoute($this->getRouteName(), array('action' => 'view', 'resource_name' => $model->name));
 			}

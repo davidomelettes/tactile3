@@ -27,6 +27,11 @@ specified in composer.json, and installed by executing the Composer binary:
 If Composer gives you shit about missing a missing json_decode() function, you may
 need to install the json module for PHP as specified in the Environment Configuration!
 
+If for whatever reason you don't have a composer.phar binary in the application root,
+get one like this:
+
+    curl -sS https://getcomposer.org/installer | php
+
 The vendor directory should now contain the project dependencies.
 
 

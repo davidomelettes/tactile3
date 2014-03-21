@@ -24,21 +24,6 @@ trait ResourcesTrait
 	protected $resource;
 	
 	/**
-	 * @var Form\ResourceForm
-	 */
-	protected $resourceForm;
-	
-	/**
-	 * @var Form\ResourceMetaForm
-	 */
-	protected $resourceMetaForm;
-	
-	/**
-	 * @var Form\ResourceFilter
-	 */
-	protected $resourceFilter;
-	
-	/**
 	 * @return Model\ResourcesMapper
 	 */
 	public function getResourcesMapper()
@@ -79,16 +64,21 @@ trait ResourcesTrait
 	}
 	
 	/**
-	 * @return Form\ResourceForm
+	 * @return Form\Resource\AddForm
 	 */
-	public function getResourceForm()
+	public function getAddResourceForm()
 	{
-		if (!$this->resourceForm) {
-			$form = $this->getServiceLocator()->get('FormElementManager')->get('TactileAdmin\Form\ResourceForm');
-			$this->resourceForm = $form;
-		}
+		return $this->getForm('TactileAdmin\Form\Resource\AddForm');
+	}
 	
-		return $this->resourceForm;
+	public function getEditProtectedResourceForm()
+	{
+		return $this->getForm('TactileAdmin\Form\Resource\EditProtectedForm');
+	}
+	
+	public function getEditUnprotectedResourceForm()
+	{
+		return $this->getForm('TactileAdmin\Form\Resource\EditUnprotectedForm');
 	}
 	
 	/**
@@ -96,12 +86,7 @@ trait ResourcesTrait
 	 */
 	public function getResourceFilter()
 	{
-		if (!$this->resourceFilter) {
-			$filter = $this->getServiceLocator()->get('TactileAdmin\Form\ResourceFilter');
-			$this->resourceFilter = $filter;
-		}
-	
-		return $this->resourceFilter;
+		return $this->getFilter('TactileAdmin\Form\ResourceFilter');
 	}
 	
 	/**
@@ -109,12 +94,7 @@ trait ResourcesTrait
 	 */
 	public function getResourceMetaForm()
 	{
-		if (!$this->resourceMetaForm) {
-			$form = $this->getServiceLocator()->get('FormElementManager')->get('TactileAdmin\Form\ResourceMetaForm');
-			$this->resourceMetaForm = $form;
-		}
-	
-		return $this->resourceMetaForm;
+		return $this->getForm('TactileAdmin\Form\ResourceMetaForm');
 	}
 	
 	/**
@@ -122,12 +102,7 @@ trait ResourcesTrait
 	 */
 	public function getResourceMetaFilter()
 	{
-		if (!$this->resourceMetaFilter) {
-			$filter = $this->getServiceLocator()->get('TactileAdmin\Form\ResourceMetaFilter');
-			$this->resourceMetaFilter = $filter;
-		}
-	
-		return $this->resourceMetaFilter;
+		return $this->getFilter('TactileAdmin\Form\ResourceMetaFilter');
 	}
 	
 }

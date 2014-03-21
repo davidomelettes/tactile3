@@ -140,11 +140,15 @@ abstract class NamedItemsMapper extends AbstractMapper
 	
 	protected function prepareSaveData(NamedItemModel $model)
 	{
+		$auth = $this->getServiceLocator()->get('AuthService');
+		if (!$auth->hasIdentity()) {
+			throw new \Exception('Missing auth identity');
+		}
+		
 		$key = $model->key;
-		$identity = $this->getServiceLocator()->get('AuthService')->getIdentity();
 		$data = array(
 			'name'				=> $model->name,
-			'updated_by'		=> $identity->key,
+			'updated_by'		=> $auth->getIdentity()->key,
 			'updated'			=> new Sql\Expression('now()'),
 		);
 		if (!$key) {
@@ -152,14 +156,14 @@ abstract class NamedItemsMapper extends AbstractMapper
 			$key = new Uuid();
 			$data = array_merge($data, array(
 				'key'			=> (string)$key,
-				'created_by'	=> $identity->key,
+				'created_by'	=> $auth->getIdentity()->key,
 			));
 		}
 		
 		return $data;
 	}
 	
-	public function saveNamedItem(NamedItemModel $model)
+	public function saveModel(NamedItemModel $model)
 	{
 		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
@@ -180,17 +184,17 @@ abstract class NamedItemsMapper extends AbstractMapper
 		$model->exchangeArray($data);
 	}
 	
-	public function createNamedItem(NamedItemModel $model)
+	public function createModel(NamedItemModel $model)
 	{
-		return $this->saveNamedItem($model);
+		return $this->saveModel($model);
 	}
 	
-	public function updateNamedItem(NamedItemModel $model)
+	public function updateModel(NamedItemModel $model)
 	{
-		return $this->saveNamedItem($model);
+		return $this->saveModel($model);
 	}
 	
-	public function deleteNamedItem(NamedItemModel $model)
+	public function deleteModel(NamedItemModel $model)
 	{
 		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');
@@ -202,7 +206,7 @@ abstract class NamedItemsMapper extends AbstractMapper
 		$this->writeTableGateway->update($data, array('key'=> $model->key));
 	}
 	
-	public function processQuanta(array $keys, $action, $data = array())
+	public function processModels(array $keys, $action, $data = array())
 	{
 		if ($this->isReadOnly()) {
 			throw new \Exception(get_class($this) . ' is read-only');

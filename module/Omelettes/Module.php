@@ -475,6 +475,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 	{
 		return array(
 			'db migrate [--commit] [--all]'		=> 'Execute (and --commit) next database migration (or --all of them)',
+			'build <assets>'					=> '<assets> must be one of: css',
 		);
 	}
 	

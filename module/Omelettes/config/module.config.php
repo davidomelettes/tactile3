@@ -13,6 +13,7 @@ return array(
 		'resources' => array(
 			'system' => array(
 				'migrate' => array(),
+				'build' => array(),
 			),
 		),
 	),
@@ -28,12 +29,22 @@ return array(
 						),
 					),
 				),
+				'build' => array(
+					'options' => array(
+						'route' => 'build <assets>',
+						'defaults' => array(
+							'controller' => 'Console\Controller\Assets',
+							'action' => 'build',
+						),
+					),
+				),
 			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
-			'Console\Controller\Migration' => 'Omelettes\Controller\MigrationController',
+			'Console\Controller\Migration' => 'Omelettes\Controller\ConsoleMigrationController',
+			'Console\Controller\Assets' => 'Omelettes\Controller\ConsoleAssetsController',
 		),
 	),
 	'filters' => array(
