@@ -33,7 +33,7 @@ class DoesNotExist extends AbstractModel
 		$this->setValue($value);
 		$valid = true;
 	
-		$result = $this->mapper->{$this->mapperMethod}($value);
+		$result = call_user_func_array(array($this->mapper, $this->mapperMethod), array($value, $this->field, $this->exclude));
 		if ($result instanceof AbstractResultSet && count($result) > 0) {
 			// Multiple rows returned
 			$valid = false;

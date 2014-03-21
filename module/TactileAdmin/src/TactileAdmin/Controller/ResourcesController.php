@@ -79,7 +79,7 @@ class ResourcesController extends Controller\AbstractController
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
-			$form->setInputFilter($this->getResourceFilter()->getInputFilter());
+			$form->setInputFilter($this->getResourceFilter($model)->getInputFilter());
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {
@@ -125,7 +125,7 @@ class ResourcesController extends Controller\AbstractController
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
-			$form->setInputFilter($this->getResourceFilter()->getInputFilter());
+			$form->setInputFilter($this->getResourceFilter($model)->getInputFilter());
 			$form->setData($request->getPost());
 		
 			if ($form->isValid()) {

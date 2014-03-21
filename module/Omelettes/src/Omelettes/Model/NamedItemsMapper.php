@@ -93,13 +93,32 @@ abstract class NamedItemsMapper extends AbstractMapper
 	 * @param boolean $paginated
 	 * @return ResultSet|Paginator
 	 */
-	public function fetchAllWhere(Sql\Predicate\PredicateSet $where, $paginated = false)
+	protected function fetchAllWhere(Sql\Predicate\PredicateSet $where, $paginated = false)
 	{
 		if ($paginated) {
 			return $this->getPaginator($where, $this->getOrder());
 		}
 		
 		return $this->select($this->generateSqlSelect($where, $this->getOrder()));
+	}
+	
+	/**
+	 * Used for model-existence validation
+	 * 
+	 * @param mixed $value
+	 * @param string $field
+	 * @param array $exclude
+	 * @return Ambigous <boolean, \Omelettes\Model\ArrayObject, multitype:, ArrayObject, NULL, \ArrayObject, unknown>
+	 */
+	public function existanceValidationSearch($value, $field = 'key', $exclude = array())
+	{
+		$where = $this->getWhere();
+		$where->addPredicate(new Sql\Predicate\Operator($field, '=', $value));
+		if (isset($exclude['field']) && isset($exclude['value'])) {
+			$where->addPredicate(new Sql\Predicate\Operator($exclude['field'], '!=', $exclude['value']));
+		}
+		
+		return $this->findOneWhere($where);
 	}
 	
 	/**

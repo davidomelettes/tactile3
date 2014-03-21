@@ -84,9 +84,11 @@ trait ResourcesTrait
 	/**
 	 * @return Filter\ResourceFilter
 	 */
-	public function getResourceFilter()
+	public function getResourceFilter(Model\Resource $resource)
 	{
-		return $this->getFilter('TactileAdmin\Form\ResourceFilter');
+		$filter = $this->getFilter('TactileAdmin\Form\ResourceFilter');
+		$filter->setResource($resource);
+		return $filter;
 	}
 	
 	/**

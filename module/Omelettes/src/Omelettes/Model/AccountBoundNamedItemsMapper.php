@@ -27,8 +27,7 @@ class AccountBoundNamedItemsMapper extends NamedItemsMapper
 	
 	protected function getDefaultWhere()
 	{
-		$where = new Predicate\PredicateSet();
-		$where->addPredicate(new Predicate\IsNull('deleted'));
+		$where = parent::getDefaultWhere();
 		$where->addPredicate(new Predicate\Operator('account_key', '=', $this->getAccountKey()));
 	
 		return $where;

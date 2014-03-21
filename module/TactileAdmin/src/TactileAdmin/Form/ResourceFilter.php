@@ -14,13 +14,27 @@ class ResourceFilter extends NamedItemFilter
 	 */
 	protected $resourcesMapper;
 	
+	/**
+	 * @var Model\Resource
+	 */
+	protected $resource;
+	
 	public function __construct(Model\ResourcesMapper $resourcesMapper)
 	{
 		$this->resourcesMapper = $resourcesMapper;
 	}
 	
+	public function setResource(Model\Resource $resource)
+	{
+		$this->resource = $resource;
+	}
+	
 	public function getInputFilter()
 	{
+		if (!$this->resource) {
+			throw new \Exception('Resource not set');
+		}
+		
 		if (!$this->inputFilter) {
 			$inputFilter = parent::getInputFilter();
 			$factory = $inputFilter->getFactory();
@@ -98,7 +112,11 @@ class ResourceFilter extends NamedItemFilter
 						'name'		=> 'Omelettes\Validator\Model\DoesNotExist',
 						'options'	=> array(
 							'mapper'	=> $this->resourcesMapper,
-							'method'	=> 'findByName',
+							'field'		=> 'name',
+							'exclude'	=> array(
+								'field'	=> 'key',
+								'value'	=> $this->resource->key,
+							),
 							'messages'	=> array(
 								Validator\Model\DoesNotExist::ERROR_MODEL_EXISTS => 'A Resource with that route already exists',
 							),

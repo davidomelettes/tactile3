@@ -16,7 +16,19 @@ abstract class AbstractModel extends AbstractValidator
 	/**
 	 * @var string
 	 */
-	protected $mapperMethod = 'find';
+	protected $mapperMethod = 'existanceValidationSearch';
+	
+	/**
+	 * @var mixed
+	 */
+	protected $field = 'key';
+	
+	/**
+	 * An array containing keys 'field' and 'value'
+	 * 
+	 * @var array
+	 */
+	protected $exclude = array();
 	
 	/**
 	 * @var array
@@ -58,6 +70,25 @@ abstract class AbstractModel extends AbstractValidator
 			throw new Exception\InvalidArgumentException('Invalid mapper method: ' . $methodName);
 		}
 		$this->mapperMethod = $methodName;
+		
+		return $this;
+	}
+	
+	public function setField($field)
+	{
+		$this->field = $field;
+		
+		return $this;
+	}
+	
+	public function setExclude(array $exclude = array())
+	{
+		if (isset($exclude['field']) && isset($exclude['value'])) {
+			$this->exclude = array(
+				'field' => $exclude['field'],
+				'value' => $exclude['value'],
+			);
+		}
 		
 		return $this;
 	}
