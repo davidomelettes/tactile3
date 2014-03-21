@@ -1,3 +1,12 @@
+<?php if ($leftColWidth || $rightColWidth): ?>
 <div class="col-lg-offset-<?php echo $leftColWidth; ?> col-lg-<?php echo $rightColWidth; ?>">
+<?php endif; ?>
 	<button type="submit" class="<?php echo $element->getAttribute('class'); ?>"><?php echo $this->escapeHtml($element->getValue()); ?></button>
+	<?php if ($element->getOption('cancel_route')): ?>
+	<span><?php echo $this->translate(' or '); ?></span>
+	<?php echo $element->getOption('cancel_route'); ?>
+	<a href="<?php $this->url($element->getOption('cancel_route'), $element->getOption('cancel_route_options'), false)?>"><?php echo $this->translate('Cancel'); ?></a>
+	<?php endif; ?>
+<?php if ($leftColWidth || $rightColWidth): ?>
 </div>
+<?php endif; ?>

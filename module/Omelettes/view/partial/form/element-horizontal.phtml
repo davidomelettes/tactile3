@@ -5,13 +5,11 @@
 		$element->setAttribute('class', 'form-control ' . $element->getAttribute('class'));
 	}
 ?>
-<div class="form-group<?php if ($this->formElementErrors($element)) echo " has-error"; ?><?php if ($element->getOption('feedback')) echo " has-feedback"; ?>">
-	<?php echo $this->partial(
-			'partial/form/element-horizontal/' . $elementType . '.phtml',
-			array(
-				'element'		=> $element,
-				'leftColWidth'	=> $leftColWidth,
-				'rightColWidth'	=> $rightColWidth,
-				'model'			=> $this->model,
-			)); ?>
-</div>
+<?php echo $this->partial(
+		'partial/form/element-horizontal/' . $elementType . '.phtml',
+		array(
+			'element'		=> $element,
+			'leftColWidth'	=> $leftColWidth,
+			'rightColWidth'	=> $rightColWidth,
+			'model'			=> $this->model,
+		)); ?>

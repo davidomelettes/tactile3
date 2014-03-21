@@ -11,14 +11,18 @@ class SubmitFieldset extends Fieldset
 		parent::__construct($name, $options);
 	}
 	
-	public function addSubmitElement($buttonText = 'Save', $buttonClass = 'btn btn-primary')
+	public function addSubmitElement($buttonText = 'Save', $buttonClass = 'btn btn-primary', $cancelRoute = null, $cancelRouteOptions = array())
 	{
 		$this->add(array(
 			'name'		=> 'submit',
 			'type'		=> 'Submit',
 			'attributes'=> array(
-				'value'		=> $buttonText,
-				'class'		=> $buttonClass,
+				'value'					=> $buttonText,
+				'class'					=> $buttonClass,
+			),
+			'options'	=> array(
+				'cancel_route'			=> $cancelRoute,
+				'cancel_route_options'	=> $cancelRouteOptions,
 			),
 		));
 	

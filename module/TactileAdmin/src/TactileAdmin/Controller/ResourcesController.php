@@ -37,12 +37,14 @@ class ResourcesController extends Controller\AbstractController
 				'routeOptions'	=> array('action' => 'form-editor', 'resource_name' => $model->name),
 				'icon'			=> 'list-alt',
 			),
+			/*
 			array(
 				'label'			=> 'Delete',
 				'route'			=> $this->getRouteName(),
 				'routeOptions'	=> array('action' => 'delete', 'resource_name' => $model->name),
 				'icon'			=> 'trash',
 			),
+			*/
 		);
 	}
 	

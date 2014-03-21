@@ -1,0 +1,15 @@
+<fieldset class="submit">
+	<div class="form-group">
+		<div class="col-lg-<?php echo $rightColWidth; ?> col-lg-offset-<?php echo $leftColWidth; ?>">
+			<?php foreach ($fieldset as $element): ?>
+			<?php echo $this->partial(
+				'partial/form/element-horizontal.phtml',
+				array(
+					'element'		=> $element,
+					'leftColWidth'	=> 0,
+					'rightColWidth'	=> 0,
+				)); ?>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</fieldset>

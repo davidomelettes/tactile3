@@ -38,7 +38,18 @@ abstract class AbstractResourceForm extends NamedItemForm
 			),
 		));
 	
-		$this->addSubmitFieldset();
+		$this->addSubmitFieldset('Save Resource');
+		$this->get('submit')->add(array(
+			'name'		=> 'cancel',
+			'type'		=> 'Omelettes\Form\Element\Url',
+			'options'	=> array(
+				'route'	=> 'admin/resources',
+			),
+			'attributes'=> array(
+				'id'		=> $this->getName() . 'Cancel',
+				'value'		=> 'Cancel',
+			),
+		));
 	}
 	
 }

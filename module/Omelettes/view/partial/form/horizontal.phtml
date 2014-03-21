@@ -1,6 +1,10 @@
 <?php
 
 use Zend\Form\Fieldset;
+use Omelettes\Form\Fieldset\SubmitFieldset;
+
+$leftColWidth = 2;
+$rightColWidth = 4;
 
 $form = $this->form;
 $form->setAttributes(array(
@@ -12,23 +16,29 @@ echo $this->form()->openTag($form);
 
 ?>
 <?php foreach ($form as $element): ?>
-<?php if ($element instanceof Fieldset): ?>
+<?php if ($element instanceof SubmitFieldset): ?>
+<?php echo $this->partial(
+		'partial/form/fieldset-submit.phtml',
+		array(
+			'fieldset' => $element,
+			'leftColWidth'	=> $leftColWidth,
+			'rightColWidth'	=> $rightColWidth,
+		)); ?>
+<?php elseif ($element instanceof Fieldset): ?>
 <?php echo $this->partial(
 		'partial/form/fieldset-horizontal.phtml',
 		array(
 			'fieldset' => $element,
-			'leftColWidth'	=> 2,
-			'rightColWidth'	=> 4,
-			'model' => $this->model,
+			'leftColWidth'	=> $leftColWidth,
+			'rightColWidth'	=> $rightColWidth,
 		)); ?>
 <?php else: ?>
 <?php echo $this->partial(
-		'partial/form/element-horizontal.phtml',
+		'partial/form/group-horizontal.phtml',
 		array(
 			'element'		=> $element,
-			'leftColWidth'	=> 2,
-			'rightColWidth'	=> 4,
-			'model' => $this->model,
+			'leftColWidth'	=> $leftColWidth,
+			'rightColWidth'	=> $rightColWidth,
 		)); ?>
 <?php endif; ?>
 <?php endforeach; ?>
