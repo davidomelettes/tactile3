@@ -8,7 +8,8 @@ class Migration002Quanta extends AbstractMigration
 {
 	public function migrate()
 	{
-		$this->tableCreate('resources',
+		$this->tableCreate(
+			'resources',
 			array(
 				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
@@ -28,7 +29,8 @@ class Migration002Quanta extends AbstractMigration
 		);
 		$this->viewCreate('resources_view', 'SELECT * FROM resources');
 		
-		$this->tableCreate('resource_fields',
+		$this->tableCreate(
+			'resource_fields',
 			array(
 				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
@@ -44,6 +46,7 @@ class Migration002Quanta extends AbstractMigration
 				'type'				=> 'VARCHAR(256) NOT NULL',
 				'required'			=> 'BOOLEAN NOT NULL DEFAULT false',
 				'searchable'		=> 'BOOLEAN NOT NULL DEFAULT false',
+				'priority'			=> 'INT NOT NULL DEFAULT 0',
 			),
 			// key column is not the primary key
 			array('account_key', 'resource_name', 'name'),
@@ -243,6 +246,25 @@ class Migration002Quanta extends AbstractMigration
 			// Reference involves multiple columns
 			'FOREIGN KEY (account_key, resource_name, field_name, value) REFERENCES resource_field_options (account_key, resource_name, field_name, name)'
 		);
+		
+		// Relationships
+		$this->tableCreate(
+			'quantum_relationships',
+			array(
+				'key'					=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'account_key'			=> 'UUID NOT NULL REFERENCES accounts(key)',
+				'parent_resource_name'	=> 'VARCHAR(256) NOT NULL',
+				'parent_key'			=> 'UUID NOT NULL REFERENCES quanta(key)',
+				'child_resource_name'	=> 'VARCHAR(256) NOT NULL',
+				'child_key'				=> 'UUID NOT NULL REFERENCES quanta(key)',
+			),
+			// key column is not the primary key
+			array('parent_key', 'child_key'),
+			// Reference involves multiple columns
+			'FOREIGN KEY (account_key, parent_resource_name) REFERENCES resources (account_key, name),
+			FOREIGN KEY (account_key, child_resource_name) REFERENCES resources (account_key, name)'
+		);
+		$this->viewCreate('quantum_relationships_view', 'SELECT * FROM quantum_relationships');
 		
 		return true;
 	}

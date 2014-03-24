@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
 	<resources name="contacts" label_singular="Contact" label_plural="Contacts" name_label="Full Name" />
-	<resource_fields resource_name="contacts" name="description" label="Description" type="text" required="false" searchable="true" />
-	<resource_fields resource_name="contacts" name="assigned_to" label="Assigned To" type="user" required="false" searchable="true" />
-	<resource_fields resource_name="contacts" name="last_contacted" label="Last Contacted" type="datetime" required="false" searchable="true" />
+	<resource_fields resource_name="contacts" name="description" label="Description" type="text" required="false" searchable="true" priority="100" />
+	<resource_fields resource_name="contacts" name="assigned_to" label="Assigned To" type="user" required="false" searchable="true" priority="200" />
+	<resource_fields resource_name="contacts" name="last_contacted" label="Last Contacted" type="datetime" required="false" searchable="true" priority="300" />
 	<resources name="opportunities" label_singular="Opportunity" label_plural="Opportunities" name_label="Opportunity Name" />
-	<resource_fields resource_name="opportunities" name="description" label="Description" type="text" required="false" searchable="true" />
-	<resource_fields resource_name="opportunities" name="assigned_to" label="Assigned To" type="user" required="false" searchable="true" />
+	<resource_fields resource_name="opportunities" name="description" label="Description" type="text" required="false" searchable="true" priority="" />
+	<resource_fields resource_name="opportunities" name="assigned_to" label="Assigned To" type="user" required="false" searchable="true" priority="" />
 	<resources name="activities" label_singular="Activity" label_plural="Activities" name_label="Activity Name" />
-	<resource_fields resource_name="activities" name="description" label="Description" type="text" required="false" searchable="true" />
-	<resource_fields resource_name="activities" name="assigned_to" label="Assigned To" type="user" required="false" searchable="true" />
-	<resource_fields resource_name="activities" name="start" label="Start" type="datetime" required="false" searchable="true" />
-	<resource_fields resource_name="activities" name="end" label="End" type="datetime" required="false" searchable="true" />
+	<resource_fields resource_name="activities" name="description" label="Description" type="text" required="false" searchable="true" priority="" />
+	<resource_fields resource_name="activities" name="assigned_to" label="Assigned To" type="user" required="false" searchable="true" priority="" />
+	<resource_fields resource_name="activities" name="start" label="Start" type="datetime" required="false" searchable="true" priority="" />
+	<resource_fields resource_name="activities" name="end" label="End" type="datetime" required="false" searchable="true" priority="" />
 	<resources name="notes" label_singular="Note" label_plural="Notes" name_label="Summary" />
-	<resource_fields resource_name="notes" name="note" label="Note" type="text" required="true" searchable="true" />
+	<resource_fields resource_name="notes" name="note" label="Note" type="text" required="true" searchable="true" priority="" />
 	<resources name="emails" label_singular="Email" label_plural="Emails" name_label="Subject" />
-	<resource_fields resource_name="emails" name="text_body" label="Text Body" type="text" required="true" searchable="true" />
+	<resource_fields resource_name="emails" name="text_body" label="Text Body" type="text" required="true" searchable="true" priority="" />
 </dataset>

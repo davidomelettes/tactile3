@@ -1,0 +1,18 @@
+<td>
+	<a class="" href="<?php echo $this->url(null, array('action' => 'view', 'resource_field_name' => $this->data->name)); ?>"><?php echo $this->escapehtml($this->data->label); ?></a>
+</td>
+<td>
+	<?php echo $this->translate($this->data->type); ?>
+</td>
+<td>
+	<?php if ($this->data->protected): ?>
+	<span class="glyphicon glyphicon-lock text-muted" title="This is a system field and cannot be edited"></span>
+	<?php else: ?>
+	<?php endif; ?>
+	<?php if ($this->data->required): ?>
+	<span class="glyphicon glyphicon-asterisk text-muted" title="This field is required when creating an instance of this resource"></span>
+	<?php endif; ?>
+	<?php if ($this->data->searchable): ?>
+	<span class="glyphicon glyphicon-search text-muted" title="This field can be searched against"></span>
+	<?php endif; ?>
+</td>

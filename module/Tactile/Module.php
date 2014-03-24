@@ -44,6 +44,24 @@ class Module
 					$mapper = new Model\ResourcesMapper($readGateway);
 					return $mapper;
 				},
+				'ResourceFieldsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\ResourceField());
+					return new TableGateway('resource_fields_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'ResourceFieldsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\ResourceField());
+					return new TableGateway('resource_fields', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Tactile\Model\ResourceFieldsMapper' => function($sm) {
+					$readGateway = $sm->get('ResourceFieldsViewGateway');
+					$writeGateway = $sm->get('ResourceFieldsTableGateway');
+					$mapper = new Model\ResourceFieldsMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
 				'QuantaTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();

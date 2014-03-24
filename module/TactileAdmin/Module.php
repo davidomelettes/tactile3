@@ -54,6 +54,24 @@ class Module
 					$filter = new Form\ResourceMetaFilter();
 					return $filter;
 				},
+				'AdminResourceFieldsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\ResourceField());
+					return new TableGateway('resource_fields_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'AdminResourceFieldsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\ResourceField());
+					return new TableGateway('resource_fields', $dbAdapter, null, $resultSetPrototype);
+				},
+				'TactileAdmin\Model\ResourceFieldsMapper' => function($sm) {
+					$readGateway = $sm->get('AdminResourceFieldsViewGateway');
+					$writeGateway = $sm->get('AdminResourceFieldsTableGateway');
+					$mapper = new Model\ResourceFieldsMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
 				
 				// Users
 				'TactileAdmin\Form\AddUserFilter' => function ($sm) {

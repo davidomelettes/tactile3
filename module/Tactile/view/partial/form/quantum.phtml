@@ -1,0 +1,17 @@
+<?php
+
+use Zend\Form\Fieldset;
+
+$leftColWidth = 2;
+$rightColWidth = 4;
+$form = $this->form;
+$form->setAttributes(array(
+	'action'	=> $this->url(null, array(), array(), true),
+	'class'		=> $form->getAttribute('name') . ' form-horizontal',
+));
+$form->prepare();
+
+?>
+
+<?php echo $this->form()->openTag($form);?>
+<?php echo $this->form()->closeTag($form);?>

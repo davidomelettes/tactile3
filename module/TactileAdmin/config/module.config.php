@@ -89,6 +89,7 @@ return array(
 			'mail/text/add-user'		=> __DIR__ . '/../view/mail/add-user.phtml',
 			'mail/html/add-user'		=> __DIR__ . '/../view/mail/html/add-user.phtml',
 			'tabulate/resource'			=> __DIR__ . '/../view/partial/tabulate/resource.phtml',
+			'tabulate/resource-field'	=> __DIR__ . '/../view/partial/tabulate/resource-field.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',

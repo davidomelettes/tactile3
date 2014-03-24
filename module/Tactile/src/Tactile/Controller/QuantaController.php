@@ -5,21 +5,14 @@ namespace Tactile\Controller;
 use Tactile\Model;
 use Omelettes\Controller;
 
-class ContactsController extends Controller\AbstractController
+class QuantaController extends Controller\AbstractController
 {
-	use ContactsTrait {
-		ContactsTrait::getQuantaMapper as getContactsMapper;
-		ContactsTrait::getQuantaPaginator as getContactsPaginator;
-		ContactsTrait::getQuantum as getContact;
-		ContactsTrait::getQuantumForm as getContactForm;
-		ContactsTrait::getQuantumFilter as getContactFilter;
-	}
 	use Controller\CrudNavigationTrait;
 	
 	protected function preDispatch()
 	{
 		// Ensure this controller always has its resource
-		if (!$this->getQuantumResource('contacts')) {
+		if (!$this->getQuantumResource()) {
 			// Something bad happened
 			throw new \Exception('what');
 		}
@@ -57,25 +50,10 @@ class ContactsController extends Controller\AbstractController
 		);
 	}
 	
-	protected function findRequestedContact()
-	{
-		$key = $this->params('key');
-		if ($key) {
-			$model = $this->getContactsMapper()->find($key);
-			if (!$model) {
-				$this->flashMessenger()->addErrorMessage('Failed to find Contact with key: ' . $this->params('key'));
-			}
-			return $model;
-		}
-		$this->flashMessenger()->addErrorMessage('Missing identifier');
-		
-		return false;
-	}
-	
 	public function indexAction()
 	{
 		return $this->returnViewModel(array(
-			'paginator'	=> $this->getContactsPaginator((int)$this->params()->fromQuery('page', 1)),
+			'paginator'	=> $this->getQuantaPaginator((int)$this->params()->fromQuery('page', 1)),
 			'crud'		=> $this->constructNavigation($this->getIndexNavigationConfig()),
 		));
 	}

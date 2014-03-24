@@ -4,7 +4,7 @@ namespace Tactile\Controller;
 
 use Tactile\Model;
 
-trait ResourceTrait
+trait QuantumResourceTrait
 {
 	/**
 	 * @var Model\ResourcesMapper
@@ -29,22 +29,13 @@ trait ResourceTrait
 		return $this->resourcesMapper;
 	}
 	
-	/**
-	 * @return Model\Resource
-	 */
-	public function getResource()
+	protected function getQuantumResource($nameOverride = null)
 	{
-		if (!$this->resource) {
-			$model = new Model\Resource();
-			$this->resource = $model;
+		if ($this->resource) {
+			return $this->resource;
 		}
-	
-		return $this->resource;
-	}
-	
-	protected function findRequestedResource()
-	{
-		$name = $this->params('resource_name');
+		
+		$name = $nameOverride ? $nameOverride : $this->params('resource_name');
 		if ($name) {
 			$model = $this->getResourcesMapper()->findByName($name);
 			if (!$model) {

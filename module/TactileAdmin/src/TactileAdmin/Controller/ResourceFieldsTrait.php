@@ -11,7 +11,7 @@ trait ResourceFieldsTrait
 	/**
 	 * @var Model\ResourceFieldsMapper
 	 */
-	protected $resourceMapper;
+	protected $resourceFieldsMapper;
 
 	/**
 	 * @var Paginator
@@ -19,9 +19,9 @@ trait ResourceFieldsTrait
 	protected $resourceFieldsPaginator;
 
 	/**
-	 * @var Model\Resource
+	 * @var Model\ResourceField
 	 */
-	protected $resource;
+	protected $resourceField;
 
 	/**
 	 * @var Form\ResourceFieldForm
@@ -29,26 +29,21 @@ trait ResourceFieldsTrait
 	protected $ResourceFieldForm;
 
 	/**
-	 * @var Form\ResourceMetaForm
+	 * @var Form\ResourceFieldFilter
 	 */
-	protected $resourceMetaForm;
-
-	/**
-	 * @var Form\ResourceFilter
-	 */
-	protected $resourceFilter;
+	protected $resourceFieldFilter;
 
 	/**
 	 * @return Model\ResourceFieldsMapper
 	 */
 	public function getResourceFieldsMapper()
 	{
-		if (!$this->ResourceFieldsMapper) {
+		if (!$this->resourceFieldsMapper) {
 			$resourceFieldsMapper = $this->getServiceLocator()->get('TactileAdmin\Model\ResourceFieldsMapper');
-			$this->ResourceFieldsMapper = $resourceFieldsMapper;
+			$this->resourceFieldsMapper = $resourceFieldsMapper;
 		}
 
-		return $this->ResourceFieldsMapper;
+		return $this->resourceFieldsMapper;
 	}
 
 	/**
@@ -56,13 +51,13 @@ trait ResourceFieldsTrait
 	 */
 	public function getResourceFieldsPaginator($page = 1)
 	{
-		if (!$this->ResourceFieldsPaginator) {
+		if (!$this->resourceFieldsPaginator) {
 			$resourceFieldsPaginator = $this->getResourceFieldsMapper()->fetchAll(true);
 			$resourceFieldsPaginator->setCurrentPageNumber($page);
-			$this->ResourceFieldsPaginator = $resourceFieldsPaginator;
+			$this->resourceFieldsPaginator = $resourceFieldsPaginator;
 		}
 
-		return $this->ResourceFieldsPaginator;
+		return $this->resourceFieldsPaginator;
 	}
 
 	/**
@@ -83,18 +78,18 @@ trait ResourceFieldsTrait
 	 */
 	public function getResourceFieldForm()
 	{
-		if (!$this->ResourceFieldForm) {
+		if (!$this->resourceFieldForm) {
 			$form = $this->getServiceLocator()->get('FormElementManager')->get('TactileAdmin\Form\ResourceFieldForm');
-			$this->ResourceFieldForm = $form;
+			$this->resourceFieldForm = $form;
 		}
 
-		return $this->ResourceFieldForm;
+		return $this->resourceFieldForm;
 	}
 
 	/**
-	 * @return Filter\ResourceFilter
+	 * @return Filter\ResourceFieldFilter
 	 */
-	public function getResourceFilter()
+	public function getResourceFieldFilter()
 	{
 		if (!$this->resourceFilter) {
 			$filter = $this->getServiceLocator()->get('TactileAdmin\Form\ResourceFilter');
@@ -102,32 +97,6 @@ trait ResourceFieldsTrait
 		}
 
 		return $this->resourceFilter;
-	}
-
-	/**
-	 * @return Form\ResourceMetaForm
-	 */
-	public function getResourceMetaForm()
-	{
-		if (!$this->resourceMetaForm) {
-			$form = $this->getServiceLocator()->get('FormElementManager')->get('TactileAdmin\Form\ResourceMetaForm');
-			$this->resourceMetaForm = $form;
-		}
-
-		return $this->resourceMetaForm;
-	}
-
-	/**
-	 * @return Form\ResourceMetaFilter
-	 */
-	public function getResourceMetaFilter()
-	{
-		if (!$this->resourceMetaFilter) {
-			$filter = $this->getServiceLocator()->get('TactileAdmin\Form\ResourceMetaFilter');
-			$this->resourceMetaFilter = $filter;
-		}
-
-		return $this->resourceMetaFilter;
 	}
 
 }

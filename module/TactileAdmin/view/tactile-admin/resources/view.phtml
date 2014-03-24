@@ -9,4 +9,7 @@
 		<dt><?php echo $this->translate('Created'); ?></dt>
 		<dd><?php echo $this->prettyTime($this->model->created); ?></dd>
 	</dl>
+	
+	<h4>Resource Fields</h4>
+	<?php echo $this->tabulate($this->fields); ?>
 </div>

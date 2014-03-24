@@ -2,12 +2,12 @@
 
 namespace Omelettes\Controller;
 
-use Omelettes\Form;
-use Omelettes\Model;
-use OmelettesAuth\Authentication\AuthenticationService;
-use OmelettesLocale\Model\LocalesMapper;
-use Zend\Permissions\Acl,
+use Omelettes\Form,
+	Omelettes\Model;
+use Zend\EventManager\EventManagerInterface,
+	Zend\Permissions\Acl,
 	Zend\Log\Logger,
+	Zend\Mvc\MvcEvent,
 	Zend\Mvc\Controller\AbstractActionController,
 	Zend\View\Model\JsonModel,
 	Zend\View\Model\ViewModel;
@@ -34,11 +34,6 @@ abstract class AbstractController extends AbstractActionController
 	 * @var AuthenticationService
 	 */
 	protected $authService;
-	
-	/**
-	 * @var LocalesMapper
-	 */
-	protected $localesMapper;
 	
 	/**
 	 * @var Logger
@@ -92,16 +87,6 @@ abstract class AbstractController extends AbstractActionController
 		return $this->authService;
 	}
 	
-	public function getLocalesMapper()
-	{
-		if (!$this->localesMapper) {
-			$localesMapper = $this->getServiceLocator()->get('OmelettesLocale\Model\LocalesMapper');
-			$this->localesMapper = $localesMapper;
-		}
-		
-		return $this->localesMapper;
-	}
-	
 	public function getLogger()
 	{
 		if (!$this->logger) {
@@ -110,6 +95,27 @@ abstract class AbstractController extends AbstractActionController
 		}
 		
 		return $this->logger;
+	}
+	
+	/**
+	 * Override the default EventManager setter to allow us to specify a pre-dispatch event handler
+	 */
+	public function setEventManager(EventManagerInterface $events)
+	{
+		parent::setEventManager($events);
+		
+		$controller = $this;
+		$events->attach(MvcEvent::EVENT_DISPATCH, function ($e) use ($controller) {
+			return $controller->preDispatch();
+		}, 100);
+	}
+	
+	/**
+	 * Can be overriden to specify pre-action controller logic
+	 */
+	protected function preDispatch()
+	{
+		return;
 	}
 	
 }

@@ -8,6 +8,7 @@ use TactileAdmin\Model;
 class ResourcesController extends Controller\AbstractController
 {
 	use ResourcesTrait;
+	use ResourceFieldsTrait;
 	use Controller\CrudNavigationTrait;
 	
 	public function getIndexNavigationConfig()
@@ -107,8 +108,9 @@ class ResourcesController extends Controller\AbstractController
 		}
 		
 		return $this->returnViewModel( array(
-			'model'	=> $model,
-			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
+			'model'		=> $model,
+			'fields'	=> $this->getResourceFieldsMapper()->fetchForResource($model),
+			'crud'		=> $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
 	}
 	

@@ -1,7 +1,7 @@
 <?php
 
 $elementType = $element->getAttribute('type');
-if (!in_array($elementType, array('submit'))) {
+if (!in_array($elementType, array('submit', 'checkbox'))) {
 	$element->setAttribute('class', 'form-control');
 }
 if (!$elementType) {
