@@ -5,10 +5,11 @@ namespace Omelettes\Controller;
 use Omelettes\Form,
 	Omelettes\Model;
 use Zend\EventManager\EventManagerInterface,
-	Zend\Permissions\Acl,
+	Zend\Http\Response as HttpResponse,
 	Zend\Log\Logger,
 	Zend\Mvc\MvcEvent,
 	Zend\Mvc\Controller\AbstractActionController,
+	Zend\Permissions\Acl,
 	Zend\View\Model\JsonModel,
 	Zend\View\Model\ViewModel;
 

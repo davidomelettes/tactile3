@@ -74,6 +74,12 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Contact());
 					return new TableGateway('quanta_view', $dbAdapter, null, $resultSetPrototype);
 				},
+				'Tactile\Model\QuantaMapper' => function($sm) {
+					$readGateway = $sm->get('QuantaViewGateway');
+					$writeGateway = $sm->get('QuantaTableGateway');
+					$mapper = new Model\QuantaMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
 				
 				// Contacts
 				'Tactile\Model\ContactsMapper' => function ($sm) {

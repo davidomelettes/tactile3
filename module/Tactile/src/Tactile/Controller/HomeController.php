@@ -11,4 +11,9 @@ class HomeController extends Controller\AbstractController
 		
 	}
 	
+	public function welcomeAction()
+	{
+		
+	}
+	
 }

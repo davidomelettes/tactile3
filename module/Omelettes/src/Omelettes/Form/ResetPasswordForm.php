@@ -28,7 +28,7 @@ class ResetPasswordForm extends NamedItemForm
 			),
 			'attributes'=> array(
 				'id'			=> $this->getName() . 'VerifyPassword',
-				'placeholder'	=> 'Verify Password',
+				'placeholder'	=> 'Verify New Password',
 				'autocomplete'	=> 'off',
 			),
 		));

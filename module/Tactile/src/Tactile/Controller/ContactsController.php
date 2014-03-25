@@ -5,7 +5,7 @@ namespace Tactile\Controller;
 use Tactile\Model;
 use Omelettes\Controller;
 
-class ContactsController extends Controller\AbstractController
+class ContactsController extends QuantaController
 {
 	use ContactsTrait {
 		ContactsTrait::getQuantaMapper as getContactsMapper;

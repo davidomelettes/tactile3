@@ -5,7 +5,7 @@ namespace Tactile\Model;
 use Omelettes\Model\AccountBoundNamedItemsMapper;
 use Zend\Db\Sql\Predicate;
 
-abstract class QuantaMapper extends AccountBoundNamedItemsMapper
+class QuantaMapper extends AccountBoundNamedItemsMapper
 {
 	/**
 	 * @var Resource

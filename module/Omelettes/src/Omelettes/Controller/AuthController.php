@@ -59,7 +59,7 @@ class AuthController extends AbstractController
 		$mailer->setTextTemplate('mail/text/reset-password', $variables);
 		
 		$mailer->send(
-			'Subject Text',
+			'Password Reset Requested',
 			$emailAddress
 		);
 	}
@@ -163,7 +163,7 @@ class AuthController extends AbstractController
 			'users',
 			'key',
 			'password_reset_key',
-			"password_reset_requested IS NOT NULL AND password_reset_requested > (now() - interval '1 day') password_reset_key IS NOT NULL AND acl_role != 'system'"
+			"password_reset_requested IS NOT NULL AND password_reset_requested > (now() - interval '3 hours') password_reset_key IS NOT NULL AND acl_role != 'system'"
 		);
 		$dbTableResetPasswordAuthAdapter->setIdentity($this->params('user_key'))
 			->setCredential($this->params('password_reset_key'));

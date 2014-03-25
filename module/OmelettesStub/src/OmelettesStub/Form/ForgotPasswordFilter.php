@@ -3,7 +3,7 @@
 namespace OmelettesAuth\Form;
 
 use Omelettes\Form\NamedItemFilter,
-	Omelettes\Validator\Model\ModelExists;
+	Omelettes\Validator\Model\Exists;
 use OmelettesAuth\Model\UsersMapper;
 use Zend\InputFilter\InputFilter,
 	Zend\Validator\EmailAddress;
@@ -43,14 +43,14 @@ class ForgotPasswordFilter extends NamedItemFilter
 						),
 					),
 					array(
-						'name'		=> 'Omelettes\Validator\Model\ModelExists',
+						'name'		=> 'Omelettes\Validator\Model\Exists',
 						'options'	=> array(
 							'table'		=> 'users',
 							'field'		=> 'name',
 							'mapper'	=> $this->usersMapper,
 							'method'	=> 'findByName',
 							'messages'	=> array(
-								ModelExists::ERROR_MODEL_DOES_NOT_EXIST => 'No user with that email address was found',
+								Exists::ERROR_MODEL_DOES_NOT_EXIST => 'No user with that email address was found',
 							),
 						),
 					),

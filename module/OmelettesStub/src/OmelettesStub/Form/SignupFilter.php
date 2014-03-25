@@ -3,8 +3,8 @@
 namespace OmelettesSignup\Form;
 
 use Omelettes\Form\NamedItemFilter,
-	Omelettes\Validator\Model\ModelDoesNotExist,
-	Omelettes\Validator\Model\ModelExists,
+	Omelettes\Validator\Model\DoesNotExist,
+	Omelettes\Validator\Model\Exists,
 	Omelettes\Validator\Uuid\V4 as UuidValidator;
 use OmelettesSignup\Model\InvitationCodesMapper,
 	OmelettesSignup\Model\UsersMapper as SignupUsersMapper;
@@ -68,12 +68,12 @@ class SignupFilter extends NamedItemFilter
 						),
 					),
 					array(
-						'name'		=> 'Omelettes\Validator\Model\ModelDoesNotExist',
+						'name'		=> 'Omelettes\Validator\Model\DoesNotExist',
 						'options'	=> array(
 							'mapper'	=> $this->usersMapper,
 							'method'	=> 'findByName',
 							'messages'	=> array(
-								ModelDoesNotExist::ERROR_MODEL_EXISTS => 'A user with that email address already exists',
+								DoesNotExist::ERROR_MODEL_EXISTS => 'A user with that email address already exists',
 							),
 						),
 					),

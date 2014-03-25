@@ -7,14 +7,15 @@ use Omelettes\Controller;
 
 class QuantaController extends Controller\AbstractController
 {
+	use QuantaTrait;
 	use Controller\CrudNavigationTrait;
 	
 	protected function preDispatch()
 	{
 		// Ensure this controller always has its resource
 		if (!$this->getQuantumResource()) {
-			// Something bad happened
-			throw new \Exception('what');
+			// Unable to load a resource, handle as 404
+			return $this->notFoundAction();
 		}
 		
 		return;

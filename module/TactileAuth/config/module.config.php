@@ -94,8 +94,6 @@ return array(
 	),
 	'view_manager' => array(
 		'template_map' => array(
-			'mail/text/reset-password'	=> __DIR__ . '/../view/mail/reset-password.phtml',
-			'mail/html/reset-password'	=> __DIR__ . '/../view/mail/html/reset-password.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',

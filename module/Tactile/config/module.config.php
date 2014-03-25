@@ -6,26 +6,27 @@ return array(
 		'resources' => array(
 			'user' => array(
 				'home' => array(),
+				'quanta' => array(),
+				
 				'contacts' => array(),
 				'opportunities' => array(),
 				'activities' => array(),
 				'comms' => array(),
 				'search' => array(),
-				'resource' => array(),
 			),
 		),
 	),
 	'controllers' => array(
 		'invokables' => array(
 			'Tactile\Controller\Home' => 'Tactile\Controller\HomeController',
+			
+			'Tactile\Controller\Quanta' => 'Tactile\Controller\QuantaController',
+			
 			'Tactile\Controller\Contacts' => 'Tactile\Controller\ContactsController',
 			'Tactile\Controller\Communication' => 'Tactile\Controller\CommunicationController',
-			
 			'Tactile\Controller\Opportunities' => 'Tactile\Controller\OpportunitiesController',
 			'Tactile\Controller\Activities' => 'Tactile\Controller\ActivitiesController',
 			'Tactile\Controller\Search' => 'Tactile\Controller\SearchController',
-			
-			'Tactile\Controller\Resource' => 'Tactile\Controller\ResourceController',
 		),
 	),
 	'navigation' => array(
@@ -114,7 +115,7 @@ return array(
 					),
 				),
 			),
-			'resource' => array(
+			'quanta' => array(
 				'type' => 'Segment',
 				'options' => array(
 					'route'			=> '/:resource_name[/:action][/:key]',
@@ -122,7 +123,7 @@ return array(
 						'key'			=> Omelettes\Validator\Uuid::UUID_REGEX_PATTERN,
 					),
 					'defaults'		=> array(
-						'controller'	=> 'Tactile\Controller\Resource',
+						'controller'	=> 'Tactile\Controller\Quanta',
 						'action'		=> 'index',
 					),
 				),
