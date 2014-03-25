@@ -2,10 +2,15 @@
 
 namespace Tactile\Model;
 
-use Omelettes\Model\AccountBoundNamedItemModel;
+use Omelettes\Model\AccountBoundNamedItemModel,
+	Omelettes\Validator;
+use Zend\ServiceManager\ServiceLocatorAwareInterface,
+	Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-class ResourceField extends AccountBoundNamedItemModel
+class ResourceField extends AccountBoundNamedItemModel implements ServiceLocatorAwareInterface
 {
+	use ServiceLocatorAwareTrait;
+	
 	protected $type;
 	protected $label;
 	protected $protected;
@@ -62,6 +67,93 @@ class ResourceField extends AccountBoundNamedItemModel
 					),
 					'attributes'=> array(
 						'id'		=> $this->name,
+					),
+				);
+				break;
+			default:
+				throw new \Exception('Unexpected field type: ' . $this->type);
+		}
+		
+		return $spec;
+	}
+	
+	public function getInputFilterSpecification()
+	{
+		$spec = array();
+		
+		switch ($this->type) {
+			case 'varchar':
+				$spec = array(
+					'name'			=> 'name',
+					'required'		=> true,
+					'filters'		=> array(
+						array('name' => 'StripTags'),
+						array('name' => 'StringTrim'),
+					),
+					'validators'	=> array(
+						array(
+							'name'		=> 'StringLength',
+							'options'	=> array(
+								'encoding'	=> 'UTF-8',
+								'min'		=> 1,
+								'max'		=> 255,
+							),
+						),
+					),
+				);
+				break;
+			case 'text':
+				$spec = array(
+					'name'			=> 'name',
+					'required'		=> true,
+					'filters'		=> array(
+						array('name' => 'StripTags'),
+						array('name' => 'StringTrim'),
+					),
+					'validators'	=> array(
+					),
+				);
+				break;
+			case 'datetime':
+				$spec = array(
+					'name'			=> 'name',
+					'required'		=> true,
+					'filters'		=> array(
+						array('name' => 'StripTags'),
+						array('name' => 'StringTrim'),
+					),
+					'validators'	=> array(
+						array(
+							'name'		=> 'StringLength',
+							'options'	=> array(
+								'encoding'	=> 'UTF-8',
+								'min'		=> 1,
+								'max'		=> 255,
+							),
+						),
+					),
+				);
+				break;
+			case 'user':
+				$spec = array(
+					'name'			=> 'name',
+					'required'		=> true,
+					'filters'		=> array(
+						array('name' => 'StripTags'),
+						array('name' => 'StringTrim'),
+					),
+					'validators'	=> array(
+						array(
+							'name'		=> 'Omelettes\Validator\Model\Exists',
+							'options'	=> array(
+								'table'		=> 'users',
+								'field'		=> 'key',
+								'mapper'	=> $this->getS,
+								'messages'	=> array(
+									Exists::ERROR_MODEL_DOES_NOT_EXIST => 'User not found',
+								),
+							),
+						),
 					),
 				);
 				break;

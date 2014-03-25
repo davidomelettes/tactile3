@@ -27,33 +27,43 @@ class Module
 	{
 		return array(
 			'factories' => array(
-				// Resources & Quanta
+				// Resources
+				'Tactile\Model\Resource' => function ($sm) {
+					$model = new Model\Resource();
+					return $model;
+				},
 				'ResourcesViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Resource());
+					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\Resource'));
 					return new TableGateway('resources_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Tactile\Model\ResourcesMapper' => function($sm) {
+				'Tactile\Model\ResourcesMapper' => function ($sm) {
 					$readGateway = $sm->get('ResourcesViewGateway');
 					$mapper = new Model\ResourcesMapper($readGateway);
 					return $mapper;
 				},
-				'Tactile\Model\ResourceMapper' => function($sm) {
+				'Tactile\Model\ResourceMapper' => function ($sm) {
 					$readGateway = $sm->get('AdminResourcesViewGateway');
 					$mapper = new Model\ResourcesMapper($readGateway);
 					return $mapper;
 				},
+				
+				// Resource Fields
+				'Tactile\Model\ResourceField' => function ($sm) {
+					$model = new Model\ResourceField();
+					return $model;
+				},
 				'ResourceFieldsViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\ResourceField());
+					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\ResourceField'));
 					return new TableGateway('resource_fields_view', $dbAdapter, null, $resultSetPrototype);
 				},
 				'ResourceFieldsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\ResourceField());
+					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\ResourceField'));
 					return new TableGateway('resource_fields', $dbAdapter, null, $resultSetPrototype);
 				},
 				'Tactile\Model\ResourceFieldsMapper' => function($sm) {

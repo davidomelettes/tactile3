@@ -3,9 +3,13 @@
 namespace Tactile\Model;
 
 use Omelettes\Model\AccountBoundNamedItemModel;
+use Zend\ServiceManager\ServiceLocatorAwareInterface,
+	Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-class Resource extends AccountBoundNamedItemModel
+class Resource extends AccountBoundNamedItemModel implements ServiceLocatorAwareInterface
 {
+	use ServiceLocatorAwareTrait;
+	
 	protected $labelSingular;
 	protected $labelPlural;
 	protected $nameLabel;
