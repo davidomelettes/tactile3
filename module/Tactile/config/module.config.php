@@ -6,6 +6,7 @@ return array(
 		'resources' => array(
 			'user' => array(
 				'home' => array(),
+				'welcome' => array(),
 				'quanta' => array(),
 				
 				'contacts' => array(),
@@ -59,6 +60,16 @@ return array(
 					'defaults'		=> array(
 						'controller'	=> 'Tactile\Controller\Home',
 						'action'		=> 'home',
+					),
+				),
+			),
+			'welcome' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/welcome',
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\Home',
+						'action'		=> 'welcome',
 					),
 				),
 			),
