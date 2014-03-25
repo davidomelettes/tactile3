@@ -1,4 +1,7 @@
 RewriteEngine On
+# The following rule tells apache to redirect requests with an
+# uri with a trailing slash to a non-trailing-slash uri
+RewriteRule ^(.+)/+$ /$1 [R=301,L]
 # The following rule tells Apache that if the requested filename
 # exists, simply serve it.
 RewriteCond %{REQUEST_FILENAME} -s [OR]
