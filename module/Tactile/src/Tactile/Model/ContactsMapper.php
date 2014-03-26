@@ -6,12 +6,12 @@ class ContactsMapper extends QuantaMapper
 {
 	public function createContact(Contact $contact)
 	{
-		return $this->createNamedItem($contact);
+		return $this->createModel($contact);
 	}
 	
 	public function saveContact(Contact $contact)
 	{
-		return $this->updateNamedItem($contact);
+		return $this->updateModel($contact);
 	}
 	
 }

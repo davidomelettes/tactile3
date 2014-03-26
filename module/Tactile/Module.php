@@ -66,12 +66,14 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\ResourceField'));
 					return new TableGateway('resource_fields', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Tactile\Model\ResourceFieldsMapper' => function($sm) {
+				'Tactile\Model\ResourceFieldsMapper' => function ($sm) {
 					$readGateway = $sm->get('ResourceFieldsViewGateway');
 					$writeGateway = $sm->get('ResourceFieldsTableGateway');
 					$mapper = new Model\ResourceFieldsMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
+				
+				// Quanta
 				'QuantaTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
@@ -84,12 +86,17 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Contact());
 					return new TableGateway('quanta_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Tactile\Model\QuantaMapper' => function($sm) {
+				'Tactile\Model\QuantaMapper' => function ($sm) {
 					$readGateway = $sm->get('QuantaViewGateway');
 					$writeGateway = $sm->get('QuantaTableGateway');
 					$mapper = new Model\QuantaMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
+				'Tactile\Form\QuantumFilter' => function ($sm) {
+					$filter = new Form\QuantumFilter();
+					return $filter;
+				},
+				
 				
 				// Contacts
 				'Tactile\Model\ContactsMapper' => function ($sm) {

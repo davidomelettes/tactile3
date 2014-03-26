@@ -84,8 +84,8 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 		switch ($this->type) {
 			case 'varchar':
 				$spec = array(
-					'name'			=> 'name',
-					'required'		=> true,
+					'name'			=> $this->name,
+					'required'		=> $this->required,
 					'filters'		=> array(
 						array('name' => 'StripTags'),
 						array('name' => 'StringTrim'),
@@ -104,8 +104,8 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 				break;
 			case 'text':
 				$spec = array(
-					'name'			=> 'name',
-					'required'		=> true,
+					'name'			=> $this->name,
+					'required'		=> $this->required,
 					'filters'		=> array(
 						array('name' => 'StripTags'),
 						array('name' => 'StringTrim'),
@@ -116,8 +116,8 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 				break;
 			case 'datetime':
 				$spec = array(
-					'name'			=> 'name',
-					'required'		=> true,
+					'name'			=> $this->name,
+					'required'		=> $this->required,
 					'filters'		=> array(
 						array('name' => 'StripTags'),
 						array('name' => 'StringTrim'),
@@ -136,8 +136,8 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 				break;
 			case 'user':
 				$spec = array(
-					'name'			=> 'name',
-					'required'		=> true,
+					'name'			=> $this->name,
+					'required'		=> $this->required,
 					'filters'		=> array(
 						array('name' => 'StripTags'),
 						array('name' => 'StringTrim'),
@@ -148,9 +148,9 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 							'options'	=> array(
 								'table'		=> 'users',
 								'field'		=> 'key',
-								'mapper'	=> $this->getS,
+								'mapper'	=> $this->getServiceLocator()->get('Omelettes\Model\AuthUsersMapper'),
 								'messages'	=> array(
-									Exists::ERROR_MODEL_DOES_NOT_EXIST => 'User not found',
+									Validator\Model\Exists::ERROR_MODEL_DOES_NOT_EXIST => 'User not found',
 								),
 							),
 						),

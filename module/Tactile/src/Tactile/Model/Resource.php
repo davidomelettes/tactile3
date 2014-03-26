@@ -15,11 +15,24 @@ class Resource extends AccountBoundNamedItemModel implements ServiceLocatorAware
 	protected $nameLabel;
 	protected $protected;
 	
+	protected $fields = null;
+	
 	protected $propertyMap = array(
 		'labelSingular'				=> 'label_singular',
 		'labelPlural'				=> 'label_plural',
 		'nameLabel'					=> 'name_label',
 		'protected'					=> 'protected',
 	);
+	
+	public function getFields()
+	{
+		if (is_null($this->fields)) {
+			$fieldsMapper = $this->getServiceLocator()->get('Tactil\Model\ResourceFieldsMapper');
+			$fields = $fieldsMapper->fetchForResource($this);
+			$this->fields = $fields;
+		}
+		
+		return $this->fields;
+	}
 	
 }

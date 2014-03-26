@@ -2,7 +2,7 @@
 
 namespace Tactile\Model;
 
-class Contact extends QuantumModel
+class Contact extends Quantum
 {
 	public function getTableHeadings()
 	{

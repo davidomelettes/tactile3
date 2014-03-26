@@ -35,10 +35,16 @@ class QuantaMapper extends AccountBoundNamedItemsMapper
 		return $where;
 	}
 	
-	protected function prepareSaveData(QuantumModel $model)
+	protected function prepareSaveData(Quantum $model)
 	{
 		$data = parent::prepareSaveData($model);
-		$data['resource_name'] = $this->resource->name;
+		$data = array_merge(
+			$data,
+			array(
+				'resource_name'		=> $this->resource->name,
+				'xml_specification'	=> $this->toXml(),
+			)
+		);
 	
 		return $data;
 	}

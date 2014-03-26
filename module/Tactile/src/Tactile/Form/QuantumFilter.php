@@ -2,6 +2,7 @@
 
 namespace Tactile\Form;
 
+use Tactile\Model;
 use Omelettes\Form\NamedItemFilter;
 
 class QuantumFilter extends NamedItemFilter
@@ -28,10 +29,10 @@ class QuantumFilter extends NamedItemFilter
 			$inputFilter = parent::getInputFilter();
 			$factory = $inputFilter->getFactory();
 			
-			$fieldsMapper = $this->getApplicationServiceLocator()->get('Tactile\Model\ResourceFieldsMapper');
+			$fieldsMapper = $this->getServiceLocator()->get('Tactile\Model\ResourceFieldsMapper');
 			$fields = $fieldsMapper->fetchForResource($this->resource);
 			foreach ($fields as $field) {
-				$this->add($factory->createInput($field->getInputFilterSpecification()));
+				$inputFilter->add($factory->createInput($field->getInputFilterSpecification()));
 			}
 			
 			$this->inputFilter = $inputFilter;

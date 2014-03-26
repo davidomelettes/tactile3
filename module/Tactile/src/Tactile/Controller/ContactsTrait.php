@@ -31,6 +31,7 @@ trait ContactsTrait
 	{
 		if (!$this->quantum) {
 			$model = new Model\Contact();
+			$model->setResource($this->getQuantumResource());
 			$this->quantum = $model;
 		}
 		

@@ -94,8 +94,22 @@ class NamedItemModel extends AbstractModel implements Tabulatable, \JsonSerializ
 		return $this->getArrayCopy();
 	}
 
+	/**
+	 * Used in model hydration; does not set any properties not specified in the argument array
+	 * @see \Omelettes\Model\AbstractModel::exchangeArray()
+	 */
 	public function exchangeArray($data)
 	{
+		$map = $this->getPropertyMap();
+		foreach ($data as $key => $value) {
+			if (false !== ($property = array_search($key, $map))) {
+				$setterMethodName = 'set'.ucfirst($property);
+				$this->$setterMethodName($value);
+			} else {
+				// Trying to set an unrecognised property; ignore
+			}
+		}
+		/*
 		$key = $this->key;
 		if ($key) {
 			// Don't allow hydration to change/lose the key
@@ -107,6 +121,7 @@ class NamedItemModel extends AbstractModel implements Tabulatable, \JsonSerializ
 			$setterMethodName = 'set'.ucfirst($property);
 			$this->$setterMethodName(isset($data[$column]) ? $data[$column] : null);
 		}
+		*/
 
 		return $this;
 	}

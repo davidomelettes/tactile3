@@ -115,6 +115,7 @@ trait QuantaTrait
 	{
 		if (!$this->quantum) {
 			$model = new Model\Quantum();
+			$model->setResource($this->getQuantumResource());
 			$this->quantum = $model;
 		}
 		
@@ -132,11 +133,13 @@ trait QuantaTrait
 	}
 	
 	/**
-	 * @return Filter\QuantumFilter
+	 * @return Form\QuantumFilter
 	 */
 	public function getQuantumFilter()
 	{
-		return $this->getFilter('Tactile\Form\QuantumFilter');
+		$filter = $this->getFilter('Tactile\Form\QuantumFilter');
+		$filter->setResource($this->getQuantumResource());
+		return $filter;
 	}
 	
 }
