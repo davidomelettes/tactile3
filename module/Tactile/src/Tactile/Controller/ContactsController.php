@@ -29,9 +29,7 @@ class ContactsController extends QuantaController
 	
 	protected function postDispatch()
 	{
-		$viewHelperManager = $this->getServiceLocator()->get('viewHelperManager');
-		$headTitleHelper = $viewHelperManager->get('headTitle');
-		$headTitleHelper->append('Contacts');
+		$this->addPageTitleSegment('Contacts');
 		
 		return;
 	}
@@ -119,6 +117,7 @@ class ContactsController extends QuantaController
 		if (!$model) {
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
+		$this->addPageTitleSegment($model->name);
 		
 		return $this->returnViewModel( array(
 			'model'	=> $model,

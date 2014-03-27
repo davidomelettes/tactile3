@@ -81,6 +81,8 @@ class AuthController extends AbstractController
 			$this->flashMessenger()->addSuccessMessage('Welcome back!');
 			return $this->redirect()->toRoute('home');
 		}
+		$this->addPageTitleSegment('Sign In');
+		
 		$form = $this->getLoginForm();
 		
 		$request = $this->getRequest();

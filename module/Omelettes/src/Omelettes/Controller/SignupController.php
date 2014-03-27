@@ -12,6 +12,13 @@ class SignupController extends AbstractController
 	use AuthUsersTrait;
 	use SignupFormsTrait;
 	
+	protected function postDispatch()
+	{
+		$this->addPageTitleSegment('Sign Up');
+		
+		return;
+	}
+	
 	protected function postSignupSetup()
 	{
 		return true;

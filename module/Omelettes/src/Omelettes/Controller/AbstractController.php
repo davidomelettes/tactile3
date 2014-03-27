@@ -98,6 +98,22 @@ abstract class AbstractController extends AbstractActionController
 		return $this->logger;
 	}
 	
+	public function addPageTitleSegment($title, $append = true)
+	{
+		$viewHelperManager = $this->getServiceLocator()->get('viewHelperManager');
+		/**
+		 * @var \Zend\View\Helper\HeadTitle
+		 */
+		$headTitleHelper = $viewHelperManager->get('headTitle');
+		if ($append) {
+			$headTitleHelper->append($title);
+		} else {
+			$headTitleHelper->prepend($title);
+		}
+		
+		return $this;
+	}
+	
 	/**
 	 * Override the default EventManager setter to allow us to specify a pre-dispatch event handler
 	 */
