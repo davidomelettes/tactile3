@@ -115,13 +115,24 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				// Logging
 				'Omelettes\Logger' => function ($sm) {
 					$config = $sm->get('config');
-					$logWriter = new Log\Writer\Stream('php://output');
-					if (isset($config['log_levels']['stream'])) {
-						$filter = new Log\Filter\Priority($config['log_levels']['stream']);
-						$logWriter->addFilter($filter);
-					}
 					$logger = new Logger();
-					$logger->addWriter($logWriter);
+					if (isset($config['log_levels']['stream'])) {
+						$streamWriter = new Log\Writer\Stream('php://output');
+						$streamfilter = new Log\Filter\Priority($config['log_levels']['stream']);
+						$streamWriter->addFilter($streamfilter);
+						$logger->addWriter($streamWriter);
+					}
+					if (isset($config['log_levels']['db'])) {
+						$mapping = array(
+							'message' => 'message',
+							'priority' => 'level',
+							'extra' => array('tag' => 'tag'),
+						);
+						$dbWriter = new Log\Writer\Db($sm->get('Zend\Db\Adapter\Adapter'), 'log', $mapping);
+						$dbFilter = new Log\Filter\Priority($config['log_levels']['db']);
+						$dbWriter->addFilter($dbFilter);
+						$logger->addWriter($dbWriter);
+					}
 					return $logger;
 				},
 				

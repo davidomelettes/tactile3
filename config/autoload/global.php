@@ -11,10 +11,16 @@
  * file.
  */
 
+use Zend\Log;
+
 return array(
-    'db' => array(
+	'db' => array(
 		'driver'			=> 'Pdo',
 		'dsn'				=> 'pgsql:host=localhost;port=5433;dbname=omelettes',
+	),
+	'log_levels' => array(
+		'stream' => Log\Logger::DEBUG,
+		'db' => Log\Logger::DEBUG,
 	),
 	'service_manager' => array(
 		'factories' => array(

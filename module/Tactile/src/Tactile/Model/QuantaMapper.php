@@ -3,7 +3,8 @@
 namespace Tactile\Model;
 
 use Omelettes\Model\AccountBoundNamedItemsMapper;
-use Zend\Db\Sql\Predicate;
+use Zend\Db\Sql\Predicate,
+	Zend\Db\Sql\Select;
 
 class QuantaMapper extends AccountBoundNamedItemsMapper
 {
@@ -21,6 +22,23 @@ class QuantaMapper extends AccountBoundNamedItemsMapper
 		
 		return $this;
 	}
+	
+	/**
+	 * Overriding to ensure all results have links to the resource
+	 *
+	 * @param Select $select
+	 * @return ResultSet
+	 *
+	protected function select(Select $select)
+	{
+		$resultSet = $this->readTableGateway->selectWith($select);
+		$resultSet->buffer();
+		foreach ($resultSet as $quantum) {
+			$quantum->setResource($this->resource);
+		}
+		return $resultSet;
+	}
+	*/
 	
 	protected function getDefaultWhere()
 	{
@@ -41,8 +59,8 @@ class QuantaMapper extends AccountBoundNamedItemsMapper
 		$data = array_merge(
 			$data,
 			array(
-				'resource_name'		=> $this->resource->name,
-				'xml_specification'	=> $this->toXml(),
+				'resource_name'		=> $model->resource->name,
+				'xml_specification'	=> $model->toXml(),
 			)
 		);
 	

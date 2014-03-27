@@ -39,7 +39,7 @@ class ContactsController extends QuantaController
 		);
 	}
 	
-	public function getViewNavigationConfig(Model\Contact $model)
+	public function getViewNavigationConfig(Model\Quantum $model)
 	{
 		return array(
 			array(
@@ -65,6 +65,7 @@ class ContactsController extends QuantaController
 			if (!$model) {
 				$this->flashMessenger()->addErrorMessage('Failed to find Contact with key: ' . $this->params('key'));
 			}
+			$model->inflate();
 			return $model;
 		}
 		$this->flashMessenger()->addErrorMessage('Missing identifier');

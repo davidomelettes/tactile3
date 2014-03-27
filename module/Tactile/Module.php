@@ -43,10 +43,9 @@ class Module
 					$mapper = new Model\ResourcesMapper($readGateway);
 					return $mapper;
 				},
-				'Tactile\Model\ResourceMapper' => function ($sm) {
-					$readGateway = $sm->get('AdminResourcesViewGateway');
-					$mapper = new Model\ResourcesMapper($readGateway);
-					return $mapper;
+				'ResourceService' => function ($sm) {
+					$service = new Service\ResourceService($sm->get('Tactile\Model\ResourcesMapper'));
+					return $service;
 				},
 				
 				// Resource Fields
@@ -74,16 +73,20 @@ class Module
 				},
 				
 				// Quanta
+				'Tactile\Model\Quantum' => function ($sm) {
+					$model = new Model\Quantum();
+					return $model;
+				},
 				'QuantaTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Contact());
+					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\Quantum'));
 					return new TableGateway('quanta', $dbAdapter, null, $resultSetPrototype);
 				},
 				'QuantaViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\Contact());
+					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\Quantum'));
 					return new TableGateway('quanta_view', $dbAdapter, null, $resultSetPrototype);
 				},
 				'Tactile\Model\QuantaMapper' => function ($sm) {
@@ -99,9 +102,25 @@ class Module
 				
 				
 				// Contacts
+				'Tactile\Model\Contact' => function ($sm) {
+					$model = new Model\Contact();
+					return $model;
+				},
+				'ContactsTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\Contact'));
+					return new TableGateway('quanta', $dbAdapter, null, $resultSetPrototype);
+				},
+				'ContactsViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\Contact'));
+					return new TableGateway('quanta_view', $dbAdapter, null, $resultSetPrototype);
+				},
 				'Tactile\Model\ContactsMapper' => function ($sm) {
-					$readGateway = $sm->get('QuantaViewGateway');
-					$writeGateway = $sm->get('QuantaTableGateway');
+					$readGateway = $sm->get('ContactsViewGateway');
+					$writeGateway = $sm->get('ContactsTableGateway');
 					$mapper = new Model\ContactsMapper($readGateway, $writeGateway);
 					$resourcesMapper = $sm->get('Tactile\Model\ResourcesMapper');
 					$mapper->setResource($resourcesMapper->findByName('contacts'));

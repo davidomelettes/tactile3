@@ -24,11 +24,23 @@ class Resource extends AccountBoundNamedItemModel implements ServiceLocatorAware
 		'protected'					=> 'protected',
 	);
 	
+	public function getBlankFieldValues()
+	{
+		$values = array();
+		
+		foreach ($this->getFields() as $field) {
+			$values[$field->name] = new QuantumFieldValue($field->type);
+		}
+		
+		return $values;
+	}
+	
 	public function getFields()
 	{
 		if (is_null($this->fields)) {
-			$fieldsMapper = $this->getServiceLocator()->get('Tactil\Model\ResourceFieldsMapper');
+			$fieldsMapper = $this->getServiceLocator()->get('Tactile\Model\ResourceFieldsMapper');
 			$fields = $fieldsMapper->fetchForResource($this);
+			$fields->buffer();
 			$this->fields = $fields;
 		}
 		
