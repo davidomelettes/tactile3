@@ -21,8 +21,17 @@ class ContactsController extends QuantaController
 		// Ensure this controller always has its resource
 		if (!$this->getQuantumResource('contacts')) {
 			// Something bad happened
-			throw new \Exception('what');
+			throw new \Exception('Missing contacts resource');
 		}
+		
+		return;
+	}
+	
+	protected function postDispatch()
+	{
+		$viewHelperManager = $this->getServiceLocator()->get('viewHelperManager');
+		$headTitleHelper = $viewHelperManager->get('headTitle');
+		$headTitleHelper->append('Contacts');
 		
 		return;
 	}

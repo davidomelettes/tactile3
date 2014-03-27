@@ -109,12 +109,23 @@ abstract class AbstractController extends AbstractActionController
 		$events->attach(MvcEvent::EVENT_DISPATCH, function ($e) use ($controller) {
 			return $controller->preDispatch();
 		}, 100);
+		$events->attach(MvcEvent::EVENT_DISPATCH, function ($e) use ($controller) {
+			return $controller->postDispatch();
+		}, -100);
 	}
 	
 	/**
 	 * Can be overriden to specify pre-action controller logic
 	 */
 	protected function preDispatch()
+	{
+		return;
+	}
+	
+	/**
+	 * Can be overriden to specify post-action controller logic
+	 */
+	protected function postDispatch()
 	{
 		return;
 	}
