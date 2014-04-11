@@ -33,7 +33,7 @@ class QuantaController extends Controller\AbstractController
 		);
 	}
 	
-	public function getViewNavigationConfig(Model\Contact $model)
+	public function getViewNavigationConfig($model)
 	{
 		return array(
 			array(
@@ -47,6 +47,30 @@ class QuantaController extends Controller\AbstractController
 				'route'			=> $this->getRouteName(),
 				'routeOptions'	=> array('action' => 'delete', 'key' => $model->key),
 				'icon'			=> 'trash',
+			),
+		);
+	}
+
+	public function getAddNavigationConfig($model)
+	{
+		return array(
+			array(
+				'label'			=> 'Cancel',
+				'route'			=> $this->getRouteName(),
+				'routeOptions'	=> array('action' => 'index'),
+				'icon'			=> 'remove',
+			),
+		);
+	}
+	
+	public function getEditNavigationConfig($model)
+	{
+		return array(
+			array(
+				'label'			=> 'Cancel',
+				'route'			=> $this->getRouteName(),
+				'routeOptions'	=> array('action' => 'view', 'key' => $model->key),
+				'icon'			=> 'remove',
 			),
 		);
 	}

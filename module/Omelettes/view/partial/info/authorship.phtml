@@ -1,12 +1,22 @@
-<dl class="dl-inline">
-	<dt><span class="glyphicon glyphicon-time"></span> Created by</dt>
+<?php $model = $this->model; ?>
+<dl class="authorship dl-inline small">
+	<dt><span class="glyphicon glyphicon-time"></span> Created</dt>
 	<dd>
-		<?php echo $this->prettyUser($this->model->createdBy); ?>
-	</dd>
-	<?php if ($this->model->created !== $this->model->updated): ?>
-	<dt>Updated by </dt>
+		<span title="<?php echo $model->created; ?>"><?php echo $this->prettyTime($model->created); ?></span>
+	</dd> 
+	<dt>by</dt>
 	<dd>
-		<?php echo $this->prettyUser($this->model->updatedBy); ?>
+		<?php echo $this->prettyUser($model->createdBy); ?><?php if ($model->created !== $model->updated): ?>,
 	</dd>
+	<dt>last updated </dt>
+	<dd>
+		<span title="<?php echo $model->updated; ?>"><?php echo $this->prettyTime($model->updated); ?></span>
+	</dd>
+	<?php if ($model->createdBy !== $model->updatedBy): ?>
+	<dt>by</dt>
+	<dd>
+		<?php echo $this->prettyUser($model->updatedBy); ?>
 	<?php endif; ?>
+	<?php endif; ?>
+	</dd>
 </dl>

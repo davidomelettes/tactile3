@@ -11,7 +11,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'resources',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'name'				=> 'VARCHAR(256) NOT NULL',
 				'created'			=> 'TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()',
@@ -32,7 +32,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'resource_fields',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'name'				=> 'VARCHAR(256) NOT NULL',
@@ -58,7 +58,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate('resource_field_options',
 			// key column is not the primary key
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -91,37 +91,43 @@ class Migration002Quanta extends AbstractMigration
 		$this->viewCreate('quanta_view', 'SELECT * FROM quanta');
 		
 		// Handles possible future revision history
-		$this->logger->debug("Creating audit function and trigger");
+		$this->logger->debug("Creating audit function and trigger", array('tag' => 'migration'));
 		$this->executeQueryString("
 			CREATE OR REPLACE FUNCTION quanta_audit()
 			RETURNS trigger
 			LANGUAGE plpgsql
 			AS $$
 				BEGIN
-					INSERT INTO quanta 
-					(
-						name,
-						created,
-						updated,
-						created_by,
-						updated_by,
-						deleted,
-						account_key,
-						resource_name,
-						xml_specification,
-						current_version_key
-					)
-					SELECT
-						OLD.name,
-						OLD.created,
-						OLD.updated,
-						OLD.created_by,
-						OLD.updated_by,
-						OLD.deleted,
-						OLD.account_key,
-						OLD.resource_name,
-						OLD.xml_specification,
-						OLD.key;
+					IF (
+						NEW.name != OLD.name OR
+						NEW.updated_by != OLD.updated_by OR
+						NEW.xml_specification != OLD.xml_specification
+					) THEN
+						INSERT INTO quanta 
+						(
+							name,
+							created,
+							updated,
+							created_by,
+							updated_by,
+							deleted,
+							account_key,
+							resource_name,
+							xml_specification,
+							current_version_key
+						)
+						SELECT
+							OLD.name,
+							OLD.created,
+							OLD.updated,
+							OLD.created_by,
+							OLD.updated_by,
+							OLD.deleted,
+							OLD.account_key,
+							OLD.resource_name,
+							OLD.xml_specification,
+							OLD.key;
+					END IF;
 					RETURN NEW;
 				END;
 			$$;
@@ -137,7 +143,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_varchar',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -151,7 +157,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_integer',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -165,7 +171,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_boolean',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -179,7 +185,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_numeric',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -193,7 +199,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_text',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -207,7 +213,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_timestamp',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -221,7 +227,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_user',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -235,7 +241,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_search_option',
 			array(
-				'key'				=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'				=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'		=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'resource_name'		=> 'VARCHAR(256) NOT NULL',
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
@@ -251,7 +257,7 @@ class Migration002Quanta extends AbstractMigration
 		$this->tableCreate(
 			'quantum_relationships',
 			array(
-				'key'					=> 'UUID NOT NULL DEFAULT uuid_generate_v4()',
+				'key'					=> 'UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4()',
 				'account_key'			=> 'UUID NOT NULL REFERENCES accounts(key)',
 				'parent_resource_name'	=> 'VARCHAR(256) NOT NULL',
 				'parent_key'			=> 'UUID NOT NULL REFERENCES quanta(key)',

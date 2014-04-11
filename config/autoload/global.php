@@ -18,7 +18,7 @@ return array(
 		'driver'			=> 'Pdo',
 		'dsn'				=> 'pgsql:host=localhost;port=5433;dbname=omelettes',
 	),
-	'log_levels' => array(
+	'log_filters' => array(
 		'stream' => Log\Logger::DEBUG,
 		'db' => Log\Logger::DEBUG,
 	),

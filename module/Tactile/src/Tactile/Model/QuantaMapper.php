@@ -23,23 +23,6 @@ class QuantaMapper extends AccountBoundNamedItemsMapper
 		return $this;
 	}
 	
-	/**
-	 * Overriding to ensure all results have links to the resource
-	 *
-	 * @param Select $select
-	 * @return ResultSet
-	 *
-	protected function select(Select $select)
-	{
-		$resultSet = $this->readTableGateway->selectWith($select);
-		$resultSet->buffer();
-		foreach ($resultSet as $quantum) {
-			$quantum->setResource($this->resource);
-		}
-		return $resultSet;
-	}
-	*/
-	
 	protected function getDefaultWhere()
 	{
 		if (!$this->resource) {
@@ -65,6 +48,13 @@ class QuantaMapper extends AccountBoundNamedItemsMapper
 		);
 	
 		return $data;
+	}
+	
+	public function saveModel(Quantum $model)
+	{
+		parent::saveModel($model);
+
+		// Save searchable field values
 	}
 	
 }

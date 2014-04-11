@@ -1,7 +1,1 @@
-<span class="user">
-	<?php if ($this->user): ?>
-	<?php echo $this->user->name; ?>
-	<?php else: ?>
-	<em>Nobody</em>
-	<?php endif; ?>
-</span>
+<span class="user"><?php if ($this->user): ?><?php echo $this->user->fullName; ?><?php else: ?><em>Nobody</em><?php endif; ?></span>

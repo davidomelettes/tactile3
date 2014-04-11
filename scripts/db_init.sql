@@ -46,7 +46,8 @@ CREATE TABLE users (
 	name_reset_key UUID,
 	name_reset_requested TIMESTAMP WITH TIME ZONE,
 	password_reset_key UUID,
-	password_reset_requested TIMESTAMP WITH TIME ZONE
+	password_reset_requested TIMESTAMP WITH TIME ZONE,
+	xml_preferences TEXT
 );
 INSERT INTO users (key, name, created_by, updated_by, full_name, password_hash, acl_role) VALUES (
 	'deadbeef7a6940e789848d3de3bedc0b',
@@ -95,7 +96,8 @@ CREATE TABLE accounts (
 	updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
 	deleted TIMESTAMP WITH TIME ZONE,
 	suspended TIMESTAMP WITH TIME ZONE,
-	plan_key UUID NOT NULL default 'faceb0d54b6c4f91b60070193e133353'
+	plan_key UUID NOT NULL default 'faceb0d54b6c4f91b60070193e133353',
+	xml_settings TEXT
 );
 ALTER TABLE users ADD COLUMN account_key UUID REFERENCES accounts(key);
 CREATE VIEW accounts_view AS SELECT * FROM accounts;
@@ -117,6 +119,26 @@ CREATE TABLE user_logins (
 	expiry INT NOT NULL,
 	created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
 	PRIMARY KEY (name, series, token)
+);
+
+-- User preferences and account settings
+CREATE TABLE account_setting_defaults (
+	name VARCHAR(256) PRIMARY KEY,
+	type VARCHAR(256) NOT NULL,
+	varchar_value VARCHAR(256),
+	integer_value INT,
+	datetime_value TIMESTAMP WITH TIME ZONE,
+	boolean_value BOOLEAN,
+	uuid_value UUID
+);
+CREATE TABLE user_preference_defaults (
+	name VARCHAR(256) PRIMARY KEY,
+	type VARCHAR(256) NOT NULL,
+	varchar_value VARCHAR(256),
+	integer_value INT,
+	datetime_value TIMESTAMP WITH TIME ZONE,
+	boolean_value BOOLEAN,
+	uuid_value UUID
 );
 
 -- Create database version history table

@@ -1,4 +1,4 @@
 <?php echo $this->partial('tabulate/quantum'); ?>
 <td>
-	<?php echo $this->data->name; ?>
+	<?php echo ucfirst($this->prettyTime($this->data->last_contacted)); ?>
 </td>

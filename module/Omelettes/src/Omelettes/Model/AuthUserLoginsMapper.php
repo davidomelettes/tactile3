@@ -124,7 +124,7 @@ class AuthUserLoginsMapper extends AbstractMapper
 			if ($result) {
 				// Panic! This series is expecting a different token!
 				// Delete all login tokens for this series
-				$this->getServiceLocator()->get('Logger')->info("UserLoginTheftException, '$name' has series '$series' but no token '$token'", array('tag'=>'Auth'));
+				$this->getServiceLocator()->get('Logger')->warn("UserLoginTheftException; $name; series $series; token was $token not {$result['token']}", array('tag'=>'Auth'));
 				$this->deleteForNameWithSeries($name, $series);
 				throw new UserLoginTheftException();
 			}

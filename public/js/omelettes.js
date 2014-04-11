@@ -36,6 +36,12 @@ $(function () {
 			});
 		});
 		
+		// Forms
+		$('.btn').button();
+		$('.submit .btn').click(function () {
+			$(this).button('loading');
+		});
+		
 		// Autocomplete inputs
 		$('.autocomplete').each(function() {
 			var $key = $($(this).data('target'));

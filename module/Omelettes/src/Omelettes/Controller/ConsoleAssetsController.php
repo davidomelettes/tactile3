@@ -32,16 +32,16 @@ class ConsoleAssetsController extends AbstractController
 		$lessPath = __DIR__ . "/../../../../../public/less/tactilecrm.less";
 		$cssPath = __DIR__ . "/../../../../../public/css/tactilecrm.css";
 		
-		$this->getLogger()->debug('Compiling CSS from LESS...');
+		$this->getLogger()->debug('Compiling CSS from LESS...', array('tag' => 'console'));
 		$less = new \Less_Parser();
 		$less->parseFile($lessPath);
 		file_put_contents($cssPath, $less->getCss());
-		$this->getLogger()->debug('CSS Compiled');
+		$this->getLogger()->debug('CSS Compiled', array('tag' => 'console'));
 	}
 	
 	public function buildAction()
 	{
-		$this->getLogger()->info('Build Action');
+		$this->getLogger()->info('Build Action', array('tag' => 'console'));
 		
 		switch ($this->params('assets')) {
 			case 'css':

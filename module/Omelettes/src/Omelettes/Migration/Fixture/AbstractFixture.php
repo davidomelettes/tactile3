@@ -53,7 +53,7 @@ abstract class AbstractFixture
 	
 	protected function insertRow($tableName, $data)
 	{
-		$this->logger->debug("Inserting $tableName row");
+		$this->logger->debug("Inserting $tableName row", array('tag' => 'fixture'));
 		
 		$sql = $this->getSql();
 		$insert = $sql->insert($tableName)->values($data);

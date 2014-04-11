@@ -45,12 +45,17 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 				);
 				break;
 			case 'user':
+				$fieldOptions = array('' => '-- Select User --');
+				foreach ($this->getServiceLocator()->get('UsersService')->getUsers() as $user) {
+					$fieldOptions[$user->key] = $user->fullName;
+				}
 				$spec = array(
 					'name'		=> $this->name,
 					'priority'	=> $this->priority,
 					'type'		=> 'Select',
 					'options'	=> array(
 						'label'		=> $this->label,
+						'options'	=> $fieldOptions,
 					),
 					'attributes'=> array(
 						'id'		=> $this->name,
@@ -64,9 +69,11 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 					'type'		=> 'Text',
 					'options'	=> array(
 						'label'		=> $this->label,
+						'feedback'	=> 'glyphicon glyphicon-calendar', 
 					),
 					'attributes'=> array(
-						'id'		=> $this->name,
+						'id'			=> $this->name,
+						'placeholder'	=> 'e.g. '. date('Y-m-d'),
 					),
 				);
 				break;
@@ -131,6 +138,13 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 								'max'		=> 255,
 							),
 						),
+						array(
+							'name'		=> 'Date',
+							'options'	=> array(
+								'format'	=> 'Y-m-d',
+								'locale'	=> 'gb',
+							),
+						),
 					),
 				);
 				break;
@@ -143,6 +157,15 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 						array('name' => 'StringTrim'),
 					),
 					'validators'	=> array(
+						array(
+							'name'		=> 'Omelettes\Validator\Uuid\V4',
+							'break_chain_on_failure'=> true,
+							'options'	=> array(
+								'messages'	=> array(
+									\Omelettes\Validator\Uuid\V4::NOT_MATCH => "Not a valid key value",
+								),
+							),
+						),
 						array(
 							'name'		=> 'Omelettes\Validator\Model\Exists',
 							'options'	=> array(

@@ -2114,8 +2114,8 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-success {
   color: #ffffff;
-  background-color: #60bd20;
-  border-color: #55a71c;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -2123,8 +2123,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
   color: #ffffff;
-  background-color: #4e9a1a;
-  border-color: #3a7313;
+  background-color: #47a447;
+  border-color: #398439;
 }
 .btn-success:active,
 .btn-success.active,
@@ -2146,11 +2146,11 @@ fieldset[disabled] .btn-success:active,
 .btn-success.disabled.active,
 .btn-success[disabled].active,
 fieldset[disabled] .btn-success.active {
-  background-color: #60bd20;
-  border-color: #55a71c;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
 }
 .btn-success .badge {
-  color: #60bd20;
+  color: #5cb85c;
   background-color: #ffffff;
 }
 .btn-info {
@@ -4288,11 +4288,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #3071a9;
 }
 .label-success {
-  background-color: #60bd20;
+  background-color: #5cb85c;
 }
 .label-success[href]:hover,
 .label-success[href]:focus {
-  background-color: #4a9119;
+  background-color: #449d44;
 }
 .label-info {
   background-color: #5bc0de;
@@ -4536,7 +4536,7 @@ a.thumbnail.active {
   animation: progress-bar-stripes 2s linear infinite;
 }
 .progress-bar-success {
-  background-color: #60bd20;
+  background-color: #5cb85c;
 }
 .progress-striped .progress-bar-success {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -5784,6 +5784,16 @@ form .help-block:last-child {
 form fieldset.submit a {
   margin-left: 1em;
 }
+dl.dl-inline dt,
+dl.dl-inline dd {
+  display: inline-block;
+}
+dl.authorship dt {
+  font-weight: normal;
+}
+dl.authorship dd {
+  font-weight: bold;
+}
 .navbar-signup {
   background: #e7e7e7 url('../img/bg.jpg') no-repeat;
   border-bottom-color: #969696;
@@ -5823,12 +5833,9 @@ body {
 .navbar-inverse .navbar-brand {
   color: #fff;
 }
-.paper {
-  padding: 1em;
-  padding: 20px;
-  border-radius: 4px;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.175);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.175);
-  background-color: #fff;
-  margin-bottom: 1em;
+.panel .panel-body :first-child {
+  margin-top: 0;
+}
+.panel .panel-body :last-child {
+  margin-bottom: 0;
 }

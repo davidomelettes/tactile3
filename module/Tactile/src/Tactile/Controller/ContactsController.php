@@ -9,12 +9,10 @@ class ContactsController extends QuantaController
 {
 	use ContactsTrait {
 		ContactsTrait::getQuantaMapper as getContactsMapper;
-		ContactsTrait::getQuantaPaginator as getContactsPaginator;
 		ContactsTrait::getQuantum as getContact;
 		ContactsTrait::getQuantumForm as getContactForm;
 		ContactsTrait::getQuantumFilter as getContactFilter;
 	}
-	use Controller\CrudNavigationTrait;
 	
 	protected function preDispatch()
 	{
@@ -34,36 +32,6 @@ class ContactsController extends QuantaController
 		return;
 	}
 	
-	public function getIndexNavigationConfig()
-	{
-		return array(
-			array(
-				'label'			=> 'Add',
-				'route'			=> $this->getRouteName(),
-				'routeOptions'	=> array('action' => 'add'),
-				'icon'			=> 'plus',
-			),
-		);
-	}
-	
-	public function getViewNavigationConfig(Model\Quantum $model)
-	{
-		return array(
-			array(
-				'label'			=> 'Edit',
-				'route'			=> $this->getRouteName(),
-				'routeOptions'	=> array('action' => 'edit', 'key' => $model->key),
-				'icon'			=> 'pencil',
-			),
-			array(
-				'label'			=> 'Delete',
-				'route'			=> $this->getRouteName(),
-				'routeOptions'	=> array('action' => 'delete', 'key' => $model->key),
-				'icon'			=> 'trash',
-			),
-		);
-	}
-	
 	protected function findRequestedContact()
 	{
 		$key = $this->params('key');
@@ -78,14 +46,6 @@ class ContactsController extends QuantaController
 		$this->flashMessenger()->addErrorMessage('Missing identifier');
 		
 		return false;
-	}
-	
-	public function indexAction()
-	{
-		return $this->returnViewModel(array(
-			'paginator'	=> $this->getContactsPaginator((int)$this->params()->fromQuery('page', 1)),
-			'crud'		=> $this->constructNavigation($this->getIndexNavigationConfig()),
-		));
 	}
 	
 	public function addAction()
@@ -107,7 +67,8 @@ class ContactsController extends QuantaController
 		}
 		
 		return $this->returnViewModel(array(
-			'form' => $form,
+			'form'	=> $form,
+			'crud'	=> $this->constructNavigation($this->getAddNavigationConfig($model)),
 		));
 	}
 	
@@ -147,7 +108,7 @@ class ContactsController extends QuantaController
 	
 		return $this->returnViewModel(array(
 			'model'	=> $model,
-			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
+			'crud'	=> $this->constructNavigation($this->getEditNavigationConfig($model)),
 			'form' => $form,
 		));
 	}

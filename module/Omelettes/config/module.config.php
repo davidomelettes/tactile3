@@ -94,13 +94,14 @@ return array(
 	),
 	'view_helpers'	=> array(
 		'invokables'	=> array(
-			'aclService'	=> 'Omelettes\View\Helper\AclService',
-			'authService'	=> 'Omelettes\View\Helper\AuthService',
-			'tabulate'		=> 'Omelettes\View\Helper\Tabulate',
-			'prettyText'	=> 'Omelettes\View\Helper\PrettyText',
-			'prettyTime'	=> 'Omelettes\View\Helper\PrettyTime',
-			'prettyUser'	=> 'Omelettes\View\Helper\PrettyUser',
-			'prettyUuid'	=> 'Omelettes\View\Helper\PrettyUuid',
+			'aclService'		=> 'Omelettes\View\Helper\AclService',
+			'authService'		=> 'Omelettes\View\Helper\AuthService',
+			'tabulate'			=> 'Omelettes\View\Helper\Tabulate',
+			'prettyText'		=> 'Omelettes\View\Helper\PrettyText',
+			'prettyTextFormat'	=> 'Omelettes\View\Helper\PrettyTextFormat',
+			'prettyTime'		=> 'Omelettes\View\Helper\PrettyTime',
+			'prettyUser'		=> 'Omelettes\View\Helper\PrettyUser',
+			'prettyUuid'		=> 'Omelettes\View\Helper\PrettyUuid',
 		),
 	),
 	'view_manager' => array(
@@ -128,6 +129,7 @@ return array(
 			'tabulate/named-item'		=> __DIR__ . '/../view/partial/tabulate/named-item.phtml',
 			'tabulate/user'				=> __DIR__ . '/../view/partial/tabulate/user.phtml',
 			'info/authorship'			=> __DIR__ . '/../view/partial/info/authorship.phtml',
+			'info/tags'					=> __DIR__ . '/../view/partial/info/tags.phtml',
 		),
 		'template_path_stack' => array(
 			__DIR__ . '/../view',

@@ -76,7 +76,7 @@ abstract class AbstractMigration
 	
 	protected function tableExists($tableName)
 	{
-		$this->logger->debug("Checking for $tableName table");
+		$this->logger->debug("Checking for $tableName table", array('tag' => 'migration'));
 		
 		$select = $this->getSql()->select('pg_tables')->where(array('schemaname' => 'public', 'tablename' => $tableName));
 		$statement = $this->getSql()->prepareStatementForSqlObject($select);
@@ -87,7 +87,7 @@ abstract class AbstractMigration
 	
 	protected function tableHasColumn($tableName, $columnName)
 	{
-		$this->logger->debug("Checking for $columnName column on $tableName table");
+		$this->logger->debug("Checking for $columnName column on $tableName table", array('tag' => 'migration'));
 		
 		$table = new Sql\TableIdentifier('columns', 'information_schema');
 		$select = $this->getSql()->select($table)->where(array('table_name' => $tableName, 'column_name' => $columnName));
@@ -102,7 +102,7 @@ abstract class AbstractMigration
 		if ($this->tableExists($tableName)) {
 			throw new \Exception("Table $tableName already exists");
 		}
-		$this->logger->info("Creating $tableName table");
+		$this->logger->info("Creating $tableName table", array('tag' => 'migration'));
 		
 		$tableDef = '';
 		foreach ($columns as $columnName => $columnDef) {
@@ -157,7 +157,7 @@ abstract class AbstractMigration
 			if ($this->tableHasColumn($tableName, $columnName)) {
 				throw new \Exception("Table $tableName already has column $columnName");
 			}
-			$this->logger->info("Adding $columnName column to $tableName table");
+			$this->logger->info("Adding $columnName column to $tableName table", array('tag' => 'migration'));
 			
 			$this->executeQueryString(sprintf('ALTER TABLE %s ADD COLUMN %s %s', $tableName, $columnName, $columnDef));
 		}
@@ -167,7 +167,7 @@ abstract class AbstractMigration
 	
 	protected function insertFixture($fixturePath)
 	{
-		$this->logger->info('Inserting fixture: ' . $fixturePath);
+		$this->logger->info('Inserting fixture: ' . $fixturePath, array('tag' => 'migration'));
 		
 		$fixture = new Fixture\Xml($this->getAdapter(), $this->logger);
 		$fixture->parse($fixturePath);
@@ -177,7 +177,7 @@ abstract class AbstractMigration
 	
 	protected function viewExists($viewName)
 	{
-		$this->logger->debug("Checking for $viewName view");
+		$this->logger->debug("Checking for $viewName view", array('tag' => 'migration'));
 		
 		$select = $this->getSql()->select('pg_views')->where(array('schemaname' => 'public', 'viewname' => $viewName));
 		$statement = $this->getSql()->prepareStatementForSqlObject($select);
@@ -191,7 +191,7 @@ abstract class AbstractMigration
 		if ($this->viewExists($viewName) && !$replace) {
 			throw new \Exception("View $viewName already exists");
 		}
-		$this->logger->info("Creating $viewName view");
+		$this->logger->info("Creating $viewName view", array('tag' => 'migration'));
 			
 		$this->executeQueryString(sprintf('CREATE OR REPLACE VIEW %s AS %s', $viewName, $as));
 		
@@ -200,7 +200,7 @@ abstract class AbstractMigration
 	
 	protected function ruleExists($ruleName)
 	{
-		$this->logger->debug("Checking for $ruleName rule");
+		$this->logger->debug("Checking for $ruleName rule", array('tag' => 'migration'));
 		
 		$select = $this->getSql()->select('pg_rules')->where(array('schemaname' => 'public', 'rulename' => $ruleName));
 		$statement = $this->getSql()->prepareStatementForSqlObject($select);
@@ -217,7 +217,7 @@ abstract class AbstractMigration
 		if (!$this->viewExists($to) && !$this->tableExists($to)) {
 			throw new \Exception("Unable to find table or view with name: " . $on);
 		}
-		$this->logger->info("Creating $ruleName rule");
+		$this->logger->info("Creating $ruleName rule", array('tag' => 'migration'));
 		
 		$validOns = array('INSERT', 'UPDATE', 'DELETE');
 		$on = strtoupper($on);

@@ -8,6 +8,9 @@ class PrettyTime extends AbstractPrettifier
 	{
 		$now = time();
 		$then = strtotime($iso8601);
+		if (false === $then) {
+			return 'never';
+		}
 		$diff = $then - $now;
 		
 		if ($diff < 0) {
@@ -15,12 +18,12 @@ class PrettyTime extends AbstractPrettifier
 			$diff = abs($diff);
 			switch (1) {
 				case $diff < 30:
-					return 'Just now';
+					return 'just now';
 				case $diff < 3600:
-					$minutes = ceil($diff / 60);
-					return sprintf('%d minute%s ago', $minutes, $minutes === 1 ? '' : 's');
+					$minutes = (int)ceil($diff / 60);
+					return sprintf('%d minute%s ago', $minutes, ($minutes === 1 ? '' : 's'));
 				case $diff < 86400:
-					$hours = ceil($diff / 3600);
+					$hours = (int)ceil($diff / 3600);
 					return sprintf('%d hour%s ago', $hours, $hours === 1 ? '' : 's');
 				case $diff < 172800:
 					return sprintf('Yesterday at %s', date('H:i', $then));
@@ -30,6 +33,8 @@ class PrettyTime extends AbstractPrettifier
 		} else {
 			// Present/Future
 			switch (1) {
+				case $diff < 10:
+					return 'just now';
 				default:
 					return date('Y-m-d', $then);
 			}

@@ -130,37 +130,37 @@ class ConsoleMigrationController extends AbstractController
 	
 	public function migrateAction()
 	{
-		$this->getLogger()->info('Migration Action');
+		$this->getLogger()->info('Migration Action', array('tag'=>'console'));
 		$request = $this->getRequest();
 		if (!$request->getParam('commit')) {
-			$this->getLogger()->info('TEST MODE: Use --commit to commit changes');
+			$this->getLogger()->info('TEST MODE: Use --commit to commit changes', array('tag'=>'console'));
 		}
 		
 		$this->beginTransaction();
 		try {
-			$this->getLogger()->debug('Current last sequence number: ' . $this->getLastSequenceNumber());
+			$this->getLogger()->debug('Current last sequence number: ' . $this->getLastSequenceNumber(), array('tag'=>'console'));
 			do {
 				$sequenceNumber = $this->getLastSequenceNumber()+1;
 				$migration = $this->getMigration($sequenceNumber);
 				if (!$migration) {
-					$this->getLogger()->debug('No migration for sequence: ' . $sequenceNumber);
+					$this->getLogger()->debug('No migration for sequence: ' . $sequenceNumber, array('tag'=>'console'));
 					break;
 				}
-				$this->getLogger()->debug("Running migration $sequenceNumber: " . get_class($migration));
+				$this->getLogger()->debug("Running migration $sequenceNumber: " . get_class($migration), array('tag'=>'console'));
 				$migration->migrate();
 				$this->updateSequenceHistory($sequenceNumber, get_class($migration));
 			} while ($request->getParam('all') && $this->getMigration($this->getLastSequenceNumber()+1));
-			$this->getLogger()->debug('No further migrations to execute');
+			$this->getLogger()->debug('No further migrations to execute', array('tag'=>'console'));
 		} catch (\Exception $e) {
 			$this->rollbackTransaction();
-			$this->getLogger()->warn("Exception occurred during migration $sequenceNumber: " . $e->getMessage());
+			$this->getLogger()->warn("Exception occurred during migration $sequenceNumber: " . $e->getMessage(), array('tag'=>'console'));
 			throw $e;
 		}
 		if ($request->getParam('commit')) {
 			$this->commitTransaction();
 		}
 		
-		$this->logger->info('Action complete');
+		$this->logger->info('Action complete', array('tag'=>'console'));
 	}
 	
 }

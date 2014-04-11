@@ -44,7 +44,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 			),
 			'factories' => array(
 				// ACL
-				'AclService' => function($sm) {
+				'AclService' => function ($sm) {
 					$acl = new Acl\Acl();
 					$config = $sm->get('config');
 					if (is_array($config) && isset($config['acl'])) {
@@ -73,10 +73,10 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				},
 				
 				// Authentication
-				'Omelettes\Storage\Session' => function($sm) {
+				'Omelettes\Storage\Session' => function ($sm) {
 					return new Storage\Session(Storage\Session::STORAGE_NAMESPACE);
 				},
-				'AuthService' => function($sm) {
+				'AuthService' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$authAdatper = new Authentication\Adapter\DbTable(
 						$dbAdapter,
@@ -116,20 +116,16 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				'Omelettes\Logger' => function ($sm) {
 					$config = $sm->get('config');
 					$logger = new Logger();
-					if (isset($config['log_levels']['stream'])) {
-						$streamWriter = new Log\Writer\Stream('php://output');
-						$streamfilter = new Log\Filter\Priority($config['log_levels']['stream']);
-						$streamWriter->addFilter($streamfilter);
-						$logger->addWriter($streamWriter);
-					}
-					if (isset($config['log_levels']['db'])) {
+					$nullWriter = new Log\Writer\Null();
+					$logger->addWriter($nullWriter);
+					if (isset($config['log_filters']['db'])) {
 						$mapping = array(
 							'message' => 'message',
 							'priority' => 'level',
 							'extra' => array('tag' => 'tag'),
 						);
 						$dbWriter = new Log\Writer\Db($sm->get('Zend\Db\Adapter\Adapter'), 'log', $mapping);
-						$dbFilter = new Log\Filter\Priority($config['log_levels']['db']);
+						$dbFilter = new Log\Filter\Priority($config['log_filters']['db']);
 						$dbWriter->addFilter($dbFilter);
 						$logger->addWriter($dbWriter);
 					}
@@ -137,7 +133,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				},
 				
 				// Sessions
-				'SessionsTableGateway'			=> function($sm) {
+				'SessionsTableGateway'			=> function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					return new TableGateway('sessions', $dbAdapter);
 				},
@@ -199,14 +195,14 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 					return $sessionManager;
 				},
 				
-				// Accounts, Users, Logins and Passwords
+				// Accounts
 				'AccountPlansViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\AccountPlan());
 					return new TableGateway('account_plans_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Omelettes\Model\AccountPlansMapper' => function($sm) {
+				'Omelettes\Model\AccountPlansMapper' => function ($sm) {
 					$readGateway = $sm->get('AccountPlansViewGateway');
 					$mapper = new Model\AccountPlansMapper($readGateway);
 					return $mapper;
@@ -223,50 +219,82 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 					$resultSetPrototype->setArrayObjectPrototype(new Model\Account());
 					return new TableGateway('accounts_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Omelettes\Model\AccountsMapper' => function($sm) {
+				'Omelettes\Model\AccountsMapper' => function ($sm) {
 					$readGateway = $sm->get('AccountsViewGateway');
 					$writeGateway = $sm->get('AccountsTableGateway');
 					$mapper = new Model\AccountsMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
+				
+				// User Logins
 				'UserLoginsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					return new TableGateway('user_logins', $dbAdapter, null, $resultSetPrototype);
 				},
-				'UsersTableGateway' => function($sm) {
+				'Omelettes\Model\AuthUserLoginsMapper' => function ($sm) {
+					$gateway = $sm->get('UserLoginsTableGateway');
+					$mapper = new Model\AuthUserLoginsMapper($gateway, $gateway);
+					return $mapper;
+				},
+				
+				// Users
+				'UsersTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\AuthUser());
 					return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
 				},
-				'UsersViewGateway' => function($sm) {
+				'UsersViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype->setArrayObjectPrototype(new Model\AuthUser());
 					return new TableGateway('users_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Omelettes\Model\AuthUserLoginsMapper' => function($sm) {
-					$gateway = $sm->get('UserLoginsTableGateway');
-					$mapper = new Model\AuthUserLoginsMapper($gateway, $gateway);
-					return $mapper;
-				},
-				'Omelettes\Model\AuthUsersMapper' => function($sm) {
+				'Omelettes\Model\AuthUsersMapper' => function ($sm) {
 					$readGateway = $sm->get('UsersViewGateway');
 					$writeGateway = $sm->get('UsersTableGateway');
 					$mapper = new Model\AuthUsersMapper($readGateway, $writeGateway);
 					return $mapper;
 				},
-				'Omelettes\Form\LoginFilter' => function($sm) {
+				'UsersService' => function ($sm) {
+					$service = new Service\AuthUsersService($sm->get('Omelettes\Model\AuthUsersMapper'));
+					return $service;
+				},
+				
+				// User Preferences
+				'UserPreferencesTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					//$resultSetPrototype->setArrayObjectPrototype(new Model\UserPreference());
+					return new TableGateway('user_preferences', $dbAdapter, null, $resultSetPrototype);
+				},
+				'UserPreferencesViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					//$resultSetPrototype->setArrayObjectPrototype(new Model\UserPreference());
+					return new TableGateway('user_preferences_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Omelettes\Model\AuthUserPreferencesMapper' => function ($sm) {
+					$readGateway = $sm->get('UserPreferencesViewGateway');
+					$writeGateway = $sm->get('UserPreferencesTableGateway');
+					$mapper = new Model\UserPreferencesMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
+				
+				// Login
+				'Omelettes\Form\LoginFilter' => function ($sm) {
 					$filter = new Form\LoginFilter();
 					return $filter;
 				},
-				'Omelettes\Form\ForgotPasswordFilter' => function($sm) {
+				'Omelettes\Form\ForgotPasswordFilter' => function ($sm) {
 					$filter = new Form\ForgotPasswordFilter(
 						$sm->get('Omelettes\Model\AuthUsersMapper')
 					);
 					return $filter;
 				},
+				
+				 // Signup
 				'Omelettes\Form\SignupFilter' => function ($sm) {
 					$filter = new Form\SignupFilter(
 						$sm->get('Omelettes\Model\AuthUsersMapper')
@@ -317,6 +345,17 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 		if (!$dbAdapter->getDriver()->getConnection()->isConnected()) {
 			// No database connection! 
 			//throw new \Exception('No database connection');
+		}
+		
+		if ($ev->getRequest() instanceof ConsoleRequest) {
+			// Attach stream output logging here (for no particular reason)
+			$config = $ev->getApplication()->getServiceManager()->get('config');
+			if (isset($config['log_filters']['stream'])) {
+				$streamWriter = new Log\Writer\Stream('php://output');
+				$streamfilter = new Log\Filter\Priority($config['log_filters']['stream']);
+				$streamWriter->addFilter($streamfilter);
+				$ev->getApplication()->getServiceManager()->get('Logger')->addWriter($streamWriter);
+			}
 		}
 	}
 	

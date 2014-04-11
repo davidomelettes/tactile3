@@ -34,11 +34,9 @@ body {
 	.navbar-brand { color: #fff; }
 }
 
-.paper {
-	padding: 1em;
-	padding: @line-height-computed;
-	border-radius: @border-radius-base;
-	.box-shadow(1px 1px 3px rgba(0,0,0,.175));
-	background-color: #fff;
-	margin-bottom: 1em;
+.panel {
+	.panel-body {
+		:first-child { margin-top: 0; }
+		:last-child { margin-bottom: 0; }
+	}
 }

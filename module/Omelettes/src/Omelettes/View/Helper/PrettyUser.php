@@ -2,19 +2,19 @@
 
 namespace Omelettes\View\Helper;
 
-use OmelettesAuth\Model\UsersMapper;
+use Omelettes\Model;
 
 class PrettyUser extends AbstractPrettifier
 {
 	/**
-	 * @var UsersMapper
+	 * @var Model\AuthUsersMapper
 	 */
 	protected $usersMapper;
 	
 	public function getUsersMapper()
 	{
 		if (!$this->usersMapper) {
-			$mapper = $this->getApplicationServiceLocator()->get('OmelettesAuth\Model\UsersMapper');
+			$mapper = $this->getApplicationServiceLocator()->get('Omelettes\Model\AuthUsersMapper');
 			$this->usersMapper = $mapper;
 		}
 		

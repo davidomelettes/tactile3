@@ -4,20 +4,33 @@
 	'crud'	=> $this->crud,
 )); ?>
 
+<?php echo $this->partial('info/authorship', array('model' => $this->model)); ?>
+
 <div class="row">
 	<div class="col-lg-6">
-		<div class="paper">
-			<dl class="dl-horizontal">
-				<dt><?php echo $this->translate('Description'); ?></dt>
-				<dd><?php echo $this->prettyText($this->model->description); ?></dd>
-				<dt><?php echo $this->translate('Created'); ?></dt>
-				<dd><?php echo $this->prettyTime($this->model->created); ?></dd>
-			</dl>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><?php echo $this->translate('Information'); ?></h4>
+			</div>
+			<div class="panel-body">
+				<dl class="dl-horizontal">
+					<dt><?php echo $this->translate('Description'); ?></dt>
+					<dd><?php echo $this->prettyTextFormat($this->model->description); ?></dd>
+					<dt><?php echo $this->translate('Last Contacted'); ?></dt>
+					<dd><?php echo $this->prettyTime($this->model->last_contacted); ?></dd>
+					<dt><?php echo $this->translate('Assigned To'); ?></dt>
+					<dd><?php echo $this->prettyUser($this->model->assigned_to); ?></dd>
+				</dl>
+			</div>
 		</div>
 	</div>
 	<div class="col-lg-6">
-		<div class="paper">
-			<h3><?php echo $this->translate('Contact History'); ?></h3>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title"><?php echo $this->translate('Contact History'); ?></h4>
+			</div>
+			<div class="panel-body">
+			</div>
 		</div>
 	</div>
 </div>
