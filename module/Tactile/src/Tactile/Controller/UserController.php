@@ -6,37 +6,33 @@ use Omelettes\Controller;
 
 class UserController extends Controller\AbstractController
 {
-	/**
-	 * @var Model\UserPreferencesMapper
-	 */
-	protected $userPreferencesMapper;
+	use Controller\AuthUsersTrait;
 	
 	public function getUserPreferencesForm()
 	{
-		return $this->getForm('Tactile\Form\UserPreferences');
+		return $this->getForm('Tactile\Form\UserPreferencesForm');
 	}
 	
-	public function getUserPreferencesMapper()
+	public function getUserPreferencesFilter()
 	{
-		if (!$this->userPreferencesMapper) {
-			$mapper = $this->getServiceLocator()->get('Tactile\Model\UserPreferencesMapper');
-			$this->userPreferencesMapper = $mapper;
-		}
-		
-		return $this->userPreferencesMapper;
+		return $this->getFilter('Tactile\Form\UserPreferencesFilter');
 	}
 	
 	public function preferencesAction()
 	{
 		$form = $this->getUserPreferencesForm();
 		
+		$prefService = $this->getServiceLocator()->get('UserPreferenceService');
+		$prefs = $prefService->getPreferenceOptions();
+		$form->setData($prefs);
+		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
-			$form->setInputFilter($this->getContactFilter()->getInputFilter());
+			$form->setInputFilter($this->getUserPreferencesFilter()->getInputFilter());
 			$form->setData($request->getPost());
 			if ($form->isValid()) {
 				// Update user preferences
-				$this->getUserPreferencesMapper()->updatePreferences($form->getData());
+				$prefService->savePreferences($form->getData());
 			}
 		}
 		

@@ -15,6 +15,13 @@ in composer.json. You will also need the following PHP modules:
 JSON (php5-json)
 An appropriate PDO database driver (e.g. php5-pgsql)
 
+Additionally, the database initialisation script will try to install the uuid-ossp and
+pgcrypto extensions. If their control files are not present in
+/user/share/postgresql/version/extension, you may need to install the contrib
+package:
+
+apt-get install postgresql-contrib-version
+
 
 Installation using Composer
 ---------------------------

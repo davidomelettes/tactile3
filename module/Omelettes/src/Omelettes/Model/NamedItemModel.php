@@ -35,13 +35,6 @@ class NamedItemModel extends AbstractModel implements Tabulatable, \JsonSerializ
 	protected $createdBy;
 	protected $updatedBy;
 
-	public function __construct($data = array())
-	{
-		if (!empty($data)) {
-			$this->exchangeArray($data);
-		}
-	}
-
 	public function __get($name)
 	{
 		$map = $this->getPropertyMap();

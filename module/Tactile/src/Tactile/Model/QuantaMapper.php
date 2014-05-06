@@ -43,7 +43,7 @@ class QuantaMapper extends AccountBoundNamedItemsMapper
 			$data,
 			array(
 				'resource_name'		=> $model->resource->name,
-				'xml_specification'	=> $model->toXml(),
+				'xml_specification'	=> $model->xmlDeflate()->xmlSpecification,
 			)
 		);
 	

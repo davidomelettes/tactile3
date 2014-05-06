@@ -8,6 +8,8 @@ class Migration001Example extends AbstractMigration
 {
 	public function migrate()
 	{
+		$this->insertFixture('migrations/fixtures/001_init.xml');
+		
 		/*
 		$this->tableAddColumns('users', array(
 			'name_reset_name'			=> 'VARCHAR',
@@ -16,8 +18,6 @@ class Migration001Example extends AbstractMigration
 			'password_reset_key'		=> 'UUID',
 			'password_reset_requested'	=> 'TIMESTAMP WITH TIME ZONE',
 		));
-		
-		$this->insertFixture('migration/fixtures/001_users.xml');
 		
 		$this->tableCreate('sessions', array(
 			'id'		=> 'CHAR(32) NOT NULL',

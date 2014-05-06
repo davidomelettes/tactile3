@@ -46,8 +46,7 @@ CREATE TABLE users (
 	name_reset_key UUID,
 	name_reset_requested TIMESTAMP WITH TIME ZONE,
 	password_reset_key UUID,
-	password_reset_requested TIMESTAMP WITH TIME ZONE,
-	xml_preferences TEXT
+	password_reset_requested TIMESTAMP WITH TIME ZONE
 );
 INSERT INTO users (key, name, created_by, updated_by, full_name, password_hash, acl_role) VALUES (
 	'deadbeef7a6940e789848d3de3bedc0b',
@@ -96,8 +95,7 @@ CREATE TABLE accounts (
 	updated TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
 	deleted TIMESTAMP WITH TIME ZONE,
 	suspended TIMESTAMP WITH TIME ZONE,
-	plan_key UUID NOT NULL default 'faceb0d54b6c4f91b60070193e133353',
-	xml_settings TEXT
+	plan_key UUID NOT NULL default 'faceb0d54b6c4f91b60070193e133353'
 );
 ALTER TABLE users ADD COLUMN account_key UUID REFERENCES accounts(key);
 CREATE VIEW accounts_view AS SELECT * FROM accounts;
@@ -125,21 +123,59 @@ CREATE TABLE user_logins (
 CREATE TABLE account_setting_defaults (
 	name VARCHAR(256) PRIMARY KEY,
 	type VARCHAR(256) NOT NULL,
-	varchar_value VARCHAR(256),
-	integer_value INT,
-	datetime_value TIMESTAMP WITH TIME ZONE,
-	boolean_value BOOLEAN,
-	uuid_value UUID
+	varchar_default VARCHAR(256),
+	integer_default INT,
+	numeric_default NUMERIC(16,4),
+	datetime_default TIMESTAMP WITH TIME ZONE,
+	boolean_default BOOLEAN,
+	uuid_default UUID
 );
-CREATE TABLE user_preference_defaults (
-	name VARCHAR(256) PRIMARY KEY,
+CREATE TABLE account_settings (
+	account_key UUID NOT NULL REFERENCES accounts(key),
+	name VARCHAR(256) NOT NULL,
 	type VARCHAR(256) NOT NULL,
 	varchar_value VARCHAR(256),
 	integer_value INT,
+	numeric_value NUMERIC(16,4),
 	datetime_value TIMESTAMP WITH TIME ZONE,
 	boolean_value BOOLEAN,
-	uuid_value UUID
+	uuid_value UUID,
+	PRIMARY KEY (account_key, name)
 );
+CREATE VIEW account_settings_view AS
+	SELECT s.*, d.varchar_default, d.integer_default, d.numeric_default, d.datetime_default, d.boolean_default, d.uuid_default
+	FROM account_settings s LEFT JOIN account_setting_defaults d ON s.name = d.name; 
+CREATE TABLE user_preference_defaults (
+	name VARCHAR(256) PRIMARY KEY,
+	type VARCHAR(256) NOT NULL,
+	varchar_default VARCHAR(256),
+	integer_default INT,
+	numeric_default NUMERIC(16,4),
+	datetime_default TIMESTAMP WITH TIME ZONE,
+	boolean_default BOOLEAN,
+	uuid_default UUID
+);
+CREATE TABLE user_preferences (
+	key UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(), 
+	user_key UUID NOT NULL REFERENCES users(key),
+	name VARCHAR(256) NOT NULL,
+	type VARCHAR(256) NOT NULL,
+	varchar_value VARCHAR(256),
+	integer_value INT,
+	numeric_value NUMERIC(16,4),
+	datetime_value TIMESTAMP WITH TIME ZONE,
+	boolean_value BOOLEAN,
+	uuid_value UUID,
+	PRIMARY KEY (user_key, name)
+);
+CREATE VIEW user_preferences_view AS
+	SELECT
+		p.user_key, p.key,
+		CASE WHEN d.name IS NOT NULL THEN d.name ELSE p.name END as name,
+		CASE WHEN d.type IS NOT NULL THEN d.type ELSE p.type END as type,
+		p.varchar_value, p.integer_value, p.numeric_value, p.datetime_value, p.boolean_value, p.uuid_value,
+		d.varchar_default, d.integer_default, d.numeric_default, d.datetime_default, d.boolean_default, d.uuid_default
+	FROM user_preferences p FULL OUTER JOIN user_preference_defaults d ON p.name = d.name; 
 
 -- Create database version history table
 CREATE TABLE migration_history (

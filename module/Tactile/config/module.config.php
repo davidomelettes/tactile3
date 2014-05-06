@@ -9,6 +9,8 @@ return array(
 				'welcome' => array(),
 				'quanta' => array(),
 				
+				'user' => array(),
+				
 				'contacts' => array(),
 				'opportunities' => array(),
 				'activities' => array(),
@@ -24,6 +26,9 @@ return array(
 			'Tactile\Controller\Quanta' => 'Tactile\Controller\QuantaController',
 			
 			'Tactile\Controller\Contacts' => 'Tactile\Controller\ContactsController',
+			
+			'Tactile\Controller\User' => 'Tactile\Controller\UserController',
+			
 			'Tactile\Controller\Communication' => 'Tactile\Controller\CommunicationController',
 			'Tactile\Controller\Opportunities' => 'Tactile\Controller\OpportunitiesController',
 			'Tactile\Controller\Activities' => 'Tactile\Controller\ActivitiesController',
@@ -126,6 +131,16 @@ return array(
 					),
 				),
 			),
+			'user' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route'			=> '/user[/:action]',
+					'defaults'		=> array(
+						'controller'	=> 'Tactile\Controller\User',
+						'action'		=> 'preferences',
+					),
+				),
+			),
 			'quanta' => array(
 				'type' => 'Segment',
 				'options' => array(
@@ -144,6 +159,16 @@ return array(
 		),
 	),
 	'service_manager' => array(
+	),
+	'translator' => array(
+		'locale' => 'en_GB',
+		'translation_file_patterns' => array(
+			array(
+				'type'     => 'gettext',
+				'base_dir' => __DIR__ . '/../language',
+				'pattern'  => '%s.mo',
+			),
+		),
 	),
 	'view_helpers'	=> array(
 		'invokables'	=> array(

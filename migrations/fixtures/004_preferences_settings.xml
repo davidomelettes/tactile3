@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<account_setting_defaults type="varchar" name="country_code" varchar_default="GB" />
+	<user_preference_defaults type="varchar" name="locale" varchar_default="en_GB" />
+	<user_preference_defaults type="varchar" name="date_format" varchar_default="dmy" />
+</dataset>

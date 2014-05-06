@@ -3,7 +3,8 @@
 namespace Tactile;
 
 use Zend\Db\ResultSet\ResultSet,
-	Zend\Db\TableGateway\TableGateway;
+	Zend\Db\TableGateway\TableGateway,
+	Zend\Mvc\MvcEvent;
 
 class Module
 {
@@ -29,6 +30,7 @@ class Module
 			'factories' => array(
 				// Resources
 				'Tactile\Model\Resource' => function ($sm) {
+					// Factory Resources here so there are ServiceHandler-aware
 					$model = new Model\Resource();
 					return $model;
 				},
@@ -59,17 +61,52 @@ class Module
 					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\ResourceField'));
 					return new TableGateway('resource_fields_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'ResourceFieldsTableGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\ResourceField'));
-					return new TableGateway('resource_fields', $dbAdapter, null, $resultSetPrototype);
-				},
 				'Tactile\Model\ResourceFieldsMapper' => function ($sm) {
 					$readGateway = $sm->get('ResourceFieldsViewGateway');
-					$writeGateway = $sm->get('ResourceFieldsTableGateway');
-					$mapper = new Model\ResourceFieldsMapper($readGateway, $writeGateway);
+					$mapper = new Model\ResourceFieldsMapper($readGateway);
 					return $mapper;
+				},
+				
+				// Locales
+				'LocalesViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					return new TableGateway('locales_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Tactile\Model\LocalesMapper' => function ($sm) {
+					$readGateway = $sm->get('LocalesViewGateway');
+					$mapper = new Model\LocalesMapper($readGateway);
+					return $mapper;
+				},
+				'LocaleService' => function ($sm) {
+					$service = new Service\LocaleService($sm->get('Tactile\Model\LocalesMapper'));
+					return $service;
+				},
+				
+				// User Preferences
+				'UserPreferencesTableGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					return new TableGateway('user_preferences', $dbAdapter);
+				},
+				'UserPreferencesViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype->setArrayObjectPrototype(new Model\UserPreference());
+					return new TableGateway('user_preferences_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Tactile\Model\UserPreferencesMapper' => function ($sm) {
+					$readGateway = $sm->get('UserPreferencesViewGateway');
+					$writeGateway = $sm->get('UserPreferencesTableGateway');
+					$mapper = new Model\UserPreferencesMapper($readGateway, $writeGateway);
+					return $mapper;
+				},
+				'Tactile\Form\UserPreferencesFilter' => function ($sm) {
+					$filter = new Form\UserPreferencesFilter();
+					return $filter;
+				},
+				'UserPreferenceService' => function ($sm) {
+					$service = new Service\UserPreferenceService($sm->get('Tactile\Model\UserPreferencesMapper'));
+					return $service;
 				},
 				
 				// Quanta
@@ -79,9 +116,7 @@ class Module
 				},
 				'QuantaTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\Quantum'));
-					return new TableGateway('quanta', $dbAdapter, null, $resultSetPrototype);
+					return new TableGateway('quanta', $dbAdapter);
 				},
 				'QuantaViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -108,9 +143,7 @@ class Module
 				},
 				'ContactsTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype($sm->get('Tactile\Model\Contact'));
-					return new TableGateway('quanta', $dbAdapter, null, $resultSetPrototype);
+					return new TableGateway('quanta', $dbAdapter);
 				},
 				'ContactsViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
@@ -132,6 +165,23 @@ class Module
 				},
 			),
 		);
+	}
+	
+	public function onBootstrap(MvcEvent $ev)
+	{
+		$app = $ev->getParam('application');
+		$eventManager = $app->getEventManager();
+		$eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setLocale'));
+	}
+	
+	public function setLocale(MvcEvent $ev)
+	{
+		$app = $ev->getApplication();
+		$sm = $app->getServiceManager();
+		$prefs = $sm->get('UserPreferenceService');
+		$locale = $prefs->get('locale');
+		$translator = $sm->get('translator');
+		$translator->setLocale($locale);
 	}
 	
 }

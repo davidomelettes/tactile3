@@ -2,38 +2,8 @@
 
 namespace Omelettes\Form;
 
-use Zend\Form\Form,
-	Zend\ServiceManager\ServiceLocatorAwareInterface,
-	Zend\ServiceManager\ServiceLocatorInterface;
-
-class NamedItemForm extends Form implements ServiceLocatorAwareInterface
+class NamedItemForm extends AbstractForm
 {
-	/**
-	 * @var ServiceLocatorInterface
-	 */
-	protected $serviceLocator;
-	
-	public function __construct($name = null)
-	{
-		parent::__construct($name);
-		$this->setAttribute('method', 'post');
-	}
-	
-	public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-	{
-		$this->serviceLocator = $serviceLocator;
-	}
-	
-	public function getServiceLocator()
-	{
-		return $this->serviceLocator;
-	}
-	
-	public function getApplicationServiceLocator()
-	{
-		return $this->getServiceLocator()->getServiceLocator();
-	}
-	
 	public function addKeyElement()
 	{
 		$this->add(array(
@@ -56,18 +26,6 @@ class NamedItemForm extends Form implements ServiceLocatorAwareInterface
 				'id'		=> $this->getName() . 'Name',
 			),
 		));
-	
-		return $this;
-	}
-	
-	public function addSubmitFieldset($buttonText = 'Save', $buttonClass = 'btn btn-success', $buttonLoadingText = null)
-	{
-		$fieldset = new Fieldset\SubmitFieldset();
-		$fieldset->addSubmitElement($buttonText, $buttonClass, $buttonLoadingText);
-		
-		// Negative priority should ensure the submit fieldset is always last
-		// (unless something else specifies an even lower priority)
-		$this->add($fieldset, array('name' => 'submit', 'priority' => -1));
 	
 		return $this;
 	}

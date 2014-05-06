@@ -37,7 +37,7 @@
 							<a href=""><span class="glyphicon glyphicon-question-sign"></span> <?php echo $this->translate('Help & Support'); ?></a>
 						</li>
 						<li>
-							<a href=""><span class="glyphicon glyphicon-user"></span> <?php echo $this->translate('My Preferences'); ?></a>
+							<a href="<?php echo $this->url('user', array('action' => 'preferences')); ?>"><span class="glyphicon glyphicon-user"></span> <?php echo $this->translate('My Preferences'); ?></a>
 						</li>
 						<li role="presentation" class="divider"></li>
 						<li>

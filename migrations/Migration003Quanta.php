@@ -4,7 +4,7 @@ namespace OmelettesMigration;
 
 use Omelettes\Migration\AbstractMigration;
 
-class Migration002Quanta extends AbstractMigration
+class Migration003Quanta extends AbstractMigration
 {
 	public function migrate()
 	{
@@ -271,6 +271,21 @@ class Migration002Quanta extends AbstractMigration
 			FOREIGN KEY (account_key, child_resource_name) REFERENCES resources (account_key, name)'
 		);
 		$this->viewCreate('quantum_relationships_view', 'SELECT * FROM quantum_relationships');
+		
+		// Insert resources for my test account
+		$overrideValues = array(
+			'resources' => array(
+				'account_key' => '11234453597b4c4aaef6057415f10987',
+				'created_by' => 'deadbeef7a6940e789848d3de3bedc0b',
+				'updated_by' => 'deadbeef7a6940e789848d3de3bedc0b',
+			),
+			'resource_fields' => array(
+				'account_key' => '11234453597b4c4aaef6057415f10987',
+				'created_by' => 'deadbeef7a6940e789848d3de3bedc0b',
+				'updated_by' => 'deadbeef7a6940e789848d3de3bedc0b',
+			),
+		);
+		$this->insertFixture('fixtures/resources.xml', $overrideValues);
 		
 		return true;
 	}

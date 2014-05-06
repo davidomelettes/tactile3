@@ -2,11 +2,12 @@
 
 namespace Tactile\Model;
 
-use Omelettes\Model\AccountBoundNamedItemModel;
+use Omelettes\Model\AccountBoundNamedItemModel,
+	Omelettes\Model\XmlInflatableInterface;
 use Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareInterface
+class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareInterface, XmlInflatableInterface
 {
 	use ServiceLocatorAwareTrait;
 	
@@ -57,11 +58,14 @@ class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareI
 		return $this->resource;
 	}
 	
-	public function toXml()
+	public function xmlDeflate()
 	{
 		$xml = new \XMLWriter();
 		$xml->openMemory();
 		$xml->startElement('quantum');
+		$xml->startAttribute('v');
+		$xml->text('1.0');
+		$xml->endAttribute();
 		$xml->startElement('data');
 		foreach ($this->fieldData as $key => $fieldValue) {
 			$v = $fieldValue->getValue();
@@ -72,20 +76,27 @@ class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareI
 		$xml->endElement();
 		$xml->endElement();
 		
-		return $xml->outputMemory(true);
+		$this->xmlSpecification = $xml->outputMemory(true);
+		
+		return $this;
 	}
 	
-	public function inflate()
+	public function xmlInflate()
 	{
 		if (!empty($this->xmlSpecification)) {
 			$dom = new \DOMDocument('1.0', 'UTF-8');
 			$dom->loadXML(''.$this->xmlSpecification);
 			$xpath = new \DOMXPath($dom);
-			$nodes = $xpath->query('/quantum/data/*');
-			foreach ($nodes as $node) {
-				if (array_key_exists($node->tagName, $this->fieldData)) {
-					$this->fieldData[$node->tagName]->setValue($node->nodeValue);
-				}
+			$version = $xpath->evaluate('/quantum/@v');
+			switch ($version) {
+				default:
+					// 1.0
+					$nodes = $xpath->query('/quantum/data/*');
+					foreach ($nodes as $node) {
+						if (array_key_exists($node->tagName, $this->fieldData)) {
+							$this->fieldData[$node->tagName]->setValue($node->nodeValue);
+						}
+					}
 			}
 		}
 		

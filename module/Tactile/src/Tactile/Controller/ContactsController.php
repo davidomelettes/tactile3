@@ -40,7 +40,7 @@ class ContactsController extends QuantaController
 			if (!$model) {
 				$this->flashMessenger()->addErrorMessage('Failed to find Contact with key: ' . $this->params('key'));
 			}
-			$model->inflate();
+			$model->xmlInflate();
 			return $model;
 		}
 		$this->flashMessenger()->addErrorMessage('Missing identifier');

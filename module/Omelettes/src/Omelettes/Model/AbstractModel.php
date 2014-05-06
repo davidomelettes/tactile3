@@ -6,7 +6,9 @@ abstract class AbstractModel
 {
 	public function __construct($data = array())
 	{
-		$this->exchangeArray($data);
+		if (!empty($data)) {
+			$this->exchangeArray($data);
+		}
 	}
 	
 	public function __get($name)

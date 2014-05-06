@@ -165,12 +165,13 @@ abstract class AbstractMigration
 		return $this;
 	}
 	
-	protected function insertFixture($fixturePath)
+	protected function insertFixture($fixturePath, array $overrideValues = array())
 	{
 		$this->logger->info('Inserting fixture: ' . $fixturePath, array('tag' => 'migration'));
 		
 		$fixture = new Fixture\Xml($this->getAdapter(), $this->logger);
 		$fixture->parse($fixturePath);
+		$fixture->setOverrideValues($overrideValues);
 		
 		return $fixture->insert();
 	}

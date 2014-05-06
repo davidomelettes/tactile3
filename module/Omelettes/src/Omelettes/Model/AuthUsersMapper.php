@@ -29,6 +29,7 @@ class AuthUsersMapper extends NamedItemsMapper
 			'salt'				=> $salt,
 			'password_hash'		=> $this->generatePasswordHash($plaintextPassword, $salt),
 			'acl_role'			=> $user->aclRole,
+			'xml_specification'	=> $user->xmlDeflate()->xmlSpecification,
 		);
 	
 		$this->writeTableGateway->insert($data);
@@ -108,12 +109,12 @@ class AuthUsersMapper extends NamedItemsMapper
 		}
 		$nouns = preg_split('/\s+/', 'animals balls birds boats books cakes cars cats cloths clouds coats cups dogs dresses
 			eggs flags fruit gloves hats inks jams kites leaves moons nets oars pegs quotes rooms salads scarves shoes stones
-			twigs users vases walls yetis');
+			trees twigs users vases walls yetis');
 		
 		shuffle($mods);
 		shuffle($adjs);
 		shuffle($nouns);
-		$n = rand('10', '99');
+		$n = rand(10, 99);
 		$mod = $mods[0];
 		$adj = $adjs[0];
 		$noun = $nouns[0];

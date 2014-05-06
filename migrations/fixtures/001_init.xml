@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<accounts key="11234453597b4c4aaef6057415f10987" name="David Edwards" plan_key="faceb0d54b6c4f91b60070193e133353" created_by="deadbeef7a6940e789848d3de3bedc0b" updated_by="deadbeef7a6940e789848d3de3bedc0b" />
+	<users key="71771b4ff6484a3996860750c2cc9131" name="david@omelett.es" account_key="11234453597b4c4aaef6057415f10987" full_name="David Edwards" acl_role="super" salt="77c9a91ae67848febafdc2bba443f451" password_hash="33d5fcbbbfabf19e946d21a10a057b69e3df53c6576dd1387e29e94f80ea97e5" created_by="deadbeef7a6940e789848d3de3bedc0b" updated_by="deadbeef7a6940e789848d3de3bedc0b" />
+</dataset>

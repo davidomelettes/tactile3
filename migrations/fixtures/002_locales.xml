@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<!-- Countries A -->
+	<locale_countries code="AD" name="Andorra" />
+	<locale_countries code="AE" name="United Arab Erimates" />
+	<locale_countries code="AF" name="Afghanistan" />
+	<locale_countries code="AG" name="Antigua and Barbuda" />
+	<locale_countries code="AI" name="Anguilla" />
+	<locale_countries code="AL" name="Albania" />
+	<locale_countries code="AM" name="Armenia" />
+	<locale_countries code="AO" name="Angola" />
+	<locale_countries code="AQ" name="Antarctica" />
+	<locale_countries code="AR" name="Argentina" />
+	<locale_countries code="AS" name="American Samoa" />
+	<locale_countries code="AT" name="Austria" />
+	<locale_countries code="AU" name="Australia" />
+	<locale_countries code="AW" name="Aruba" />
+	<locale_countries code="AX" name="Åland Islands" />
+	<locale_countries code="AZ" name="Azerbaijan" />
+	
+	<!-- Countries B -->
+	<locale_countries code="BA" name="Bosnia and Herzegovina" />
+	<locale_countries code="BB" name="Barbados" />
+	<locale_countries code="BD" name="Bangladesh" />
+	<locale_countries code="BE" name="Belgium" />
+	<locale_countries code="BF" name="Burkina Faso" />
+	<locale_countries code="BG" name="Bulgaria" />
+	<locale_countries code="BH" name="Bahrain" />
+	<locale_countries code="BI" name="Burundi" />
+	<locale_countries code="BJ" name="Benin" />
+	<locale_countries code="BL" name="Saint Barthélemy" />
+	<locale_countries code="BM" name="Bermuda" />
+	<locale_countries code="BN" name="Brunei" />
+	<locale_countries code="BO" name="Bolivia" />
+	<locale_countries code="BQ" name="Bonaire, Sint Eustatius and Saba" />
+	<locale_countries code="BR" name="Brazil" />
+	<locale_countries code="BS" name="Bahamas" />
+	<locale_countries code="BT" name="Bhutan" />
+	<locale_countries code="BV" name="Bouvet Island" />
+	<locale_countries code="BW" name="Botswana" />
+	<locale_countries code="BY" name="Belarus" />
+	<locale_countries code="BZ" name="Belize" />
+	
+	<!-- Countries C -->
+	<locale_countries code="CA" name="Canada" />
+	<locale_countries code="CC" name="Cocos (Keeling) Islands" />
+	<locale_countries code="CD" name="Congo, Democratic Republic of" />
+	<locale_countries code="CF" name="Central African Republic" />
+	<locale_countries code="CG" name="Congo" />
+	<locale_countries code="CH" name="Switzerland" />
+	<locale_countries code="CI" name="Côte d'Ivoire" />
+	<locale_countries code="CK" name="Cook Islands" />
+	<locale_countries code="CL" name="Chile" />
+	<locale_countries code="CM" name="Cameroon" />
+	<locale_countries code="CN" name="China" />
+	<locale_countries code="CO" name="Colombia" />
+	<locale_countries code="CR" name="Costa Rica" />
+	<locale_countries code="CU" name="Cuba" />
+	<locale_countries code="CV" name="Cape Verde" />
+	<locale_countries code="CW" name="Curaçao" />
+	<locale_countries code="CX" name="Christmas Island" />
+	<locale_countries code="CY" name="Cyprus" />
+	<locale_countries code="CZ" name="Czech Republic" />
+	
+	<!-- Countries D -->
+	<locale_countries code="DE" name="Germany" />
+	<locale_countries code="DJ" name="Djibouti" />
+	<locale_countries code="DK" name="Denmark" />
+	<locale_countries code="DM" name="Dominica" />
+	<locale_countries code="DO" name="Dominican Republic" />
+	<locale_countries code="DZ" name="Algeria" />
+	
+	<!-- Countries E -->
+	<locale_countries code="EC" name="Ecuador" />
+	<locale_countries code="EE" name="Estonia" />
+	<locale_countries code="EG" name="Egypt" />
+	<locale_countries code="EH" name="Western Sahara" />
+	<locale_countries code="ER" name="Eritrea" />
+	<locale_countries code="ES" name="Spain" />
+	<locale_countries code="ET" name="Ethiopia" />
+	
+	<!-- Countries F -->
+	<locale_countries code="FI" name="Finland" />
+	<locale_countries code="FJ" name="Fiji" />
+	<locale_countries code="FK" name="Falkland Islands" />
+	<locale_countries code="FM" name="Micronesia" />
+	<locale_countries code="FO" name="Faroe Islands" />
+	<locale_countries code="FR" name="France" />
+	
+	<!-- Countries G -->
+	<locale_countries code="GA" name="Gabon" />
+	<locale_countries code="GB" name="United Kingdom" />
+	<locale_countries code="GD" name="Grenada" />
+	<locale_countries code="GE" name="Georgia" />
+	<locale_countries code="GF" name="French Guiana" />
+	<locale_countries code="GG" name="Guernsey" />
+	<locale_countries code="GH" name="Ghana" />
+	<locale_countries code="GI" name="Gibraltar" />
+	<locale_countries code="GL" name="Greenland" />
+	<locale_countries code="GM" name="Gambia" />
+	<locale_countries code="GN" name="Guinea" />
+	<locale_countries code="GP" name="Guadaloupe" />
+	<locale_countries code="GQ" name="Equatorial Guinea" />
+	<locale_countries code="GR" name="Greece" />
+	<locale_countries code="GS" name="South Georgia and the South Sandwich Islands" />
+	<locale_countries code="GT" name="Guatemala" />
+	<locale_countries code="GU" name="Guam" />
+	<locale_countries code="GW" name="Guinea-Bissau" />
+	<locale_countries code="GY" name="Guyana" />
+	
+	<!-- Countries H -->
+	<locale_countries code="HK" name="Hong Kong" />
+	<locale_countries code="HM" name="Heard Island and McDonald Islands" />
+	<locale_countries code="HN" name="Honduras" />
+	<locale_countries code="HR" name="Croatia" />
+	<locale_countries code="HT" name="Haiti" />
+	<locale_countries code="HU" name="Hungary" />
+	
+	<!-- Countries I -->
+	<locale_countries code="ID" name="Indonesia" />
+	<locale_countries code="IE" name="Ireland" />
+	<locale_countries code="IL" name="Israel" />
+	<locale_countries code="IM" name="Isle of Man" />
+	<locale_countries code="IN" name="India" />
+	<locale_countries code="IO" name="Diego Garcia" />
+	<locale_countries code="IQ" name="Iraq" />
+	<locale_countries code="IR" name="Iran" />
+	<locale_countries code="IS" name="Iceland" />
+	<locale_countries code="IT" name="Italy" />
+	
+	<!-- Countries J -->
+	<locale_countries code="JE" name="Jersey" />
+	<locale_countries code="JM" name="Jamaica" />
+	<locale_countries code="JO" name="Jordan" />
+	<locale_countries code="JP" name="Japan" />
+	
+	<!-- Countries K -->
+	<locale_countries code="KE" name="Kenya" />
+	<locale_countries code="KG" name="Kyrgyzstan" />
+	<locale_countries code="KH" name="Cambodia" />
+	<locale_countries code="KI" name="Kiribati" />
+	<locale_countries code="KM" name="Comoros" />
+	<locale_countries code="KN" name="Saint Kitts and Nevis" />
+	<locale_countries code="KP" name="Korea, North" />
+	<locale_countries code="KR" name="Korea, South" />
+	<locale_countries code="KW" name="Kuwait" />
+	<locale_countries code="KY" name="Cayman Islands" />
+	<locale_countries code="KZ" name="Kazakhstan" />
+	
+	<!-- Countries L -->
+	<locale_countries code="LA" name="Laos" />
+	<locale_countries code="LB" name="Lebanon" />
+	<locale_countries code="LC" name="Saint Lucia" />
+	<locale_countries code="LI" name="Liechtenstein" />
+	<locale_countries code="LK" name="Sri Lanka" />
+	<locale_countries code="LR" name="Liberia" />
+	<locale_countries code="LS" name="Lesotho" />
+	<locale_countries code="LT" name="Lithuania" />
+	<locale_countries code="LU" name="Luxembourg" />
+	<locale_countries code="LV" name="Latvia" />
+	<locale_countries code="LY" name="Libya" />
+	
+	<!-- Countries M -->
+	<locale_countries code="MA" name="Morocco" />
+	<locale_countries code="MC" name="Monaco" />
+	<locale_countries code="MD" name="Moldova" />
+	<locale_countries code="ME" name="Montenegro" />
+	<locale_countries code="MF" name="Saint Martin" />
+	<locale_countries code="MG" name="Madagasgar" />
+	<locale_countries code="MH" name="Marshall Islands" />
+	<locale_countries code="MK" name="Macedonia" />
+	<locale_countries code="ML" name="Mali" />
+	<locale_countries code="MM" name="Myanmar" />
+	<locale_countries code="MN" name="Mongolia" />
+	<locale_countries code="MO" name="Macao" />
+	<locale_countries code="MP" name="Northern Mariana Islands" />
+	<locale_countries code="MQ" name="Martinique" />
+	<locale_countries code="MR" name="Mauritania" />
+	<locale_countries code="MS" name="Montserrat" />
+	<locale_countries code="MT" name="Malta" />
+	<locale_countries code="MU" name="Mauritius" />
+	<locale_countries code="MV" name="Maldives" />
+	<locale_countries code="MW" name="Malawi" />
+	<locale_countries code="MX" name="Mexico" />
+	<locale_countries code="MY" name="Malaysia" />
+	<locale_countries code="MZ" name="Mozambique" />
+	
+	<!-- Countries N -->
+	<locale_countries code="NA" name="Namibia" />
+	<locale_countries code="NC" name="New Caledonia" />
+	<locale_countries code="NE" name="Niger" />
+	<locale_countries code="NF" name="Norfolk Island" />
+	<locale_countries code="NG" name="Nigeria" />
+	<locale_countries code="NI" name="Nicaragua" />
+	<locale_countries code="NL" name="Netherlands" />
+	<locale_countries code="NO" name="Norway" />
+	<locale_countries code="NP" name="Nepal" />
+	<locale_countries code="NR" name="Nauru" />
+	<locale_countries code="NU" name="Niue" />
+	<locale_countries code="NZ" name="New Zealand" />
+	
+	<!-- Countries O -->
+	<locale_countries code="OM" name="Oman" />
+	
+	<!-- Countries P -->
+	<locale_countries code="PA" name="Panama" />
+	<locale_countries code="PE" name="Peru" />
+	<locale_countries code="PF" name="French Polynesia" />
+	<locale_countries code="PG" name="Papua New Guinea" />
+	<locale_countries code="PH" name="Philippines" />
+	<locale_countries code="PK" name="Pakistan" />
+	<locale_countries code="PL" name="Poland" />
+	<locale_countries code="PM" name="Saint Pierre and Miquelon" />
+	<locale_countries code="PN" name="Pitcairn" />
+	<locale_countries code="PR" name="Puerto Rico" />
+	<locale_countries code="PS" name="Palestine" />
+	<locale_countries code="PT" name="Portugal" />
+	<locale_countries code="PW" name="Palau" />
+	<locale_countries code="PY" name="Paraguay" />
+	
+	<!-- Countries Q -->
+	<locale_countries code="QA" name="Qatar" />
+	
+	<!-- Countries R -->
+	<locale_countries code="RE" name="Réunion" />
+	<locale_countries code="RO" name="Romania" />
+	<locale_countries code="RS" name="Serbia" />
+	<locale_countries code="RU" name="Russia" />
+	<locale_countries code="RW" name="Rwanda" />
+	
+	<!-- Countries S -->
+	<locale_countries code="SA" name="Saudia Arabia" />
+	<locale_countries code="SB" name="Solomon Islands" />
+	<locale_countries code="SC" name="Seychelles" />
+	<locale_countries code="SD" name="Sudan" />
+	<locale_countries code="SE" name="Sweden" />
+	<locale_countries code="SG" name="Singapore" />
+	<locale_countries code="SH" name="Saint Helena" />
+	<locale_countries code="SI" name="Slovenia" />
+	<locale_countries code="SJ" name="Svalbard and Jan Mayen" />
+	<locale_countries code="SK" name="Slovakia" />
+	<locale_countries code="SL" name="Sierra Leone" />
+	<locale_countries code="SM" name="San Marino" />
+	<locale_countries code="SN" name="Senegal" />
+	<locale_countries code="SO" name="Somalia" />
+	<locale_countries code="SR" name="Suriname" />
+	<locale_countries code="SS" name="South Sudan" />
+	<locale_countries code="ST" name="Sao Tome and Principle" />
+	<locale_countries code="SV" name="El Salvador" />
+	<locale_countries code="SX" name="Sint Maarten" />
+	<locale_countries code="SY" name="Syria" />
+	<locale_countries code="SZ" name="Swaziland" />
+	
+	<!-- Countries T -->
+	<locale_countries code="TC" name="Turks and Caicos" />
+	<locale_countries code="TD" name="Chad" />
+	<locale_countries code="TF" name="French Southern Territories" />
+	<locale_countries code="TG" name="Togo" />
+	<locale_countries code="TH" name="Thailand" />
+	<locale_countries code="TJ" name="Tajikistan" />
+	<locale_countries code="TK" name="Tokelau" />
+	<locale_countries code="TL" name="Timor-Leste" />
+	<locale_countries code="TM" name="Turkmenistan" />
+	<locale_countries code="TN" name="Tunisia" />
+	<locale_countries code="TO" name="Tonga" />
+	<locale_countries code="TR" name="Turkey" />
+	<locale_countries code="TT" name="Trinidad and Tobago" />
+	<locale_countries code="TV" name="Tuvalu" />
+	<locale_countries code="TW" name="Taiwan" />
+	<locale_countries code="TZ" name="Tanzania" />
+	
+	<!-- Countries U -->
+	<locale_countries code="UA" name="Ukraine" />
+	<locale_countries code="UG" name="Uganda" />
+	<locale_countries code="UM" name="United States Minor Outlying Islands" />
+	<locale_countries code="US" name="United States" />
+	<locale_countries code="UY" name="Uruguay" />
+	<locale_countries code="UZ" name="Uzbekistan" />
+	
+	<!-- Countries V -->
+	<locale_countries code="VA" name="Vatican City" />
+	<locale_countries code="VC" name="Saint Vincent and the Grenadines" />
+	<locale_countries code="VE" name="Venezuela" />
+	<locale_countries code="VG" name="Virgin Islands, British" />
+	<locale_countries code="VI" name="Virgin Islands, U.S." />
+	<locale_countries code="VN" name="Viet Nam" />
+	<locale_countries code="VU" name="Vanuatu" />
+	
+	<!-- Countries W -->
+	<locale_countries code="WF" name="Wallis and Futuna" />
+	<locale_countries code="WS" name="Samoa" />
+	
+	<!-- Countries Y -->
+	<locale_countries code="YE" name="Yemen" />
+	<locale_countries code="YT" name="Mayotte" />
+	
+	<!-- Countries Z -->
+	<locale_countries code="ZA" name="South Africa" />
+	<locale_countries code="ZM" name="Zambia" />
+	<locale_countries code="ZW" name="Zimbabwe" />
+	
+	
+	<!-- Languages -->
+	<locale_languages code="de" name="German" native="Deutsch" />
+	<locale_languages code="en" name="English" native="English" />
+	<locale_languages code="es" name="Spanish" native="Español" />
+	<locale_languages code="fr" name="French" native="Français" />
+	<locale_languages code="it" name="Italian" native="Italiano" />
+	<locale_languages code="ja" name="Japanese" native="日本語" />
+	
+	
+	<!-- Currencies -->
+	<locale_currencies code="AUD" name="Australian Dollar" symbol="$" decimals="2" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="CAD" name="Canadian Dollar" symbol="$" decimals="2" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="EUR" name="Euro" symbol="€" decimals="2" decimal_separator="," thousands_separator="." />
+	<locale_currencies code="GBP" name="Pound Sterling" symbol="£" decimals="2" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="JPY" name="Japanese Yen" symbol="¥" decimals="0" decimal_separator="." thousands_separator="," />
+	<locale_currencies code="USD" name="United States Dollar" symbol="$" decimals="2" decimal_separator="." thousands_separator="," />
+	
+	
+	<!-- Date Formats -->
+	<locale_date_formats code="DMY" format="dd/mm/yyyy" php_format="d/m/Y" />
+	<locale_date_formats code="MDY" format="mm/dd/yyyy" php_format="m/d/Y" />
+	<locale_date_formats code="YMD" format="yyyy-mm-ddd" php_format="Y-m-d" />
+	
+	
+	<!-- Locales -->
+	<!--
+	<locales code="de_DE" country_code="DE" language_code="de" currency_code="EUR" date_code="DMY" />
+	<locales code="en_AU" country_code="AU" language_code="en" currency_code="AUD" date_code="DMY" />
+	<locales code="en_CA" country_code="CA" language_code="en" currency_code="CAD" date_code="MDY" />
+	<locales code="es_ES" country_code="ES" language_code="es" currency_code="EUR" date_code="DMY" />
+	<locales code="fr_CA" country_code="CA" language_code="fr" currency_code="CAD" date_code="DMY" />
+	<locales code="fr_FR" country_code="FR" language_code="fr" currency_code="EUR" date_code="DMY" />
+	<locales code="it_IT" country_code="IT" language_code="it" currency_code="EUR" date_code="DMY" />
+	<locales code="ja_JP" country_code="JP" language_code="ja" currency_code="JPY" date_code="YMD" />
+	-->
+	<locales code="en_GB" country_code="GB" language_code="en" currency_code="GBP" date_code="DMY" />
+	<locales code="en_US" country_code="US" language_code="en" currency_code="USD" date_code="MDY" />
+</dataset>
