@@ -178,10 +178,13 @@ class Module
 	{
 		$app = $ev->getApplication();
 		$sm = $app->getServiceManager();
-		$prefs = $sm->get('UserPreferenceService');
-		$locale = $prefs->get('locale');
-		$translator = $sm->get('translator');
-		$translator->setLocale($locale);
+		$auth = $sm->get('AuthService');
+		if ($auth->hasIdentity()) {
+			$prefs = $sm->get('UserPreferenceService');
+			$locale = $prefs->get('locale');
+			$translator = $sm->get('translator');
+			$translator->setLocale($locale);
+		}
 	}
 	
 }
