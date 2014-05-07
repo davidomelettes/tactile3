@@ -265,21 +265,27 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				// User Preferences
 				'UserPreferencesTableGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					//$resultSetPrototype->setArrayObjectPrototype(new Model\UserPreference());
-					return new TableGateway('user_preferences', $dbAdapter, null, $resultSetPrototype);
+					return new TableGateway('user_preferences', $dbAdapter);
 				},
 				'UserPreferencesViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					//$resultSetPrototype->setArrayObjectPrototype(new Model\UserPreference());
+					$resultSetPrototype->setArrayObjectPrototype(new Model\UserPreference());
 					return new TableGateway('user_preferences_view', $dbAdapter, null, $resultSetPrototype);
 				},
-				'Omelettes\Model\AuthUserPreferencesMapper' => function ($sm) {
+				'Omelettes\Model\UserPreferencesMapper' => function ($sm) {
 					$readGateway = $sm->get('UserPreferencesViewGateway');
 					$writeGateway = $sm->get('UserPreferencesTableGateway');
 					$mapper = new Model\UserPreferencesMapper($readGateway, $writeGateway);
 					return $mapper;
+				},
+				'UserPreferencesService' => function ($sm) {
+					$service = new Service\UserPreferencesService($sm->get('Omelettes\Model\UserPreferencesMapper'));
+					return $service;
+				},
+				'Omelettes\Form\UserPreferencesFilter' => function ($sm) {
+					$filter = new Form\UserPreferencesFilter();
+					return $filter;
 				},
 				
 				// Login
@@ -312,6 +318,7 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 		
 		$app = $ev->getParam('application');
 		$eventManager = $app->getEventManager();
+		$eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setLocale'));
 		$eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'setLayout'));
 		$eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAuth'));
 		$eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, 'checkAcl'));
@@ -496,6 +503,26 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 				// User is logged in, probably tried to access an admin-only resource/privilege
 				$flash->addErrorMessage('You do not have permission to access that page');
 				return $this->redirectToRoute($ev, 'home');
+			}
+		}
+	}
+	
+	/**
+	 * Set application locale for translation purposes
+	 * 
+	 * @param MvcEvent $ev
+	 */
+	public function setLocale(MvcEvent $ev)
+	{
+		$app = $ev->getApplication();
+		$sm = $app->getServiceManager();
+		$auth = $sm->get('AuthService');
+		if ($auth->hasIdentity()) {
+			$prefs = $sm->get('UserPreferencesService');
+			$locale = $prefs->get('locale');
+			if (!is_null($locale)) {
+				$translator = $sm->get('translator');
+				$translator->setLocale($locale);
 			}
 		}
 	}

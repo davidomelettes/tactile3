@@ -78,36 +78,6 @@ class Module
 					$mapper = new Model\LocalesMapper($readGateway);
 					return $mapper;
 				},
-				'LocaleService' => function ($sm) {
-					$service = new Service\LocaleService($sm->get('Tactile\Model\LocalesMapper'));
-					return $service;
-				},
-				
-				// User Preferences
-				'UserPreferencesTableGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					return new TableGateway('user_preferences', $dbAdapter);
-				},
-				'UserPreferencesViewGateway' => function ($sm) {
-					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype->setArrayObjectPrototype(new Model\UserPreference());
-					return new TableGateway('user_preferences_view', $dbAdapter, null, $resultSetPrototype);
-				},
-				'Tactile\Model\UserPreferencesMapper' => function ($sm) {
-					$readGateway = $sm->get('UserPreferencesViewGateway');
-					$writeGateway = $sm->get('UserPreferencesTableGateway');
-					$mapper = new Model\UserPreferencesMapper($readGateway, $writeGateway);
-					return $mapper;
-				},
-				'Tactile\Form\UserPreferencesFilter' => function ($sm) {
-					$filter = new Form\UserPreferencesFilter();
-					return $filter;
-				},
-				'UserPreferenceService' => function ($sm) {
-					$service = new Service\UserPreferenceService($sm->get('Tactile\Model\UserPreferencesMapper'));
-					return $service;
-				},
 				
 				// Quanta
 				'Tactile\Model\Quantum' => function ($sm) {
@@ -165,26 +135,6 @@ class Module
 				},
 			),
 		);
-	}
-	
-	public function onBootstrap(MvcEvent $ev)
-	{
-		$app = $ev->getParam('application');
-		$eventManager = $app->getEventManager();
-		$eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'setLocale'));
-	}
-	
-	public function setLocale(MvcEvent $ev)
-	{
-		$app = $ev->getApplication();
-		$sm = $app->getServiceManager();
-		$auth = $sm->get('AuthService');
-		if ($auth->hasIdentity()) {
-			$prefs = $sm->get('UserPreferenceService');
-			$locale = $prefs->get('locale');
-			$translator = $sm->get('translator');
-			$translator->setLocale($locale);
-		}
 	}
 	
 }

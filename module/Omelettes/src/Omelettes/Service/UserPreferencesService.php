@@ -1,12 +1,12 @@
 <?php
 
-namespace Tactile\Service;
+namespace Omelettes\Service;
 
-use Tactile\Model;
+use Omelettes\Model;
 use Zend\ServiceManager\ServiceLocatorAwareInterface,
 	Zend\ServiceManager\ServiceLocatorAwareTrait;
 
-class UserPreferenceService implements ServiceLocatorAwareInterface
+class UserPreferencesService implements ServiceLocatorAwareInterface
 {
 	use ServiceLocatorAwareTrait;
 	

@@ -1,8 +1,6 @@
 <?php
 
-namespace Tactile\Form;
-
-use Omelettes\Form\AbstractFilter;
+namespace Omelettes\Form;
 
 class UserPreferencesFilter extends AbstractFilter
 {

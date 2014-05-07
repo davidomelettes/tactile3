@@ -1,8 +1,6 @@
 <?php
 
-namespace Tactile\Model;
-
-use Omelettes\Model\AbstractModel;
+namespace Omelettes\Model;
 
 class UserPreference extends AbstractModel
 {

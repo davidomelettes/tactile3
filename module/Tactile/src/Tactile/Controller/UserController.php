@@ -22,7 +22,7 @@ class UserController extends Controller\AbstractController
 	{
 		$form = $this->getUserPreferencesForm();
 		
-		$prefService = $this->getServiceLocator()->get('UserPreferenceService');
+		$prefService = $this->getServiceLocator()->get('UserPreferencesService');
 		$prefs = $prefService->getPreferenceOptions();
 		$form->setData($prefs);
 		

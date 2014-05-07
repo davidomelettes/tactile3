@@ -1,30 +1,11 @@
 <?php
 
-namespace Tactile\Form;
+namespace Omelettes\Form;
 
-use Omelettes\Form;
-
-class UserPreferencesForm extends Form\UserPreferencesForm
+class UserPreferencesForm extends AbstractForm
 {
 	public function init()
 	{
-		$localeOptions = array();
-		$locales = $this->getApplicationServiceLocator()->get('Tactile\Model\LocalesMapper')->fetchAll();
-		foreach ($locales as $locale) {
-			$localeOptions[$locale->code] = $locale->name;
-		} 
-		$this->add(array(
-			'name'		=> 'locale',
-			'type'		=> 'Select',
-			'options'	=> array(
-				'label'		=> 'Language',
-				'options'	=> $localeOptions,
-			),
-			'attributes'=> array(
-				'id'		=> $this->getName() . 'Locale',
-			),
-		));
-	
 		$now = time();
 		$dateFormatOptions = array(
 			'dmy' => date('d/m/Y', $now) . ' (dd/mm/yyyy)',

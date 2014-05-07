@@ -1,12 +1,11 @@
 <?php
 
-namespace Tactile\Model;
+namespace Omelettes\Model;
 
-use Omelettes\Model,
-	Omelettes\Uuid\V4 as Uuid;
+use Omelettes\Uuid\V4 as Uuid;
 use Zend\Db\Sql;
 
-class UserPreferencesMapper extends Model\AbstractMapper
+class UserPreferencesMapper extends AbstractMapper
 {
 	protected function getDefaultWhere()
 	{
