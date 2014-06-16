@@ -1,11 +1,11 @@
-<fieldset>
+<fieldset class="<?php echo $fieldset->getName(); ?>">
 	<?php foreach ($fieldset as $element): ?>
 	<?php echo $this->partial(
 			'partial/form/group-horizontal.phtml',
 			array(
 				'element'		=> $element,
-				'leftColWidth'	=> 2,
-				'rightColWidth'	=> 4,
+				'leftColWidth'	=> $leftColWidth,
+				'rightColWidth'	=> $rightColWidth,
 				'model'			=> $this->model,
 			)); ?>
 	<?php endforeach; ?>

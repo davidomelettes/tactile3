@@ -78,7 +78,8 @@ class SignupController extends AbstractController
 		}
 		
 		return array(
-			'form' => $form,
+			'title'	=> 'Create a Tactile CRM account',
+			'form'	=> $form,
 		);
 	}
 	

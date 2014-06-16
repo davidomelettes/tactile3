@@ -114,7 +114,7 @@ trait QuantaTrait
 	public function getQuantum()
 	{
 		if (!$this->quantum) {
-			$model = new Model\Quantum();
+			$model = $this->getServiceLocator()->get('Tactile\Model\Quantum');
 			$model->setResource($this->getQuantumResource());
 			$this->quantum = $model;
 		}

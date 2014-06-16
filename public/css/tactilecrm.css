@@ -5773,10 +5773,17 @@ button.close {
   }
 }
 .page-title .pagination {
-  margin-top: 0;
+  padding: 0;
+  margin: 0;
 }
 .page-title .pull-right:first-child .list-inline > li:last-child {
   padding-right: 0;
+}
+.page-title h2.panel-title {
+  font-size: 30px;
+}
+form label.required:after {
+  content: " *";
 }
 form .help-block:last-child {
   margin-bottom: 0;
@@ -5794,6 +5801,25 @@ dl.authorship dt {
 dl.authorship dd {
   font-weight: bold;
 }
+.timepicker {
+  position: absolute;
+  z-index: 9001;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #999999;
+}
+.timepicker div {
+  width: 60px;
+  padding: 4px;
+  font-size: 0.8em;
+  cursor: default;
+}
+.timepicker div.selected,
+.timepicker div:hover {
+  background-color: #E4EBFB;
+}
 .navbar-signup {
   background: #e7e7e7 url('../img/bg.jpg') no-repeat;
   border-bottom-color: #969696;
@@ -5808,6 +5834,7 @@ body {
   min-height: 600px;
   background: #e7e7e7 url('../img/bg.jpg') no-repeat;
   padding-top: 70px;
+  padding-bottom: 70px;
 }
 .navbar-logo .navbar-header a {
   padding-left: 100px;
@@ -5832,10 +5859,4 @@ body {
 }
 .navbar-inverse .navbar-brand {
   color: #fff;
-}
-.panel .panel-body :first-child {
-  margin-top: 0;
-}
-.panel .panel-body :last-child {
-  margin-bottom: 0;
 }

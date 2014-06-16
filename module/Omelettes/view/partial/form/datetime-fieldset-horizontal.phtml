@@ -1,0 +1,33 @@
+<fieldset class="<?php echo $fieldset->getName(); ?>">
+	<?php $dateElement = $fieldset->get('date'); ?>
+	<?php $timeElement = $fieldset->get('time'); ?>
+	<div class="form-group<?php if ($this->formElementErrors($fieldset)) echo " has-error"; ?>">
+		<label class="col-lg-<?php echo $this->leftColWidth; ?> control-label" for="<?php echo $dateElement->getAttribute('id'); ?><?php if ($dateElement->getAttribute('required')): ?> required<?php endif; ?>">
+			<?php echo $dateElement->getLabel(); ?>
+		</label>
+		<div class="col-lg-<?php echo $this->rightColWidth; ?>">
+			<div class="row">
+				<div class="col-lg-6 has-feedback">
+					<?php echo $this->formDatePick($dateElement); ?>
+					<span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+				</div>
+				
+				<?php $this->inlineScript()->captureStart(); ?>
+					$('#<?php echo $dateElement->getAttribute('id') ?>').datepicker();
+				<?php $this->inlineScript()->captureEnd(); ?>
+				
+				
+				<div class="col-lg-6 has-feedback">
+					<?php echo $this->formTimePick($timeElement); ?>
+					<span class="glyphicon glyphicon-time form-control-feedback"></span>
+				</div>
+			</div>
+			<?php if ($this->formElementErrors($dateElement)): ?>
+			<span class="help-block"><?php echo $this->formElementErrors($dateElement); ?></span>
+			<?php endif; ?>
+			<?php if ($this->formElementErrors($timeElement)): ?>
+			<span class="help-block"><?php echo $this->formElementErrors($timeElement); ?></span>
+			<?php endif; ?>
+		</div>
+	</div>
+</fieldset>

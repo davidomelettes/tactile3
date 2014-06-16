@@ -308,6 +308,8 @@ class Module implements ConsoleBannerProviderInterface, ConsoleUsageProviderInte
 					return $filter;
 				},
 			),
+			'services' => array(),
+			'shared' => array(),
 		);
 	}
 	

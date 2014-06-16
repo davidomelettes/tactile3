@@ -49,12 +49,16 @@ return array(
 	),
 	'filters' => array(
 		'invokables' => array(
+			'DateStringToIso8601' => 'Omelettes\Filter\DateStringToIso8601',
 			'Slug' => 'Omelettes\Filter\Slug',
 		),
 	),
 	'form_elements' => array(
 		'invokables' => array(
 			'autocomplete' => 'Omelettes\Form\Element\Autocomplete',
+			//'dateTimePick' => 'Omelettes\Form\Element\DateTimePick',
+			'datePick' => 'Omelettes\Form\Element\DatePick',
+			'timePick' => 'Omelettes\Form\Element\TimePick',
 			'staticValue' => 'Omelettes\Form\Element\StaticValue',
 		),
 	),
@@ -96,6 +100,9 @@ return array(
 		'invokables'	=> array(
 			'aclService'		=> 'Omelettes\View\Helper\AclService',
 			'authService'		=> 'Omelettes\View\Helper\AuthService',
+			//'formDateTimePick'	=> 'Omelettes\Form\View\Helper\FormDateTimePick',
+			'formDatePick'	=> 'Omelettes\Form\View\Helper\FormDatePick',
+			'formTimePick'	=> 'Omelettes\Form\View\Helper\FormTimePick',
 			'tabulate'			=> 'Omelettes\View\Helper\Tabulate',
 			'prettyText'		=> 'Omelettes\View\Helper\PrettyText',
 			'prettyTextFormat'	=> 'Omelettes\View\Helper\PrettyTextFormat',

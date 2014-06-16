@@ -2,11 +2,14 @@
 @import "bootstrap/bootstrap.less";
 
 .page-title {
-	.pagination { margin-top: 0; }
+	.pagination { padding: 0; margin: 0; }
 	.pull-right:first-child .list-inline > li:last-child { padding-right: 0; }
+	h2.panel-title { font-size: @font-size-h2; }
 }
 
 form {
+	label.required:after { content: " *"; }
+	.datetimepick {}
 	.help-block:last-child { margin-bottom: 0; }
 	fieldset.submit {
 		a { margin-left: 1em; }
@@ -19,4 +22,25 @@ dl.dl-inline {
 dl.authorship {
 	dt { font-weight: normal; }
 	dd { font-weight: bold; }
+}
+
+.timepicker {
+	position: absolute;
+	z-index: 9001;
+	max-height: 150px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #fff;
+	border: 1px solid @gray-light;
+	
+	div {
+		width: 60px;
+		padding: 4px;
+		font-size: 0.8em;
+		cursor: default;
+		&.selected,
+		&:hover {
+			background-color: #E4EBFB;
+		}
+	}
 }

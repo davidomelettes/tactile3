@@ -24,12 +24,12 @@ class Resource extends AccountBoundNamedItemModel implements ServiceLocatorAware
 		'protected'					=> 'protected',
 	);
 	
-	public function getBlankFieldValues()
+	public function getDefaultFieldValues()
 	{
 		$values = array();
 		
 		foreach ($this->getFields() as $field) {
-			$values[$field->name] = new QuantumFieldValue($field->type);
+			$values[$field->name] = new QuantumFieldValue($this, $field->type, $field->defaultValue);
 		}
 		
 		return $values;

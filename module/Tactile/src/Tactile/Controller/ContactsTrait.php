@@ -30,7 +30,7 @@ trait ContactsTrait
 	public function getQuantum()
 	{
 		if (!$this->quantum) {
-			$model = new Model\Contact();
+			$model = $this->getServiceLocator()->get('Tactile\Model\Contact');
 			$model->setResource($this->getQuantumResource());
 			$this->quantum = $model;
 		}

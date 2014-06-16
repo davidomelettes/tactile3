@@ -18,27 +18,45 @@ class PrettyTime extends AbstractPrettifier
 			$diff = abs($diff);
 			switch (1) {
 				case $diff < 30:
-					return 'just now';
+					// 30 seconds ago
+					$string = 'just now';
+					break;
 				case $diff < 3600:
+					// 1 hour ago 
 					$minutes = (int)ceil($diff / 60);
-					return sprintf('%d minute%s ago', $minutes, ($minutes === 1 ? '' : 's'));
+					$string = sprintf('%d minute%s ago', $minutes, ($minutes === 1 ? '' : 's'));
+					break;
 				case $diff < 86400:
+					// 1 day ago
 					$hours = (int)ceil($diff / 3600);
-					return sprintf('%d hour%s ago', $hours, $hours === 1 ? '' : 's');
+					$string = sprintf('%d hour%s ago', $hours, $hours === 1 ? '' : 's');
+					break;
 				case $diff < 172800:
-					return sprintf('Yesterday at %s', date('H:i', $then));
+					// Yesterday
+					$string = sprintf('Yesterday at %s', date('H:i', $then));
+					break;
+				case date('Y', $now) === date('Y', $then):
+					// This year
+					$string = date('d F', $then);
+					break;
 				default:
-					return date('Y-m-d', $then);
+					// Not this year
+					$string = date('d F Y', $then);
+					break;
 			}
 		} else {
 			// Present/Future
 			switch (1) {
 				case $diff < 10:
-					return 'just now';
+					$string = 'just now';
+					break;
 				default:
-					return date('Y-m-d', $then);
+					$string = date('Y-m-d', $then);
+					break;
 			}
 		}
+		
+		return sprintf('<span title="%s">%s</span>', date('l, d F Y \a\t H:i', $then), $string);
 	}
 	
 }

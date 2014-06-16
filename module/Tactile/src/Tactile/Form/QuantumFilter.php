@@ -32,7 +32,18 @@ class QuantumFilter extends NamedItemFilter
 			$fieldsMapper = $this->getServiceLocator()->get('Tactile\Model\ResourceFieldsMapper');
 			$fields = $fieldsMapper->fetchForResource($this->resource);
 			foreach ($fields as $field) {
-				$inputFilter->add($factory->createInput($field->getInputFilterSpecification()));
+				switch ($field->type) {
+					case 'datetime':
+						// Datetime fields have their own fieldset
+						$fieldsetFilter = $this->getDefaultInputFilter();
+						foreach ($field->getInputFilterSpecification() as $name => $spec) {
+							$fieldsetFilter->add($spec, $name);
+						}
+						$inputFilter->add($fieldsetFilter, $field->name);
+						break;
+					default:
+						$inputFilter->add($factory->createInput($field->getInputFilterSpecification()));
+				}
 			}
 			
 			$this->inputFilter = $inputFilter;

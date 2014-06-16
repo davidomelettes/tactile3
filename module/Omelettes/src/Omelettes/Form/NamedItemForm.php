@@ -24,6 +24,7 @@ class NamedItemForm extends AbstractForm
 			),
 			'attributes'=> array(
 				'id'		=> $this->getName() . 'Name',
+				'required'	=> true,
 			),
 		));
 	

@@ -8,6 +8,8 @@ class XmlMultiTypeValue
 	protected $type;
 	protected $value;
 	
+	protected $dateTimeHasTime = false;
+	
 	public function __construct($type, $value = null)
 	{
 		$this->setType($type);
@@ -42,6 +44,11 @@ class XmlMultiTypeValue
 	public function getValue()
 	{
 		return $this->value;
+	}
+	
+	public function getDateTimeHasTime()
+	{
+		return $this->dateTimeHasTime;
 	}
 	
 }

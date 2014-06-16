@@ -78,6 +78,7 @@ class QuantaController extends Controller\AbstractController
 	public function indexAction()
 	{
 		return $this->returnViewModel(array(
+			'title'		=> sprintf('All %s', $this->resource->labelPlural),
 			'paginator'	=> $this->getQuantaPaginator((int)$this->params()->fromQuery('page', 1)),
 			'crud'		=> $this->constructNavigation($this->getIndexNavigationConfig()),
 		));
@@ -102,7 +103,8 @@ class QuantaController extends Controller\AbstractController
 		}
 		
 		return $this->returnViewModel(array(
-			'form' => $form,
+			'title'	=> sprintf('Add a new %s', $this->resource->labelSingular),
+			'form'	=> $form,
 		));
 	}
 	
@@ -113,7 +115,8 @@ class QuantaController extends Controller\AbstractController
 			return $this->redirect()->toRoute($this->getRouteName());
 		}
 		
-		return $this->returnViewModel( array(
+		return $this->returnViewModel(array(
+			'title'	=> $model->name,
 			'model'	=> $model,
 			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
@@ -140,9 +143,10 @@ class QuantaController extends Controller\AbstractController
 		}
 	
 		return $this->returnViewModel(array(
+			'title'	=> sprintf('Edit %s', $model->name),
 			'model'	=> $model,
 			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
-			'form' => $form,
+			'form'	=> $form,
 		));
 	}
 	

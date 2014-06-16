@@ -2,6 +2,7 @@
 
 namespace Tactile\Model;
 
+use Tactile\Form;
 use Omelettes\Model\AccountBoundNamedItemModel,
 	Omelettes\Validator;
 use Zend\ServiceManager\ServiceLocatorAwareInterface,
@@ -15,6 +16,7 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 	protected $label;
 	protected $protected;
 	protected $required;
+	protected $defaultValue;
 	protected $searchable;
 	protected $priority;
 	
@@ -23,6 +25,7 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 		'label'				=> 'label',
 		'protected'			=> 'protected',
 		'required'			=> 'required',
+		'defaultValue'		=> 'default_value',
 		'searchable'		=> 'searchable',
 	);
 	
@@ -32,6 +35,7 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 		
 		switch ($this->type) {
 			case 'text':
+				$default = $this->defaultValue;
 				$spec = array(
 					'name'		=> $this->name,
 					'priority'	=> $this->priority,
@@ -41,6 +45,8 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 					),
 					'attributes'=> array(
 						'id'		=> $this->name,
+						'value'		=> $default,
+						'required'		=> $this->required,
 					),
 				);
 				break;
@@ -48,6 +54,10 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 				$fieldOptions = array('' => '-- Select User --');
 				foreach ($this->getServiceLocator()->get('UsersService')->getUsers() as $user) {
 					$fieldOptions[$user->key] = $user->fullName;
+				}
+				$default = $this->defaultValue;
+				if ($default === 'me') {
+					$default = $this->getServiceLocator()->get('AuthService')->getIdentity()->key;
 				}
 				$spec = array(
 					'name'		=> $this->name,
@@ -59,23 +69,12 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 					),
 					'attributes'=> array(
 						'id'		=> $this->name,
+						'value'		=> $default,
 					),
 				);
 				break;
 			case 'datetime':
-				$spec = array(
-					'name'		=> $this->name,
-					'priority'	=> $this->priority,
-					'type'		=> 'Text',
-					'options'	=> array(
-						'label'		=> $this->label,
-						'feedback'	=> 'glyphicon glyphicon-calendar', 
-					),
-					'attributes'=> array(
-						'id'			=> $this->name,
-						'placeholder'	=> 'e.g. '. date('Y-m-d'),
-					),
-				);
+				$spec = new Form\Fieldset\DateTimeFieldset($this);
 				break;
 			default:
 				throw new \Exception('Unexpected field type: ' . $this->type);
@@ -87,6 +86,8 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 	public function getInputFilterSpecification()
 	{
 		$spec = array();
+		
+		$prefsService = $this->getServiceLocator()->get('UserPreferencesService');
 		
 		switch ($this->type) {
 			case 'varchar':
@@ -123,26 +124,58 @@ class ResourceField extends AccountBoundNamedItemModel implements ServiceLocator
 				break;
 			case 'datetime':
 				$spec = array(
-					'name'			=> $this->name,
-					'required'		=> $this->required,
-					'filters'		=> array(
-						array('name' => 'StripTags'),
-						array('name' => 'StringTrim'),
-					),
-					'validators'	=> array(
-						array(
-							'name'		=> 'StringLength',
-							'options'	=> array(
-								'encoding'	=> 'UTF-8',
-								'min'		=> 1,
-								'max'		=> 255,
+					'date' => array(
+						'name'		=> 'date',
+						'required'	=> $this->required,
+						'filters'		=> array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+							array(
+								'name'		=> 'Omelettes\Filter\DateStringToIso8601',
+								'options'	=> array(
+									'format'	=> $prefsService->get('date_format'),
+								),
 							),
 						),
-						array(
-							'name'		=> 'Date',
-							'options'	=> array(
-								'format'	=> 'Y-m-d',
-								'locale'	=> 'gb',
+						'validators'	=> array(
+							array(
+								'name'		=> 'StringLength',
+								'options'	=> array(
+									'encoding'	=> 'UTF-8',
+									'max'		=> 255,
+								),
+							),
+							array(
+								'name'		=> 'Date',
+								'options'	=> array(
+									'format'		=> 'Y-m-d',
+								),
+							),
+						),
+					),
+					'time' => array(
+						'name'		=> 'time',
+						'required'	=> false,
+						'filters'		=> array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+						),
+						'validators'	=> array(
+							array(
+								'name'		=> 'StringLength',
+								'options'	=> array(
+									'encoding'	=> 'UTF-8',
+									'max'		=> 255,
+								),
+							),
+							array(
+								'name'		=> 'Date',
+								'options'	=> array(
+									'format'		=> 'H:i',
+									'messages'	=> array(
+										\Zend\Validator\Date::INVALID_DATE => "The input does not appear to be a valid time",
+									),
+								),
 							),
 						),
 					),

@@ -12,6 +12,7 @@ class Migration002Locales extends AbstractMigration
 			'code'		=> 'CHAR(2) PRIMARY KEY',
 			'name'		=> 'VARCHAR NOT NULL',
 		));
+		$this->viewCreate('locale_countries_view', "SELECT * FROM locale_countries");
 		
 		$this->tableCreate('locale_languages', array(
 			'code'		=> 'CHAR(2) PRIMARY KEY',

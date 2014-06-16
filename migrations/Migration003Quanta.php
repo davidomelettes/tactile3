@@ -45,6 +45,7 @@ class Migration003Quanta extends AbstractMigration
 				'label'				=> 'VARCHAR(256) NOT NULL',
 				'type'				=> 'VARCHAR(256) NOT NULL',
 				'required'			=> 'BOOLEAN NOT NULL DEFAULT false',
+				'default_value'		=> 'VARCHAR(256)',
 				'searchable'		=> 'BOOLEAN NOT NULL DEFAULT false',
 				'priority'			=> 'INT NOT NULL DEFAULT 0',
 			),
@@ -219,6 +220,7 @@ class Migration003Quanta extends AbstractMigration
 				'field_name'		=> 'VARCHAR(256) NOT NULL',
 				'quantum_key'		=> 'UUID NOT NULL REFERENCES quanta(key)',
 				'value'				=> 'TIMESTAMP WITH TIME ZONE',
+				'has_time'			=> 'BOOLEAN NOT NULL DEFAULT TRUE',
 			),
 			array('quantum_key', 'field_name'),
 			// Reference involves multiple columns

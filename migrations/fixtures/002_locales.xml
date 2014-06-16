@@ -299,7 +299,6 @@
 	<locale_countries code="ZM" name="Zambia" />
 	<locale_countries code="ZW" name="Zimbabwe" />
 	
-	
 	<!-- Languages -->
 	<locale_languages code="de" name="German" native="Deutsch" />
 	<locale_languages code="en" name="English" native="English" />

@@ -1,4 +1,6 @@
-<label class="col-lg-<?php echo $this->leftColWidth; ?> control-label" for="<?php echo $element->getAttribute('id'); ?>"><?php echo $element->getLabel(); ?></label>
+<label class="col-lg-<?php echo $this->leftColWidth; ?> control-label<?php if ($element->getAttribute('required')): ?> required<?php endif; ?>" for="<?php echo $element->getAttribute('id'); ?>">
+	<?php echo $element->getLabel(); ?>
+</label>
 <div class="col-lg-<?php echo $this->rightColWidth; ?>">
 	<?php echo $this->formElement($element); ?>
 	<?php if ($this->formElementErrors($element)): ?>

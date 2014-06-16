@@ -1,11 +1,15 @@
 <div class="row">
 	<div class="col-lg-6 col-lg-offset-3">
-		<?php echo $this->partial('page-title', array(
-			'title'		=> 'Sign in to Tactile CRM',
-		)); ?>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<?php echo $this->partial('page-title', array(
+					'title'		=> 'Sign in to Tactile CRM',
+				)); ?>
+			</div>
+			<div class="panel-body">
+				<?php echo $this->partial('form/friendly', array('form' => $this->form)); ?>
+			</div>
+		</div>
+		<p class="text-center"><?php echo $this->translate("Don't have an account?");?> <a class="" href="<?php echo $this->url('signup'); ?>"><?php echo $this->translate('Sign up for free today!'); ?></a></p>
 	</div>
 </div>
-
-<?php echo $this->partial('form/friendly', array('form' => $this->form)); ?>
-
-<p class="text-center"><?php echo $this->translate("Don't have an account?");?> <a class="btn btn-warning" href="<?php echo $this->url('signup'); ?>"><?php echo $this->translate('Sign up for free today!'); ?></a></p>

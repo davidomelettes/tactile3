@@ -37,7 +37,7 @@ class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareI
 		if (!method_exists($this, $getterMethodName) && !isset($map[$name])) {
 			if (array_key_exists($name, $this->fieldData)) {
 				// Field value
-				return $this->fieldData[$name]->getValue();
+				return $this->fieldData[$name]->getScalarValue();
 			}
 			throw new \Exception('Invalid ' . get_class($this) . ' property: ' . $name);
 		}
@@ -48,7 +48,7 @@ class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareI
 	public function setResource(Resource $resource)
 	{
 		$this->resource = $resource;
-		$this->fieldData = $this->resource->getBlankFieldValues();
+		$this->fieldData = $this->resource->getDefaultFieldValues();
 		
 		return $this;
 	}
@@ -60,17 +60,29 @@ class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareI
 	
 	public function xmlDeflate()
 	{
+		$userPrefsService = $this->getServiceLocator()->get('UserPreferencesService');
+		$tz = $userPrefsService->get('time_zone');
+		
 		$xml = new \XMLWriter();
 		$xml->openMemory();
-		$xml->startElement('quantum');
-		$xml->startAttribute('v');
-		$xml->text('1.0');
-		$xml->endAttribute();
+		$xml->startElement('qt');
+		$xml->writeAttribute('v', '1.0');
 		$xml->startElement('data');
 		foreach ($this->fieldData as $key => $fieldValue) {
-			$v = $fieldValue->getValue();
-			if (!is_null($v) && '' !== $v) {
-				$xml->writeElement($key, $v);
+			$v = $fieldValue->getScalarValue();
+			if (is_array($v)) {
+				throw new \Exception('Cannot deflate array to XML');
+			} elseif (!is_null($v) && '' !== $v) {
+				switch ($fieldValue->getType()) {
+					case 'datetime':
+						$xml->startElement($key);
+						$xml->writeAttribute('time', $fieldValue->getDateTimeHasTime() ? 'true' : 'false');
+						$xml->text($v);
+						$xml->endElement();
+						break;
+					default:
+						$xml->writeElement($key, $v);
+				}
 			}
 		}
 		$xml->endElement();
@@ -85,16 +97,35 @@ class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareI
 	{
 		if (!empty($this->xmlSpecification)) {
 			$dom = new \DOMDocument('1.0', 'UTF-8');
-			$dom->loadXML(''.$this->xmlSpecification);
+			
+			// Supress warnings
+			$result = @$dom->loadXML($this->xmlSpecification);
+			if (!$result) {
+				// Do something?!
+				return $this;
+			}
 			$xpath = new \DOMXPath($dom);
-			$version = $xpath->evaluate('/quantum/@v');
+			$version = $xpath->evaluate('/qt/@v');
 			switch ($version) {
 				default:
 					// 1.0
-					$nodes = $xpath->query('/quantum/data/*');
+					$nodes = $xpath->query('/qt/data/*');
 					foreach ($nodes as $node) {
 						if (array_key_exists($node->tagName, $this->fieldData)) {
-							$this->fieldData[$node->tagName]->setValue($node->nodeValue);
+							switch ($this->fieldData[$node->tagName]->getType()) {
+								case 'datetime':
+									$datetime = \DateTime::createFromFormat('Y-m-d H:i:sO', $node->nodeValue);
+									if ($datetime !== false && \DateTime::getLastErrors()['warning_count'] < 1) {
+										$value = array('date' => $datetime->format('Y-m-d'));
+										if ($node->getAttribute('time') === 'true') {
+											$value['time'] = $datetime->format('H:i');
+										}
+										$this->fieldData[$node->tagName]->setValue($value);
+									}
+									break;
+								default:
+									$this->fieldData[$node->tagName]->setValue($node->nodeValue);
+							}
 						}
 					}
 			}
@@ -136,9 +167,16 @@ class Quantum extends AccountBoundNamedItemModel implements ServiceLocatorAwareI
 			$getterMethodName = 'get'.ucfirst($property);
 			$copy[$column] = $this->$getterMethodName();
 		}
-		foreach ($this->fieldData as $name => $field) {
-			$copy[$name] = $field->getValue();
+		foreach ($this->fieldData as $fieldName => $fieldValue) {
+			switch ($fieldValue->getType()) {
+				case 'datetime':
+					$copy[$fieldName] = $fieldValue->getValue();
+					break;
+				default:
+					$copy[$fieldName] = $fieldValue->getValue();
+			}
 		}
+		var_dump($copy);
 	
 		return $copy;
 	}

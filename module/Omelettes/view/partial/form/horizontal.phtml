@@ -2,6 +2,7 @@
 
 use Zend\Form\Fieldset;
 use Omelettes\Form\Fieldset\SubmitFieldset;
+use Tactile\Form\Fieldset\DateTimeFieldset;
 
 $leftColWidth = 2;
 $rightColWidth = 4;
@@ -19,6 +20,14 @@ echo $this->form()->openTag($form);
 <?php if ($element instanceof SubmitFieldset): ?>
 <?php echo $this->partial(
 		'partial/form/fieldset-submit.phtml',
+		array(
+			'fieldset' => $element,
+			'leftColWidth'	=> $leftColWidth,
+			'rightColWidth'	=> $rightColWidth,
+		)); ?>
+<?php elseif ($element instanceof DateTimeFieldset): ?>
+<?php echo $this->partial(
+		'partial/form/datetime-fieldset-horizontal.phtml',
 		array(
 			'fieldset' => $element,
 			'leftColWidth'	=> $leftColWidth,

@@ -15,7 +15,7 @@ class UserController extends Controller\AbstractController
 	
 	public function getUserPreferencesFilter()
 	{
-		return $this->getFilter('Tactile\Form\UserPreferencesFilter');
+		return $this->getFilter('Omelettes\Form\UserPreferencesFilter');
 	}
 	
 	public function preferencesAction()
@@ -33,10 +33,12 @@ class UserController extends Controller\AbstractController
 			if ($form->isValid()) {
 				// Update user preferences
 				$prefService->savePreferences($form->getData());
+				$this->flashMessenger()->addSuccessMessage('Preferences saved');
 			}
 		}
 		
 		return $this->returnViewModel(array(
+			'title' => 'User Preferences',
 			'form'	=> $form,
 		));
 	}

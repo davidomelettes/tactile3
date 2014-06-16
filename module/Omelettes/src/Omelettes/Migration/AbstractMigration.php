@@ -176,6 +176,18 @@ abstract class AbstractMigration
 		return $fixture->insert();
 	}
 	
+	protected function insertRow($tableName, $data)
+	{
+		$this->logger->debug("Inserting $tableName row", array('tag' => 'migration'));
+	
+		$sql = $this->getSql();
+		$insert = $sql->insert($tableName)->values($data);
+		$statement = $this->getSql()->prepareStatementForSqlObject($insert);
+		$results = $statement->execute();
+	
+		return $results;
+	}
+	
 	protected function viewExists($viewName)
 	{
 		$this->logger->debug("Checking for $viewName view", array('tag' => 'migration'));

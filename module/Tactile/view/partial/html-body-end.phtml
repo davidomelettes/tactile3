@@ -1,5 +1,10 @@
 <!-- Body end scripts -->
 <?php
-	echo $this->inlineScript()->appendFile($this->basePath('/js/bootstrap.min.js'))
-		->appendFile($this->basePath('/js/tactilecrm/tactilecrm.js'));
+	echo $this->inlineScript()->prependFile($this->basePath('/js/tactilecrm/tactilecrm.js'))
+		->prependFile($this->basePath('/js/bootstrap.min.js'));
 ?>
+<script type="text/javascript">
+$.datepicker.setDefaults({
+	dateFormat: 'yy-mm-dd'
+});
+</script>

@@ -1,7 +1,7 @@
 <?php if ($leftColWidth || $rightColWidth): ?>
 <div class="col-lg-offset-<?php echo $leftColWidth; ?> col-lg-<?php echo $rightColWidth; ?>">
 <?php endif; ?>
-	<button type="submit" class="<?php echo $element->getAttribute('class'); ?>" autocomplete="off"<?php echo $element->getAttribute('data-loading-text') ? ' data-loading-text="'.$element->getAttribute('data-loading-text').'"' : ''; ?>><?php echo $this->escapeHtml($element->getValue()); ?></button>
+	<button type="submit" class="<?php echo $element->getAttribute('class'); ?>" <?php echo $element->getAttribute('data-loading-text') ? ' data-loading-text="'.$element->getAttribute('data-loading-text').'"' : ''; ?>><?php echo $this->escapeHtml($element->getValue()); ?></button>
 	<?php if ($element->getOption('cancel_route')): ?>
 	<span><?php echo $this->translate(' or '); ?></span>
 	<?php echo $element->getOption('cancel_route'); ?>

@@ -68,6 +68,16 @@ class Module
 				},
 				
 				// Locales
+				'LocaleCountriesViewGateway' => function ($sm) {
+					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					return new TableGateway('locale_countries_view', $dbAdapter, null, $resultSetPrototype);
+				},
+				'Tactile\Model\LocaleCountriesMapper' => function ($sm) {
+					$readGateway = $sm->get('LocaleCountriesViewGateway');
+					$mapper = new Model\LocaleCountriesMapper($readGateway);
+					return $mapper;
+				},
 				'LocalesViewGateway' => function ($sm) {
 					$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
@@ -77,6 +87,13 @@ class Module
 					$readGateway = $sm->get('LocalesViewGateway');
 					$mapper = new Model\LocalesMapper($readGateway);
 					return $mapper;
+				},
+				'LocalesService' => function ($sm) {
+					$service = new Service\LocalesService(
+						$sm->get('Tactile\Model\LocalesMapper'),
+						$sm->get('Tactile\Model\LocaleCountriesMapper')
+					);
+					return $service;
 				},
 				
 				// Quanta
@@ -133,6 +150,11 @@ class Module
 					$filter = new Form\ContactFilter();
 					return $filter;
 				},
+			),
+			'services' => array(),
+			'shared' => array(
+				'Tactile\Model\Quantum' => false,
+				'Tactile\Model\Contact' => false,
 			),
 		);
 	}

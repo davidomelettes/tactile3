@@ -67,6 +67,7 @@ class ContactsController extends QuantaController
 		}
 		
 		return $this->returnViewModel(array(
+			'title'	=> sprintf('Add a new %s', $this->resource->labelSingular),
 			'form'	=> $form,
 			'crud'	=> $this->constructNavigation($this->getAddNavigationConfig($model)),
 		));
@@ -80,7 +81,8 @@ class ContactsController extends QuantaController
 		}
 		$this->addPageTitleSegment($model->name);
 		
-		return $this->returnViewModel( array(
+		return $this->returnViewModel(array(
+			'title'	=> $model->name,
 			'model'	=> $model,
 			'crud'	=> $this->constructNavigation($this->getViewNavigationConfig($model)),
 		));
@@ -107,9 +109,10 @@ class ContactsController extends QuantaController
 		}
 	
 		return $this->returnViewModel(array(
+			'title'	=> sprintf('Edit %s', $model->name),
 			'model'	=> $model,
 			'crud'	=> $this->constructNavigation($this->getEditNavigationConfig($model)),
-			'form' => $form,
+			'form'	=> $form,
 		));
 	}
 	
